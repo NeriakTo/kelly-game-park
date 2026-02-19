@@ -2,7 +2,8 @@ import { useGameStore } from '../../stores/gameStore'
 import { DIFFICULTY_LABELS, type Difficulty } from '../../types'
 
 export default function DifficultySelector() {
-  const { currentDifficulty, setDifficulty } = useGameStore()
+  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const setDifficulty = useGameStore((s) => s.setDifficulty)
 
   return (
     <div className="flex flex-wrap gap-2">

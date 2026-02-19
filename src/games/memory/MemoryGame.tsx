@@ -1,8 +1,9 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { RotateCcw } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
 import type { Difficulty } from '../../types'
+import { shuffle } from '../../utils/random'
 
 const EMOJI_SETS = ['🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🦁', '🐸', '🐧', '🦄', '🐝', '🦋', '🐢', '🐬', '🦉', '🌸', '🌺']
 
@@ -13,15 +14,6 @@ interface Card {
   emoji: string
   flipped: boolean
   matched: boolean
-}
-
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
 }
 
 function createCards(difficulty: Difficulty): Card[] {
@@ -36,18 +28,22 @@ function createCards(difficulty: Difficulty): Card[] {
 }
 
 export default function MemoryGame() {
-  const { currentDifficulty, addScore } = useGameStore()
+  // [FIX Warning #3] Zustand selector
+  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const addScore = useGameStore((s) => s.addScore)
   const [cards, setCards] = useState(() => createCards(currentDifficulty))
   const [flipped, setFlipped] = useState<number[]>([])
   const [moves, setMoves] = useState(0)
   const [won, setWon] = useState(false)
   const [startTime, setStartTime] = useState(Date.now())
+  const wonRef = useRef(false)
 
   const newGame = useCallback(() => {
     setCards(createCards(currentDifficulty))
     setFlipped([])
     setMoves(0)
     setWon(false)
+    wonRef.current = false
     setStartTime(Date.now())
   }, [currentDifficulty])
 
@@ -76,8 +72,10 @@ export default function MemoryGame() {
 
   // Check win
   useEffect(() => {
+    if (wonRef.current) return
     if (cards.length > 0 && cards.every((c) => c.matched)) {
       setWon(true)
+      wonRef.current = true
       const dur = Math.floor((Date.now() - startTime) / 1000)
       addScore({
         gameType: 'memory',
@@ -98,8 +96,9 @@ export default function MemoryGame() {
     setFlipped((prev) => [...prev, index])
   }, [won, flipped, cards])
 
+  // [FIX Warning #7] 響應式欄數
   const pairs = PAIRS_BY_DIFFICULTY[currentDifficulty]
-  const cols = pairs <= 4 ? 4 : pairs <= 6 ? 4 : pairs <= 8 ? 4 : 5
+  const cols = pairs <= 4 ? 4 : pairs <= 8 ? 4 : 5
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -117,14 +116,19 @@ export default function MemoryGame() {
         </motion.div>
       )}
 
-      <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+      {/* [FIX Warning #7] 使用 auto-fit + minmax 確保小螢幕不溢出 */}
+      <div
+        className="grid gap-3 w-full max-w-md justify-items-center"
+        style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+      >
         {cards.map((card, i) => (
           <motion.button
             key={card.id}
             onClick={() => handleFlip(i)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center text-3xl shadow-md transition-colors ${
+            aria-label={card.matched ? `已配對 ${card.emoji}` : card.flipped ? card.emoji : `翻牌 第${i + 1}張`}
+            className={`w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-xl flex items-center justify-center text-2xl sm:text-3xl shadow-md transition-colors ${
               card.matched ? 'bg-mint/50 shadow-none' : card.flipped ? 'bg-white' : 'bg-pink cursor-pointer hover:bg-pink/80'
             }`}
           >

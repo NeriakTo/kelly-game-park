@@ -7,13 +7,15 @@ import { useGameStore } from '../../stores/gameStore'
 type Board = (number | null)[][]
 
 export default function SudokuGame() {
-  const { currentDifficulty, addScore } = useGameStore()
+  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const addScore = useGameStore((s) => s.addScore)
   const [{ puzzle, solution }, setGame] = useState(() => generateSudoku(currentDifficulty))
   const [board, setBoard] = useState<Board>(() => puzzle.map((r) => [...r]))
   const [selected, setSelected] = useState<[number, number] | null>(null)
   const [errors, setErrors] = useState<Set<string>>(new Set())
   const [won, setWon] = useState(false)
-  const [startTime] = useState(Date.now())
+  // [FIX Critical #4] startTime 改為可更新的 state
+  const [startTime, setStartTime] = useState(Date.now())
   const [hints, setHints] = useState(0)
 
   const isOriginal = useCallback(
@@ -21,6 +23,7 @@ export default function SudokuGame() {
     [puzzle],
   )
 
+  // [FIX Critical #4] newGame 重置 startTime
   const newGame = useCallback(() => {
     const g = generateSudoku(currentDifficulty)
     setGame(g)
@@ -29,9 +32,21 @@ export default function SudokuGame() {
     setErrors(new Set())
     setWon(false)
     setHints(0)
+    setStartTime(Date.now())
   }, [currentDifficulty])
 
   useEffect(() => { newGame() }, [currentDifficulty, newGame])
+
+  // 計分共用函式
+  const recordScore = useCallback(() => {
+    const duration = Math.floor((Date.now() - startTime) / 1000)
+    addScore({
+      gameType: 'sudoku',
+      difficulty: currentDifficulty,
+      score: Math.max(1000 - duration * 2 - hints * 50, 100),
+      durationSeconds: duration,
+    })
+  }, [startTime, hints, currentDifficulty, addScore])
 
   const placeNumber = useCallback(
     (num: number | null) => {
@@ -41,7 +56,6 @@ export default function SudokuGame() {
       next[r][c] = num
       setBoard(next)
 
-      // Check error
       const key = `${r}-${c}`
       if (num !== null && num !== solution[r][c]) {
         setErrors((prev) => new Set(prev).add(key))
@@ -53,19 +67,12 @@ export default function SudokuGame() {
         })
       }
 
-      // Check win
       if (num !== null && checkBoard(next)) {
         setWon(true)
-        const duration = Math.floor((Date.now() - startTime) / 1000)
-        addScore({
-          gameType: 'sudoku',
-          difficulty: currentDifficulty,
-          score: Math.max(1000 - duration * 2 - hints * 50, 100),
-          durationSeconds: duration,
-        })
+        recordScore()
       }
     },
-    [selected, board, solution, isOriginal, won, startTime, hints, currentDifficulty, addScore],
+    [selected, board, solution, isOriginal, won, recordScore],
   )
 
   const giveHint = useCallback(() => {
@@ -74,6 +81,14 @@ export default function SudokuGame() {
     placeNumber(solution[r][c])
     setHints((h) => h + 1)
   }, [selected, isOriginal, won, solution, placeNumber])
+
+  // [FIX Warning #2] 檢查按鈕通關也計分
+  const handleCheck = useCallback(() => {
+    if (checkBoard(board)) {
+      setWon(true)
+      recordScore()
+    }
+  }, [board, recordScore])
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -104,6 +119,7 @@ export default function SudokuGame() {
               <button
                 key={`${r}-${c}`}
                 onClick={() => setSelected([r, c])}
+                aria-label={`第${r + 1}行第${c + 1}列 ${cell ? `數字${cell}` : '空格'}`}
                 className={`w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center text-lg font-bold transition-colors
                   ${borderR} ${borderB}
                   ${sel ? 'bg-mint/50' : ''}
@@ -124,6 +140,7 @@ export default function SudokuGame() {
           <button
             key={n}
             onClick={() => placeNumber(n)}
+            aria-label={`填入數字 ${n}`}
             className="w-10 h-10 rounded-xl bg-white shadow-sm hover:bg-mint/30 font-bold text-lg transition-colors"
           >
             {n}
@@ -131,6 +148,7 @@ export default function SudokuGame() {
         ))}
         <button
           onClick={() => placeNumber(null)}
+          aria-label="清除數字"
           className="w-10 h-10 rounded-xl bg-pink-light shadow-sm hover:bg-pink/30 font-bold transition-colors"
         >
           ✕
@@ -146,7 +164,7 @@ export default function SudokuGame() {
           <Lightbulb className="w-4 h-4" /> 提示 ({hints})
         </button>
         <button
-          onClick={() => { if (checkBoard(board)) setWon(true) }}
+          onClick={handleCheck}
           className="flex items-center gap-1 px-4 py-2 bg-mint rounded-full text-sm font-medium hover:bg-mint/80 transition-colors"
         >
           <Check className="w-4 h-4" /> 檢查

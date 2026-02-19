@@ -5,7 +5,11 @@ import { useGameStore } from '../stores/gameStore'
 const AVATARS = ['🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🦁', '🦄', '🐧']
 
 export default function SettingsPage() {
-  const { profile, setProfile, aiConfig, setAIConfig, scores } = useGameStore()
+  const profile = useGameStore((s) => s.profile)
+  const setProfile = useGameStore((s) => s.setProfile)
+  const aiConfig = useGameStore((s) => s.aiConfig)
+  const setAIConfig = useGameStore((s) => s.setAIConfig)
+  const scores = useGameStore((s) => s.scores)
   const [nickname, setNickname] = useState(profile.nickname)
   const [avatar, setAvatar] = useState(profile.avatar)
   const [aiProvider, setAiProvider] = useState<'openai' | 'gemini'>(aiConfig?.provider ?? 'openai')

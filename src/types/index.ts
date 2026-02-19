@@ -1,5 +1,8 @@
 export type Difficulty = 1 | 2 | 3 | 4 | 5
 
+// [FIX Warning #5] 收斂 gameType 為 union
+export type GameType = 'sudoku' | 'chess' | 'memory' | 'math' | '2048'
+
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   1: '國小低年級',
   2: '國小中年級',
@@ -28,7 +31,7 @@ export interface GameInfo {
 
 export interface GameScore {
   id: string
-  gameType: string
+  gameType: GameType
   difficulty: Difficulty
   score: number
   durationSeconds: number

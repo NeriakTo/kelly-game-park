@@ -52,7 +52,7 @@ const GAMES: GameInfo[] = [
 ]
 
 export default function Home() {
-  const { profile } = useGameStore()
+  const profile = useGameStore((s) => s.profile)
 
   return (
     <div>

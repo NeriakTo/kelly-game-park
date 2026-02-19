@@ -3,13 +3,14 @@ import { motion } from 'framer-motion'
 import { RotateCcw } from 'lucide-react'
 import {
   createInitialBoard, getValidMoves, getAIMove, getPieceName,
-  isKingCaptured, applyMove,
+  isCheckmate, isStalemate, isInCheck, applyMove,
   type ChessBoard, type Position,
 } from './engine'
 import { useGameStore } from '../../stores/gameStore'
 
 export default function ChessGame() {
-  const { currentDifficulty, addScore } = useGameStore()
+  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const addScore = useGameStore((s) => s.addScore)
   const [board, setBoard] = useState<ChessBoard>(createInitialBoard)
   const [selected, setSelected] = useState<Position | null>(null)
   const [validMoves, setValidMoves] = useState<Position[]>([])
@@ -17,6 +18,7 @@ export default function ChessGame() {
   const [gameOver, setGameOver] = useState<string | null>(null)
   const [startTime, setStartTime] = useState(Date.now())
   const [thinking, setThinking] = useState(false)
+  const [inCheck, setInCheck] = useState(false)
 
   const newGame = useCallback(() => {
     setBoard(createInitialBoard())
@@ -25,7 +27,28 @@ export default function ChessGame() {
     setTurn('red')
     setGameOver(null)
     setStartTime(Date.now())
+    setThinking(false)
+    setInCheck(false)
   }, [])
+
+  // [FIX Critical #2] 正確的勝負判定
+  const checkGameEnd = useCallback((nextBoard: ChessBoard, nextTurn: 'red' | 'black') => {
+    if (isCheckmate(nextBoard, nextTurn)) {
+      const winner = nextTurn === 'black' ? '🎉 你贏了！' : '黑方獲勝 💀'
+      setGameOver(winner)
+      if (nextTurn === 'black') {
+        const dur = Math.floor((Date.now() - startTime) / 1000)
+        addScore({ gameType: 'chess', difficulty: currentDifficulty, score: Math.max(2000 - dur, 100), durationSeconds: dur })
+      }
+      return true
+    }
+    if (isStalemate(nextBoard, nextTurn)) {
+      setGameOver('🤝 和棋（困斃）')
+      return true
+    }
+    setInCheck(isInCheck(nextBoard, nextTurn))
+    return false
+  }, [startTime, currentDifficulty, addScore])
 
   // AI move
   useEffect(() => {
@@ -33,22 +56,21 @@ export default function ChessGame() {
     setThinking(true)
     const timer = setTimeout(() => {
       const move = getAIMove(board, currentDifficulty)
+      // [FIX Critical #3] 確保 setThinking(false) 永遠被呼叫
+      setThinking(false)
       if (!move) {
         setGameOver('🎉 你贏了！')
         return
       }
       const next = applyMove(board, move.from, move.to)
       setBoard(next)
-      setThinking(false)
 
-      if (isKingCaptured(next, 'red')) {
-        setGameOver('黑方獲勝 💀')
-      } else {
+      if (!checkGameEnd(next, 'red')) {
         setTurn('red')
       }
     }, 300)
     return () => clearTimeout(timer)
-  }, [turn, board, currentDifficulty, gameOver])
+  }, [turn, board, currentDifficulty, gameOver, checkGameEnd])
 
   const handleClick = useCallback((r: number, c: number) => {
     if (turn !== 'red' || gameOver || thinking) return
@@ -56,7 +78,6 @@ export default function ChessGame() {
     const piece = board[r][c]
 
     if (selected) {
-      // Try to move
       const isValid = validMoves.some(([vr, vc]) => vr === r && vc === c)
       if (isValid) {
         const next = applyMove(board, selected, [r, c])
@@ -64,18 +85,13 @@ export default function ChessGame() {
         setSelected(null)
         setValidMoves([])
 
-        if (isKingCaptured(next, 'black')) {
-          setGameOver('🎉 你贏了！')
-          const dur = Math.floor((Date.now() - startTime) / 1000)
-          addScore({ gameType: 'chess', difficulty: currentDifficulty, score: Math.max(2000 - dur, 100), durationSeconds: dur })
-        } else {
+        if (!checkGameEnd(next, 'black')) {
           setTurn('black')
         }
         return
       }
     }
 
-    // Select own piece
     if (piece && piece.color === 'red') {
       setSelected([r, c])
       setValidMoves(getValidMoves(board, r, c))
@@ -83,7 +99,7 @@ export default function ChessGame() {
       setSelected(null)
       setValidMoves([])
     }
-  }, [turn, board, selected, validMoves, gameOver, thinking, startTime, currentDifficulty, addScore])
+  }, [turn, board, selected, validMoves, gameOver, thinking, checkGameEnd])
 
   const isValidTarget = (r: number, c: number) => validMoves.some(([vr, vc]) => vr === r && vc === c)
 
@@ -93,6 +109,11 @@ export default function ChessGame() {
         <span className={`text-sm font-medium px-3 py-1 rounded-full ${turn === 'red' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'}`}>
           {thinking ? '🤔 AI 思考中...' : turn === 'red' ? '🔴 你的回合' : '⚫ AI 回合'}
         </span>
+        {inCheck && !gameOver && (
+          <span className="text-sm font-medium px-3 py-1 rounded-full bg-red-200 text-red-800 animate-pulse">
+            ⚠️ 將軍！
+          </span>
+        )}
         <button onClick={newGame} className="flex items-center gap-1 px-3 py-1.5 bg-cream rounded-full text-sm hover:bg-cream/80">
           <RotateCcw className="w-4 h-4" /> 新局
         </button>
@@ -116,6 +137,7 @@ export default function ChessGame() {
                 <button
                   key={`${r}-${c}`}
                   onClick={() => handleClick(r, c)}
+                  aria-label={piece ? `${r + 1}行${c + 1}列 ${getPieceName(piece)}` : `${r + 1}行${c + 1}列 空格`}
                   className={`w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center relative border border-amber-300/50
                     ${sel ? 'bg-yellow-200/70' : ''}
                     ${valid ? 'bg-green-200/50' : ''}
@@ -138,7 +160,6 @@ export default function ChessGame() {
             }),
           )}
         </div>
-        {/* River */}
         <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 text-center text-amber-600/40 font-bold text-sm pointer-events-none">
           楚 河 　 　 　 漢 界
         </div>
