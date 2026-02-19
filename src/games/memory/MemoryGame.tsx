@@ -1,0 +1,137 @@
+import { useState, useCallback, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { RotateCcw } from 'lucide-react'
+import { useGameStore } from '../../stores/gameStore'
+import type { Difficulty } from '../../types'
+
+const EMOJI_SETS = ['🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🦁', '🐸', '🐧', '🦄', '🐝', '🦋', '🐢', '🐬', '🦉', '🌸', '🌺']
+
+const PAIRS_BY_DIFFICULTY: Record<Difficulty, number> = { 1: 4, 2: 6, 3: 8, 4: 10, 5: 12 }
+
+interface Card {
+  id: number
+  emoji: string
+  flipped: boolean
+  matched: boolean
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+function createCards(difficulty: Difficulty): Card[] {
+  const pairs = PAIRS_BY_DIFFICULTY[difficulty]
+  const emojis = shuffle(EMOJI_SETS).slice(0, pairs)
+  return shuffle([...emojis, ...emojis].map((emoji, i) => ({
+    id: i,
+    emoji,
+    flipped: false,
+    matched: false,
+  })))
+}
+
+export default function MemoryGame() {
+  const { currentDifficulty, addScore } = useGameStore()
+  const [cards, setCards] = useState(() => createCards(currentDifficulty))
+  const [flipped, setFlipped] = useState<number[]>([])
+  const [moves, setMoves] = useState(0)
+  const [won, setWon] = useState(false)
+  const [startTime, setStartTime] = useState(Date.now())
+
+  const newGame = useCallback(() => {
+    setCards(createCards(currentDifficulty))
+    setFlipped([])
+    setMoves(0)
+    setWon(false)
+    setStartTime(Date.now())
+  }, [currentDifficulty])
+
+  useEffect(() => { newGame() }, [currentDifficulty, newGame])
+
+  // Check match
+  useEffect(() => {
+    if (flipped.length !== 2) return
+    const [a, b] = flipped
+    const timer = setTimeout(() => {
+      setCards((prev) => {
+        const next = [...prev]
+        if (next[a].emoji === next[b].emoji) {
+          next[a] = { ...next[a], matched: true }
+          next[b] = { ...next[b], matched: true }
+        }
+        next[a] = { ...next[a], flipped: false }
+        next[b] = { ...next[b], flipped: false }
+        return next
+      })
+      setFlipped([])
+      setMoves((m) => m + 1)
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [flipped])
+
+  // Check win
+  useEffect(() => {
+    if (cards.length > 0 && cards.every((c) => c.matched)) {
+      setWon(true)
+      const dur = Math.floor((Date.now() - startTime) / 1000)
+      addScore({
+        gameType: 'memory',
+        difficulty: currentDifficulty,
+        score: Math.max(1000 - moves * 10 - dur, 100),
+        durationSeconds: dur,
+      })
+    }
+  }, [cards, moves, startTime, currentDifficulty, addScore])
+
+  const handleFlip = useCallback((index: number) => {
+    if (won || flipped.length >= 2 || cards[index].flipped || cards[index].matched) return
+    setCards((prev) => {
+      const next = [...prev]
+      next[index] = { ...next[index], flipped: true }
+      return next
+    })
+    setFlipped((prev) => [...prev, index])
+  }, [won, flipped, cards])
+
+  const pairs = PAIRS_BY_DIFFICULTY[currentDifficulty]
+  const cols = pairs <= 4 ? 4 : pairs <= 6 ? 4 : pairs <= 8 ? 4 : 5
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div className="flex items-center gap-4 text-sm">
+        <span className="bg-cream px-3 py-1 rounded-full">步數：{moves}</span>
+        <button onClick={newGame} className="flex items-center gap-1 px-3 py-1.5 bg-cream rounded-full hover:bg-cream/80">
+          <RotateCcw className="w-4 h-4" /> 重新開始
+        </button>
+      </div>
+
+      {won && (
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="bg-mint rounded-2xl px-6 py-3 text-center shadow-lg">
+          <p className="text-2xl font-bold">🎉 全部配對成功！</p>
+          <p className="text-sm text-warm-text-light">用了 {moves} 步</p>
+        </motion.div>
+      )}
+
+      <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+        {cards.map((card, i) => (
+          <motion.button
+            key={card.id}
+            onClick={() => handleFlip(i)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center text-3xl shadow-md transition-colors ${
+              card.matched ? 'bg-mint/50 shadow-none' : card.flipped ? 'bg-white' : 'bg-pink cursor-pointer hover:bg-pink/80'
+            }`}
+          >
+            {card.flipped || card.matched ? card.emoji : '❓'}
+          </motion.button>
+        ))}
+      </div>
+    </div>
+  )
+}
