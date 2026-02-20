@@ -32,6 +32,15 @@ const GAMES: GameInfo[] = [
     available: true,
   },
   {
+    id: 'typing',
+    name: '中/英打字練習',
+    description: '練習速度與正確率',
+    icon: '⌨️',
+    color: '#E6F4FF',
+    path: '/typing',
+    available: true,
+  },
+  {
     id: 'math',
     name: '數學挑戰',
     description: '限時答題，快速計算',

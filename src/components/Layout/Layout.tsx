@@ -1,11 +1,12 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Home, Grid3X3, Swords, Brain, Settings } from 'lucide-react'
+import { Home, Grid3X3, Swords, Brain, Keyboard, Settings } from 'lucide-react'
 
 const NAV_ITEMS = [
   { path: '', icon: Home, label: '首頁' },
   { path: 'sudoku', icon: Grid3X3, label: '數獨' },
   { path: 'chess', icon: Swords, label: '象棋' },
   { path: 'memory', icon: Brain, label: '翻牌' },
+  { path: 'typing', icon: Keyboard, label: '打字' },
   { path: 'settings', icon: Settings, label: '設定' },
 ]
 
