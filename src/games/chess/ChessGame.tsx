@@ -38,9 +38,9 @@ export default function ChessGame() {
     const recalc = () => {
       const vh = window.innerHeight
       // 預留上方控制列/邊距空間，剩餘高度分給 11 列（含楚河漢界）
-      const available = vh - 220
+      const available = vh - 190
       const next = Math.floor(available / 11)
-      setCellSize(Math.max(38, Math.min(56, next)))
+      setCellSize(Math.max(42, Math.min(62, next)))
     }
     recalc()
     window.addEventListener('resize', recalc)
