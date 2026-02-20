@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Home, Grid3X3, Swords, Brain, Keyboard, Settings } from 'lucide-react'
+import { Home, Grid3X3, Swords, Brain, Keyboard, Calculator, Settings } from 'lucide-react'
 import DifficultySelector from '../UI/DifficultySelector'
 
 const NAV_ITEMS = [
@@ -8,13 +8,14 @@ const NAV_ITEMS = [
   { path: 'chess', icon: Swords, label: '象棋' },
   { path: 'memory', icon: Brain, label: '翻牌' },
   { path: 'typing', icon: Keyboard, label: '打字' },
+  { path: 'math', icon: Calculator, label: '數學' },
   { path: 'settings', icon: Settings, label: '設定' },
 ]
 
 export default function Layout() {
   const location = useLocation()
   const current = location.pathname.replace(/^\//, '')
-  const isGameRoute = ['sudoku', 'chess', 'memory', 'typing'].includes(current)
+  const isGameRoute = ['sudoku', 'chess', 'memory', 'typing', 'math'].includes(current)
 
   return (
     <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-warm-bg">

@@ -43,11 +43,11 @@ const GAMES: GameInfo[] = [
   {
     id: 'math',
     name: '數學挑戰',
-    description: '限時答題，快速計算',
+    description: '依年級出題，邊玩邊學',
     icon: '🧮',
     color: '#D6E8F5',
     path: '/math',
-    available: false,
+    available: true,
   },
   {
     id: '2048',

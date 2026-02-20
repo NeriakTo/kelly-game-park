@@ -5,6 +5,7 @@ import SudokuPage from './pages/SudokuPage'
 import ChessPage from './pages/ChessPage'
 import MemoryPage from './pages/MemoryPage'
 import TypingPage from './pages/TypingPage'
+import MathPage from './pages/MathPage'
 import SettingsPage from './pages/SettingsPage'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="chess" element={<ChessPage />} />
         <Route path="memory" element={<MemoryPage />} />
         <Route path="typing" element={<TypingPage />} />
+        <Route path="math" element={<MathPage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
     </Routes>
