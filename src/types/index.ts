@@ -3,20 +3,22 @@ export type Difficulty = 1 | 2 | 3 | 4 | 5
 // [FIX Warning #5] 收斂 gameType 為 union
 export type GameType = 'sudoku' | 'chess' | 'memory' | 'typing' | 'math' | '2048'
 
+export const AVAILABLE_DIFFICULTIES: Difficulty[] = [1, 2, 3]
+
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   1: '國小低年級',
   2: '國小中年級',
   3: '國小高年級',
-  4: '國中',
-  5: '高中',
+  4: '國小高年級',
+  5: '國小高年級',
 }
 
 export const DIFFICULTY_STARS: Record<Difficulty, string> = {
   1: '⭐',
   2: '⭐⭐',
   3: '⭐⭐⭐',
-  4: '⭐⭐⭐⭐',
-  5: '⭐⭐⭐⭐⭐',
+  4: '⭐⭐⭐',
+  5: '⭐⭐⭐',
 }
 
 export interface GameInfo {

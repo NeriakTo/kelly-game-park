@@ -58,24 +58,23 @@ function generateProblem(d: Difficulty): Problem {
       const n = rand(1, 8)
       return { text: `${n}/10 = ?（小數一位）`, answer: Number((n / 10).toFixed(1)), hint: '分母 10 直接看成小數一位。' }
     }
-    case 4: {
-      const x = rand(-9, 9)
-      const a = rand(2, 9)
-      const b = rand(-12, 12)
-      const c = a * x + b
-      return { text: `解 x：${a}x ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${c}`, answer: x, hint: '把常數移項，再除以係數。' }
-    }
-    case 5:
     default: {
-      const r1 = rand(-6, 6) || 2
-      const r2 = rand(-6, 6) || -3
-      const b = -(r1 + r2)
-      const c = r1 * r2
-      return {
-        text: `方程 x² ${b >= 0 ? '+' : '-'} ${Math.abs(b)}x ${c >= 0 ? '+' : '-'} ${Math.abs(c)} = 0 的其中一個根是？`,
-        answer: r1,
-        hint: '可用因式分解 (x-r1)(x-r2)=0。',
+      // 專注國小題庫：高年級以分數/小數與簡單四則綜合為主
+      const type = rand(1, 3)
+      if (type === 1) {
+        const a = rand(1, 9)
+        const b = rand(1, 9)
+        return { text: `${a}/10 + ${b}/10 = ?（小數一位）`, answer: Number(((a + b) / 10).toFixed(1)), hint: '先把分母相同的分數相加。' }
       }
+      if (type === 2) {
+        const a = rand(20, 99)
+        const b = rand(2, 9)
+        const c = rand(2, 9)
+        return { text: `${a} - ${b} × ${c} = ?`, answer: a - b * c, hint: '先乘法，再減法。' }
+      }
+      const b = rand(2, 9)
+      const ans = rand(3, 12)
+      return { text: `${b * ans} ÷ ${b} + 7 = ?`, answer: ans + 7, hint: '先算除法，再加法。' }
     }
   }
 }
@@ -98,8 +97,9 @@ export default function MathChallengeGame() {
   const difficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
 
-  const [problem, setProblem] = useState<Problem>(() => generateProblem(difficulty))
-  const [options, setOptions] = useState<number[]>(() => buildOptions(problem.answer, difficulty))
+  const elementaryDifficulty = (difficulty > 3 ? 3 : difficulty) as Difficulty
+  const [problem, setProblem] = useState<Problem>(() => generateProblem(elementaryDifficulty))
+  const [options, setOptions] = useState<number[]>(() => buildOptions(problem.answer, elementaryDifficulty))
   const [questionNo, setQuestionNo] = useState(1)
   const [correct, setCorrect] = useState(0)
   const [wrong, setWrong] = useState(0)
@@ -118,24 +118,23 @@ export default function MathChallengeGame() {
     if (difficulty === 1) return '108課綱對齊：國小低年級（小二）→ 100 內加減與倍數概念'
     if (difficulty === 2) return '108課綱對齊：國小中年級 → 乘除與先乘除後加減'
     if (difficulty === 3) return '108課綱對齊：國小高年級 → 小數/分數基礎'
-    if (difficulty === 4) return '國中程度 → 一元一次方程'
-    return '高中程度 → 二次式基礎'
+    return '108課綱對齊：國小高年級 → 小數/分數與四則綜合'
   }, [difficulty])
 
   const nextQuestion = (nextNo: number) => {
-    const next = generateProblem(difficulty)
+    const next = generateProblem(elementaryDifficulty)
     setQuestionNo(nextNo)
     setProblem(next)
-    setOptions(buildOptions(next.answer, difficulty))
+    setOptions(buildOptions(next.answer, elementaryDifficulty))
     setFeedback(null)
     setShowHint(false)
     setLocked(false)
   }
 
   const resetGame = () => {
-    const first = generateProblem(difficulty)
+    const first = generateProblem(elementaryDifficulty)
     setProblem(first)
-    setOptions(buildOptions(first.answer, difficulty))
+    setOptions(buildOptions(first.answer, elementaryDifficulty))
     setQuestionNo(1)
     setCorrect(0)
     setWrong(0)

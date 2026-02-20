@@ -1,5 +1,5 @@
 import { useGameStore } from '../../stores/gameStore'
-import { DIFFICULTY_LABELS, type Difficulty } from '../../types'
+import { AVAILABLE_DIFFICULTIES, DIFFICULTY_LABELS, type Difficulty } from '../../types'
 
 export default function DifficultySelector() {
   const currentDifficulty = useGameStore((s) => s.currentDifficulty)
@@ -7,7 +7,7 @@ export default function DifficultySelector() {
 
   return (
     <div className="flex flex-wrap gap-2">
-      {([1, 2, 3, 4, 5] as Difficulty[]).map((d) => (
+      {AVAILABLE_DIFFICULTIES.map((d) => (
         <button
           key={d}
           onClick={() => setDifficulty(d)}
