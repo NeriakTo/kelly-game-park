@@ -8,14 +8,28 @@ import {
 } from './engine'
 import { useGameStore } from '../../stores/gameStore'
 
-const CUTE_PIECES: Record<string, string> = {
-  帥: '👑', 將: '👑',
-  仕: '🛡️', 士: '🛡️',
-  相: '🐘', 象: '🐘',
-  傌: '🐴', 馬: '🐴',
-  俥: '🚗', 車: '🚗',
-  炮: '💥', 砲: '💥',
-  兵: '🐣', 卒: '🐤',
+type CutePieceSkin = {
+  icon: string
+  label: string
+  bg: string
+  border: string
+}
+
+const CUTE_PIECES: Record<string, CutePieceSkin> = {
+  帥: { icon: '🦁', label: '帥', bg: 'from-red-100 to-rose-200', border: 'border-rose-300' },
+  將: { icon: '🐯', label: '將', bg: 'from-slate-100 to-slate-200', border: 'border-slate-300' },
+  仕: { icon: '🦊', label: '仕', bg: 'from-red-50 to-orange-100', border: 'border-orange-200' },
+  士: { icon: '🐺', label: '士', bg: 'from-slate-50 to-zinc-100', border: 'border-zinc-200' },
+  相: { icon: '🐘', label: '相', bg: 'from-red-50 to-pink-100', border: 'border-pink-200' },
+  象: { icon: '🦏', label: '象', bg: 'from-slate-50 to-gray-100', border: 'border-gray-200' },
+  傌: { icon: '🐴', label: '傌', bg: 'from-red-50 to-amber-100', border: 'border-amber-200' },
+  馬: { icon: '🫎', label: '馬', bg: 'from-slate-50 to-stone-100', border: 'border-stone-200' },
+  俥: { icon: '🦒', label: '俥', bg: 'from-red-50 to-yellow-100', border: 'border-yellow-200' },
+  車: { icon: '🦛', label: '車', bg: 'from-slate-50 to-neutral-100', border: 'border-neutral-200' },
+  炮: { icon: '🐲', label: '炮', bg: 'from-red-100 to-orange-200', border: 'border-orange-300' },
+  砲: { icon: '🐉', label: '砲', bg: 'from-slate-100 to-blue-100', border: 'border-blue-200' },
+  兵: { icon: '🐣', label: '兵', bg: 'from-red-50 to-lime-100', border: 'border-lime-200' },
+  卒: { icon: '🐤', label: '卒', bg: 'from-slate-50 to-emerald-100', border: 'border-emerald-200' },
 }
 
 export default function ChessGame() {
@@ -145,7 +159,7 @@ export default function ChessGame() {
           onClick={() => setShowCutePiece((v) => !v)}
           className="px-3 py-1.5 bg-pink-light rounded-full text-sm hover:bg-pink/60"
         >
-          {showCutePiece ? '切換：經典棋子' : '切換：可愛棋子'}
+          {showCutePiece ? '切換：經典棋子' : '切換：可愛插畫棋子'}
         </button>
         <button onClick={newGame} className="flex items-center gap-1 px-3 py-1.5 bg-cream rounded-full text-sm hover:bg-cream/80">
           <RotateCcw className="w-4 h-4" /> 新局
@@ -197,7 +211,15 @@ export default function ChessGame() {
                         fontSize: `${Math.max(20, Math.floor(cellSize * 0.5))}px`,
                       }}
                     >
-                      {showCutePiece ? (CUTE_PIECES[label] ?? label) : label}
+                      {showCutePiece ? (
+                        <span
+                          className={`relative flex items-center justify-center rounded-full bg-gradient-to-b ${CUTE_PIECES[label]?.bg ?? 'from-amber-50 to-amber-100'} ${CUTE_PIECES[label]?.border ?? 'border-amber-200'} border w-full h-full`}
+                          title={`${CUTE_PIECES[label]?.icon ?? ''} ${label}`}
+                        >
+                          <span className="absolute -top-1 text-[0.55em]">{CUTE_PIECES[label]?.icon ?? '🐾'}</span>
+                          <span className="mt-1 font-black leading-none">{CUTE_PIECES[label]?.label ?? label}</span>
+                        </span>
+                      ) : label}
                     </motion.span>
                   )}
                   {valid && !piece && <div className="w-3 h-3 rounded-full bg-green-400/60" />}
