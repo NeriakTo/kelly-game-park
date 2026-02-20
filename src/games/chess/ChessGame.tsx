@@ -31,6 +31,21 @@ export default function ChessGame() {
   const [inCheck, setInCheck] = useState(false)
   const [showCutePiece, setShowCutePiece] = useState(false)
   const [lastAIMove, setLastAIMove] = useState<{ from: Position; to: Position } | null>(null)
+  // 依視窗高度自適應棋盤，確保單頁可見
+  const [cellSize, setCellSize] = useState(56)
+
+  useEffect(() => {
+    const recalc = () => {
+      const vh = window.innerHeight
+      // 預留上方控制列/邊距空間，剩餘高度分給 11 列（含楚河漢界）
+      const available = vh - 220
+      const next = Math.floor(available / 11)
+      setCellSize(Math.max(38, Math.min(56, next)))
+    }
+    recalc()
+    window.addEventListener('resize', recalc)
+    return () => window.removeEventListener('resize', recalc)
+  }, [])
 
   const newGame = useCallback(() => {
     setBoard(createInitialBoard())
@@ -116,7 +131,7 @@ export default function ChessGame() {
   const isValidTarget = (r: number, c: number) => validMoves.some(([vr, vc]) => vr === r && vc === c)
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-3">
       <div className="flex flex-wrap items-center justify-center gap-3">
         <span className={`text-sm font-medium px-3 py-1 rounded-full ${turn === 'red' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'}`}>
           {thinking ? '🤔 AI 思考中...' : turn === 'red' ? '🔴 你的回合' : '⚫ AI 回合'}
@@ -143,7 +158,7 @@ export default function ChessGame() {
         </motion.div>
       )}
 
-      <div className="relative bg-amber-100 rounded-lg p-3 shadow-inner" style={{ width: 'fit-content' }}>
+      <div className="relative bg-amber-100 rounded-lg p-2 shadow-inner" style={{ width: 'fit-content' }}>
         <div className="grid" style={{ gridTemplateColumns: 'repeat(9, 1fr)', gap: 0 }}>
           {Array.from({ length: 10 }, (_, r) => {
             const rowCells = board[r].map((piece, c) => {
@@ -158,23 +173,29 @@ export default function ChessGame() {
                   key={`${r}-${c}`}
                   onClick={() => handleClick(r, c)}
                   aria-label={piece ? `${r + 1}行${c + 1}列 ${label}` : `${r + 1}行${c + 1}列 空格`}
-                  className={`w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center relative border border-amber-400/50
+                  className={`flex items-center justify-center relative border border-amber-400/50
                     ${sel ? 'bg-yellow-200/80' : ''}
                     ${valid ? 'bg-green-200/60' : ''}
                     ${isAIFrom ? 'ring-2 ring-blue-400 ring-inset' : ''}
                     ${isAITo ? 'bg-blue-200/60 ring-2 ring-blue-500 ring-inset animate-pulse' : ''}
                   `}
+                  style={{ width: `${cellSize}px`, height: `${cellSize}px` }}
                 >
                   {piece && (
                     <motion.span
                       initial={isAITo ? { scale: 0.8 } : false}
                       animate={isAITo ? { scale: [1, 1.2, 1] } : {}}
                       transition={{ duration: 0.45 }}
-                      className={`text-lg sm:text-2xl font-bold ${
+                      className={`font-bold ${
                         piece.color === 'red' ? 'text-red-600' : 'text-gray-800'
-                      } bg-amber-50 rounded-full w-8 h-8 sm:w-12 sm:h-12 md:w-13 md:h-13 flex items-center justify-center border-2 ${
+                      } bg-amber-50 rounded-full flex items-center justify-center border-2 ${
                         piece.color === 'red' ? 'border-red-400' : 'border-gray-500'
                       } shadow-sm`}
+                      style={{
+                        width: `${Math.floor(cellSize * 0.76)}px`,
+                        height: `${Math.floor(cellSize * 0.76)}px`,
+                        fontSize: `${Math.max(20, Math.floor(cellSize * 0.5))}px`,
+                      }}
                     >
                       {showCutePiece ? (CUTE_PIECES[label] ?? label) : label}
                     </motion.span>
@@ -189,7 +210,10 @@ export default function ChessGame() {
               return (
                 <Fragment key={`row-${r}`}>
                   {rowCells}
-                  <div className="col-span-9 h-10 sm:h-12 md:h-14 flex items-center justify-center border-x border-b border-amber-400/60 bg-amber-50/70 text-amber-700 font-bold tracking-[0.35em] text-sm sm:text-lg">
+                  <div
+                    className="col-span-9 flex items-center justify-center border-x border-b border-amber-400/60 bg-amber-50/70 text-amber-700 font-bold tracking-[0.3em]"
+                    style={{ height: `${Math.floor(cellSize * 0.95)}px`, fontSize: `${Math.max(16, Math.floor(cellSize * 0.42))}px` }}
+                  >
                     楚河　漢界
                   </div>
                 </Fragment>
