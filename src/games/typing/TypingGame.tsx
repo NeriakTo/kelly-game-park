@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
-import { CheckCircle2, Keyboard, Languages, PenLine, RotateCcw, Timer } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { CheckCircle2, Keyboard, Languages, PenLine, RotateCcw, Timer, Hand } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
 
 type Stage = 'guide-en' | 'guide-zh' | 'sentence'
@@ -26,10 +26,14 @@ const FINGER_HINT: Record<string, string> = {
 }
 
 const GUIDE_SEQUENCE = [
-  'f', 'j', 'd', 'k', 's', 'l', 'a', 'g', 'h',
-  'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
-  'z', 'x', 'c', 'v', 'b', 'n', 'm',
+  // 先 home row，再擴展到全鍵區
+  'f', 'j', 'd', 'k', 's', 'l', 'a',
+  'g', 'h', 'q', 'w', 'e', 'r', 't',
+  'y', 'u', 'i', 'o', 'p', 'z', 'x',
+  'c', 'v', 'b', 'n', 'm',
 ]
+
+const HOME_ROW_KEYS = ['a', 's', 'd', 'f', 'j', 'k', 'l']
 
 const SENTENCES: Record<LangMode, string[]> = {
   zh: [
@@ -61,6 +65,7 @@ export default function TypingGame() {
   const [input, setInput] = useState('')
   const [startedAt, setStartedAt] = useState<number | null>(null)
   const [finished, setFinished] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(true)
 
   const expectedKey = GUIDE_SEQUENCE[guideIndex]
   const expectedDisplay = stage === 'guide-zh' ? ZHUYIN_BY_KEY[expectedKey] : expectedKey.toUpperCase()
@@ -130,7 +135,38 @@ export default function TypingGame() {
   }
 
   return (
-    <div className="w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+    <div className="w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4 relative">
+      <AnimatePresence>
+        {showOnboarding && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-20 bg-black/30 rounded-2xl flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 8 }}
+              animate={{ scale: 1, y: 0 }}
+              className="bg-white rounded-2xl p-5 max-w-lg w-full shadow-xl"
+            >
+              <h3 className="text-lg font-bold mb-2">👋 打字練習導覽</h3>
+              <ol className="text-sm text-warm-text-light space-y-1 list-decimal list-inside">
+                <li>先練英文字母鍵位（A~Z）</li>
+                <li>再練注音對應鍵位（使用同一鍵盤位置）</li>
+                <li>最後進入文章打字，練速度與正確率</li>
+                <li>重點：手指回到 Home Row（A S D F / J K L）</li>
+              </ol>
+              <button
+                onClick={() => setShowOnboarding(false)}
+                className="mt-4 px-4 py-2 rounded-full bg-mint text-warm-text font-medium hover:bg-mint/80"
+              >
+                開始練習
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => { setStage('guide-en'); resetGuide() }}
@@ -154,8 +190,14 @@ export default function TypingGame() {
 
       {(stage === 'guide-en' || stage === 'guide-zh') && (
         <div className="space-y-4">
-          <div className="rounded-xl bg-cream-light p-4">
+          <div className="rounded-xl bg-cream-light p-4 space-y-2">
             <p className="text-sm text-warm-text-light">步驟引導：先熟悉鍵位，再進入文章打字</p>
+            <p className="text-sm flex items-center gap-1"><Hand className="w-4 h-4" /> 手指基準位：<b>A S D F</b>（左手） / <b>J K L</b>（右手）</p>
+            <div className="flex flex-wrap gap-1">
+              {HOME_ROW_KEYS.map((k) => (
+                <span key={k} className="px-2 py-0.5 rounded-md bg-white text-xs font-semibold">{k.toUpperCase()}</span>
+              ))}
+            </div>
             <p className="mt-2 text-lg">
               目標按鍵：
               <span className="ml-2 inline-flex items-center justify-center min-w-10 px-3 py-1 rounded-lg bg-mint font-bold">
