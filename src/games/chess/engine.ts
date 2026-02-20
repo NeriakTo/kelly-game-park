@@ -260,7 +260,8 @@ export function isStalemate(board: ChessBoard, color: PieceColor): boolean {
 }
 
 // ===== Minimax with alpha-beta =====
-const DEPTH_BY_DIFFICULTY: Record<Difficulty, number> = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }
+// 降低 AI 難度：整體搜尋層數下修
+const DEPTH_BY_DIFFICULTY: Record<Difficulty, number> = { 1: 1, 2: 1, 3: 2, 4: 2, 5: 3 }
 
 function minimax(
   board: ChessBoard,
@@ -311,8 +312,11 @@ export function getAIMove(
   const moves = getAllLegalMoves(board, 'black')
   if (moves.length === 0) return null
 
-  // Add randomness for lower difficulties
-  if (difficulty <= 2 && Math.random() < 0.3) {
+  // 降低難度：低階與中階加入更多隨機性
+  if (difficulty <= 2 && Math.random() < 0.7) {
+    return moves[Math.floor(Math.random() * moves.length)]
+  }
+  if (difficulty === 3 && Math.random() < 0.35) {
     return moves[Math.floor(Math.random() * moves.length)]
   }
 

@@ -6,6 +6,61 @@ import { useGameStore } from '../../stores/gameStore'
 
 type Board = (number | null)[][]
 
+function findDuplicateCells(board: Board): Set<string> {
+  const dup = new Set<string>()
+
+  // Row
+  for (let r = 0; r < 9; r++) {
+    const posMap = new Map<number, number[]>()
+    for (let c = 0; c < 9; c++) {
+      const v = board[r][c]
+      if (!v) continue
+      const arr = posMap.get(v) ?? []
+      arr.push(c)
+      posMap.set(v, arr)
+    }
+    for (const [, cols] of posMap) {
+      if (cols.length > 1) cols.forEach((c) => dup.add(`${r}-${c}`))
+    }
+  }
+
+  // Col
+  for (let c = 0; c < 9; c++) {
+    const posMap = new Map<number, number[]>()
+    for (let r = 0; r < 9; r++) {
+      const v = board[r][c]
+      if (!v) continue
+      const arr = posMap.get(v) ?? []
+      arr.push(r)
+      posMap.set(v, arr)
+    }
+    for (const [, rows] of posMap) {
+      if (rows.length > 1) rows.forEach((r) => dup.add(`${r}-${c}`))
+    }
+  }
+
+  // Box
+  for (let br = 0; br < 9; br += 3) {
+    for (let bc = 0; bc < 9; bc += 3) {
+      const posMap = new Map<number, [number, number][]>()
+      for (let r = br; r < br + 3; r++) {
+        for (let c = bc; c < bc + 3; c++) {
+          const v = board[r][c]
+          if (!v) continue
+          const arr = posMap.get(v) ?? []
+          arr.push([r, c])
+          posMap.set(v, arr)
+        }
+      }
+      for (const [, cells] of posMap) {
+        if (cells.length > 1) cells.forEach(([r, c]) => dup.add(`${r}-${c}`))
+      }
+    }
+  }
+
+  return dup
+}
+
 export default function SudokuGame() {
   const currentDifficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
@@ -13,23 +68,25 @@ export default function SudokuGame() {
   const [board, setBoard] = useState<Board>(() => puzzle.map((r) => [...r]))
   const [selected, setSelected] = useState<[number, number] | null>(null)
   const [errors, setErrors] = useState<Set<string>>(new Set())
+  const [duplicateErrors, setDuplicateErrors] = useState<Set<string>>(new Set())
   const [won, setWon] = useState(false)
-  // [FIX Critical #4] startTime 改為可更新的 state
   const [startTime, setStartTime] = useState(Date.now())
   const [hints, setHints] = useState(0)
+  const [popupMsg, setPopupMsg] = useState<string | null>(null)
 
   const isOriginal = useCallback(
     (r: number, c: number) => puzzle[r][c] !== null,
     [puzzle],
   )
 
-  // [FIX Critical #4] newGame 重置 startTime
   const newGame = useCallback(() => {
     const g = generateSudoku(currentDifficulty)
     setGame(g)
     setBoard(g.puzzle.map((r) => [...r]))
     setSelected(null)
     setErrors(new Set())
+    setDuplicateErrors(new Set())
+    setPopupMsg(null)
     setWon(false)
     setHints(0)
     setStartTime(Date.now())
@@ -37,7 +94,6 @@ export default function SudokuGame() {
 
   useEffect(() => { newGame() }, [currentDifficulty, newGame])
 
-  // 計分共用函式
   const recordScore = useCallback(() => {
     const duration = Math.floor((Date.now() - startTime) / 1000)
     addScore({
@@ -67,7 +123,14 @@ export default function SudokuGame() {
         })
       }
 
-      if (num !== null && checkBoard(next)) {
+      const dup = findDuplicateCells(next)
+      setDuplicateErrors(dup)
+      if (dup.size > 0) {
+        setPopupMsg('⚠️ 發現重複數字：同一行／列／九宮格不可重複')
+        setTimeout(() => setPopupMsg(null), 1400)
+      }
+
+      if (num !== null && dup.size === 0 && checkBoard(next)) {
         setWon(true)
         recordScore()
       }
@@ -82,16 +145,34 @@ export default function SudokuGame() {
     setHints((h) => h + 1)
   }, [selected, isOriginal, won, solution, placeNumber])
 
-  // [FIX Warning #2] 檢查按鈕通關也計分
   const handleCheck = useCallback(() => {
+    if (duplicateErrors.size > 0) {
+      setPopupMsg('⚠️ 請先修正重複數字再檢查完成')
+      setTimeout(() => setPopupMsg(null), 1400)
+      return
+    }
     if (checkBoard(board)) {
       setWon(true)
       recordScore()
+    } else {
+      setPopupMsg('還沒完成喔，再試試看！')
+      setTimeout(() => setPopupMsg(null), 1200)
     }
-  }, [board, recordScore])
+  }, [board, duplicateErrors.size, recordScore])
 
   return (
     <div className="flex flex-col items-center gap-4">
+      {popupMsg && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          className="bg-pink-light border border-pink rounded-xl px-4 py-2 text-sm font-medium text-red-700"
+        >
+          {popupMsg}
+        </motion.div>
+      )}
+
       {won && (
         <motion.div
           initial={{ scale: 0 }}
@@ -105,13 +186,13 @@ export default function SudokuGame() {
         </motion.div>
       )}
 
-      {/* Board */}
       <div className="grid grid-cols-9 gap-0 border-2 border-warm-text/30 rounded-lg overflow-hidden bg-white">
         {board.map((row, r) =>
           row.map((cell, c) => {
             const sel = selected?.[0] === r && selected?.[1] === c
             const orig = isOriginal(r, c)
             const err = errors.has(`${r}-${c}`)
+            const dup = duplicateErrors.has(`${r}-${c}`)
             const borderR = c % 3 === 2 && c < 8 ? 'border-r-2 border-r-warm-text/30' : 'border-r border-r-warm-text/10'
             const borderB = r % 3 === 2 && r < 8 ? 'border-b-2 border-b-warm-text/30' : 'border-b border-b-warm-text/10'
 
@@ -125,6 +206,7 @@ export default function SudokuGame() {
                   ${sel ? 'bg-mint/50' : ''}
                   ${orig ? 'text-warm-text' : 'text-sky-600'}
                   ${err ? 'bg-pink/40 text-red-500' : ''}
+                  ${dup ? 'bg-red-200 text-red-700 ring-2 ring-red-400 ring-inset animate-pulse' : ''}
                 `}
               >
                 {cell || ''}
@@ -134,7 +216,6 @@ export default function SudokuGame() {
         )}
       </div>
 
-      {/* Number pad */}
       <div className="flex gap-2 flex-wrap justify-center">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
           <button
@@ -155,7 +236,6 @@ export default function SudokuGame() {
         </button>
       </div>
 
-      {/* Controls */}
       <div className="flex gap-3">
         <button onClick={newGame} className="flex items-center gap-1 px-4 py-2 bg-cream rounded-full text-sm font-medium hover:bg-cream/80 transition-colors">
           <RotateCcw className="w-4 h-4" /> 新遊戲

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { Fragment, useState, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { RotateCcw } from 'lucide-react'
 import {
@@ -7,6 +7,16 @@ import {
   type ChessBoard, type Position,
 } from './engine'
 import { useGameStore } from '../../stores/gameStore'
+
+const CUTE_PIECES: Record<string, string> = {
+  帥: '👑', 將: '👑',
+  仕: '🛡️', 士: '🛡️',
+  相: '🐘', 象: '🐘',
+  傌: '🐴', 馬: '🐴',
+  俥: '🚗', 車: '🚗',
+  炮: '💥', 砲: '💥',
+  兵: '🐣', 卒: '🐤',
+}
 
 export default function ChessGame() {
   const currentDifficulty = useGameStore((s) => s.currentDifficulty)
@@ -19,6 +29,8 @@ export default function ChessGame() {
   const [startTime, setStartTime] = useState(Date.now())
   const [thinking, setThinking] = useState(false)
   const [inCheck, setInCheck] = useState(false)
+  const [showCutePiece, setShowCutePiece] = useState(false)
+  const [lastAIMove, setLastAIMove] = useState<{ from: Position; to: Position } | null>(null)
 
   const newGame = useCallback(() => {
     setBoard(createInitialBoard())
@@ -29,9 +41,9 @@ export default function ChessGame() {
     setStartTime(Date.now())
     setThinking(false)
     setInCheck(false)
+    setLastAIMove(null)
   }, [])
 
-  // [FIX Critical #2] 正確的勝負判定
   const checkGameEnd = useCallback((nextBoard: ChessBoard, nextTurn: 'red' | 'black') => {
     if (isCheckmate(nextBoard, nextTurn)) {
       const winner = nextTurn === 'black' ? '🎉 你贏了！' : '黑方獲勝 💀'
@@ -50,13 +62,11 @@ export default function ChessGame() {
     return false
   }, [startTime, currentDifficulty, addScore])
 
-  // AI move
   useEffect(() => {
     if (turn !== 'black' || gameOver) return
     setThinking(true)
     const timer = setTimeout(() => {
       const move = getAIMove(board, currentDifficulty)
-      // [FIX Critical #3] 確保 setThinking(false) 永遠被呼叫
       setThinking(false)
       if (!move) {
         setGameOver('🎉 你贏了！')
@@ -64,11 +74,12 @@ export default function ChessGame() {
       }
       const next = applyMove(board, move.from, move.to)
       setBoard(next)
+      setLastAIMove(move)
 
       if (!checkGameEnd(next, 'red')) {
         setTurn('red')
       }
-    }, 300)
+    }, 450)
     return () => clearTimeout(timer)
   }, [turn, board, currentDifficulty, gameOver, checkGameEnd])
 
@@ -84,6 +95,7 @@ export default function ChessGame() {
         setBoard(next)
         setSelected(null)
         setValidMoves([])
+        setLastAIMove(null)
 
         if (!checkGameEnd(next, 'black')) {
           setTurn('black')
@@ -105,7 +117,7 @@ export default function ChessGame() {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <span className={`text-sm font-medium px-3 py-1 rounded-full ${turn === 'red' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'}`}>
           {thinking ? '🤔 AI 思考中...' : turn === 'red' ? '🔴 你的回合' : '⚫ AI 回合'}
         </span>
@@ -114,6 +126,12 @@ export default function ChessGame() {
             ⚠️ 將軍！
           </span>
         )}
+        <button
+          onClick={() => setShowCutePiece((v) => !v)}
+          className="px-3 py-1.5 bg-pink-light rounded-full text-sm hover:bg-pink/60"
+        >
+          {showCutePiece ? '切換：經典棋子' : '切換：可愛棋子'}
+        </button>
         <button onClick={newGame} className="flex items-center gap-1 px-3 py-1.5 bg-cream rounded-full text-sm hover:bg-cream/80">
           <RotateCcw className="w-4 h-4" /> 新局
         </button>
@@ -125,45 +143,69 @@ export default function ChessGame() {
         </motion.div>
       )}
 
-      {/* Board */}
-      <div className="relative bg-amber-100 rounded-lg p-2 shadow-inner" style={{ width: 'fit-content' }}>
+      <div className="relative bg-amber-100 rounded-lg p-3 shadow-inner" style={{ width: 'fit-content' }}>
         <div className="grid" style={{ gridTemplateColumns: 'repeat(9, 1fr)', gap: 0 }}>
-          {board.map((row, r) =>
-            row.map((piece, c) => {
+          {Array.from({ length: 10 }, (_, r) => {
+            const rowCells = board[r].map((piece, c) => {
               const sel = selected?.[0] === r && selected?.[1] === c
               const valid = isValidTarget(r, c)
+              const isAIFrom = lastAIMove?.from[0] === r && lastAIMove?.from[1] === c
+              const isAITo = lastAIMove?.to[0] === r && lastAIMove?.to[1] === c
+              const label = piece ? getPieceName(piece) : ''
 
               return (
                 <button
                   key={`${r}-${c}`}
                   onClick={() => handleClick(r, c)}
-                  aria-label={piece ? `${r + 1}行${c + 1}列 ${getPieceName(piece)}` : `${r + 1}行${c + 1}列 空格`}
-                  className={`w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center relative border border-amber-300/50
-                    ${sel ? 'bg-yellow-200/70' : ''}
-                    ${valid ? 'bg-green-200/50' : ''}
+                  aria-label={piece ? `${r + 1}行${c + 1}列 ${label}` : `${r + 1}行${c + 1}列 空格`}
+                  className={`w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center relative border border-amber-400/50
+                    ${sel ? 'bg-yellow-200/80' : ''}
+                    ${valid ? 'bg-green-200/60' : ''}
+                    ${isAIFrom ? 'ring-2 ring-blue-400 ring-inset' : ''}
+                    ${isAITo ? 'bg-blue-200/60 ring-2 ring-blue-500 ring-inset animate-pulse' : ''}
                   `}
                 >
                   {piece && (
-                    <span className={`text-base sm:text-xl font-bold ${
-                      piece.color === 'red' ? 'text-red-600' : 'text-gray-800'
-                    } bg-amber-50 rounded-full w-7 h-7 sm:w-10 sm:h-10 flex items-center justify-center border-2 ${
-                      piece.color === 'red' ? 'border-red-400' : 'border-gray-500'
-                    } shadow-sm`}>
-                      {getPieceName(piece)}
-                    </span>
+                    <motion.span
+                      initial={isAITo ? { scale: 0.8 } : false}
+                      animate={isAITo ? { scale: [1, 1.2, 1] } : {}}
+                      transition={{ duration: 0.45 }}
+                      className={`text-lg sm:text-2xl font-bold ${
+                        piece.color === 'red' ? 'text-red-600' : 'text-gray-800'
+                      } bg-amber-50 rounded-full w-8 h-8 sm:w-12 sm:h-12 md:w-13 md:h-13 flex items-center justify-center border-2 ${
+                        piece.color === 'red' ? 'border-red-400' : 'border-gray-500'
+                      } shadow-sm`}
+                    >
+                      {showCutePiece ? (CUTE_PIECES[label] ?? label) : label}
+                    </motion.span>
                   )}
-                  {valid && !piece && (
-                    <div className="w-3 h-3 rounded-full bg-green-400/60" />
-                  )}
+                  {valid && !piece && <div className="w-3 h-3 rounded-full bg-green-400/60" />}
                 </button>
               )
-            }),
-          )}
-        </div>
-        <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 text-center text-amber-600/40 font-bold text-sm pointer-events-none">
-          楚 河 　 　 　 漢 界
+            })
+
+            // 楚河漢界獨立一列
+            if (r === 4) {
+              return (
+                <Fragment key={`row-${r}`}>
+                  {rowCells}
+                  <div className="col-span-9 h-10 sm:h-12 md:h-14 flex items-center justify-center border-x border-b border-amber-400/60 bg-amber-50/70 text-amber-700 font-bold tracking-[0.35em] text-sm sm:text-lg">
+                    楚河　漢界
+                  </div>
+                </Fragment>
+              )
+            }
+
+            return rowCells
+          })}
         </div>
       </div>
+
+      {lastAIMove && (
+        <p className="text-xs text-warm-text-light">
+          電腦剛剛移動：({lastAIMove.from[0] + 1},{lastAIMove.from[1] + 1}) → ({lastAIMove.to[0] + 1},{lastAIMove.to[1] + 1})
+        </p>
+      )}
     </div>
   )
 }
