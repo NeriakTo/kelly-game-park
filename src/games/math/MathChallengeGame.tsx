@@ -2,21 +2,11 @@ import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, RotateCcw, XCircle, BookOpen, Target } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
-import type { Difficulty } from '../../types'
 
-type UnitId =
-  | 'low-add'
-  | 'low-sub'
-  | 'low-multi-concept'
-  | 'mid-mul'
-  | 'mid-div'
-  | 'mid-mixed'
-  | 'high-decimal'
-  | 'high-fraction'
-  | 'high-mixed'
+type Grade = 1 | 2 | 3 | 4 | 5 | 6
 
 type Unit = {
-  id: UnitId
+  id: string
   name: string
   description: string
 }
@@ -25,128 +15,174 @@ type Problem = {
   text: string
   answer: number
   hint: string
-  unitId: UnitId
+  unitId: string
 }
 
-const WRONG_BOOK_KEY = 'kelly-math-wrong-book-v1'
+const WRONG_BOOK_KEY = 'kelly-math-wrong-book-v2'
 
 function rand(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-function toElementaryDifficulty(difficulty: Difficulty): 1 | 2 | 3 {
-  if (difficulty <= 1) return 1
-  if (difficulty === 2) return 2
-  return 3
+const GRADE_UNITS: Record<Grade, Unit[]> = {
+  1: [
+    { id: 'g1-add20', name: '20 內加法', description: '一年級：20 內加法與數感' },
+    { id: 'g1-sub20', name: '20 內減法', description: '一年級：20 內減法與補數概念' },
+    { id: 'g1-compare', name: '大小比較', description: '一年級：數字比較與序列' },
+  ],
+  2: [
+    { id: 'g2-add100', name: '100 內加法', description: '二年級：進位加法' },
+    { id: 'g2-sub100', name: '100 內減法', description: '二年級：退位減法' },
+    { id: 'g2-times', name: '乘法初階', description: '二年級：重複加法與倍數概念' },
+  ],
+  3: [
+    { id: 'g3-muldiv', name: '乘除法', description: '三年級：乘法表與除法反推' },
+    { id: 'g3-fraction', name: '分數入門', description: '三年級：同分母分數概念' },
+    { id: 'g3-mixed', name: '四則混合', description: '三年級：先乘除後加減' },
+  ],
+  4: [
+    { id: 'g4-muldiv-large', name: '大數乘除', description: '四年級：多位數乘除法' },
+    { id: 'g4-decimal', name: '小數運算', description: '四年級：小數加減' },
+    { id: 'g4-area', name: '周長面積', description: '四年級：長方形周長與面積' },
+  ],
+  5: [
+    { id: 'g5-fraction-op', name: '分數運算', description: '五年級：同分母分數加減' },
+    { id: 'g5-decimal-op', name: '小數四則', description: '五年級：小數乘除與估算' },
+    { id: 'g5-volume', name: '體積概念', description: '五年級：長方體體積' },
+  ],
+  6: [
+    { id: 'g6-ratio', name: '比與比值', description: '六年級：比例與比值' },
+    { id: 'g6-percent', name: '百分率', description: '六年級：折扣與百分率' },
+    { id: 'g6-algebra', name: '代數入門', description: '六年級：簡單未知數方程' },
+  ],
 }
 
-function getUnitsByDifficulty(difficulty: 1 | 2 | 3): Unit[] {
-  if (difficulty === 1) {
-    return [
-      { id: 'low-add', name: '100 內加法', description: '小二核心：進位與心算加法' },
-      { id: 'low-sub', name: '100 內減法', description: '小二核心：退位與借位減法' },
-      { id: 'low-multi-concept', name: '倍數概念', description: '重複加法與乘法概念連結' },
-    ]
-  }
-  if (difficulty === 2) {
-    return [
-      { id: 'mid-mul', name: '乘法練習', description: '乘法表與乘法運算' },
-      { id: 'mid-div', name: '除法練習', description: '由乘法反推除法' },
-      { id: 'mid-mixed', name: '四則混合', description: '先乘除後加減' },
-    ]
-  }
-  return [
-    { id: 'high-decimal', name: '小數運算', description: '小數加減與位值概念' },
-    { id: 'high-fraction', name: '分數基礎', description: '同分母分數與小數轉換' },
-    { id: 'high-mixed', name: '綜合應用', description: '小數/分數/四則整合' },
-  ]
-}
-
-function generateUnitProblem(unitId: UnitId): Problem {
+function generateProblem(unitId: string): Problem {
   switch (unitId) {
-    case 'low-add': {
-      const a = rand(10, 99)
+    case 'g1-add20': {
+      const a = rand(1, 12)
+      const b = rand(1, 20 - a)
+      return { text: `${a} + ${b} = ?`, answer: a + b, hint: '先從大數開始數上去。', unitId }
+    }
+    case 'g1-sub20': {
+      const a = rand(6, 20)
+      const b = rand(1, a - 1)
+      return { text: `${a} - ${b} = ?`, answer: a - b, hint: '可以想成缺多少會回到被減數。', unitId }
+    }
+    case 'g1-compare': {
+      const a = rand(1, 30)
       const b = rand(1, 30)
-      return { text: `${a} + ${b} = ?`, answer: a + b, hint: '先算十位，再算個位。', unitId }
+      const answer = a > b ? 1 : a < b ? -1 : 0
+      return { text: `${a} 和 ${b}，前者比較大嗎？（是=1，否=0）`, answer: a > b ? 1 : 0, hint: '先看十位，再看個位。', unitId }
     }
-    case 'low-sub': {
+
+    case 'g2-add100': {
+      const a = rand(10, 99)
+      const b = rand(1, 99 - a)
+      return { text: `${a} + ${b} = ?`, answer: a + b, hint: '十位與個位分開算。', unitId }
+    }
+    case 'g2-sub100': {
       const a = rand(20, 99)
-      const b = rand(1, Math.min(40, a - 1))
-      return { text: `${a} - ${b} = ?`, answer: a - b, hint: '借位時十位先減 1。', unitId }
+      const b = rand(1, a - 1)
+      return { text: `${a} - ${b} = ?`, answer: a - b, hint: '需要時先借位。', unitId }
     }
-    case 'low-multi-concept': {
+    case 'g2-times': {
       const n = rand(2, 9)
-      const times = rand(2, 4)
-      return {
-        text: `${n}${times === 2 ? ' + ' + n : times === 3 ? ' + ' + n + ' + ' + n : ' + ' + n + ' + ' + n + ' + ' + n} = ?`,
-        answer: n * times,
-        hint: '這是重複加法，也可想成乘法。',
-        unitId,
+      const t = rand(2, 5)
+      return { text: `${n} + ${n}${t >= 3 ? ` + ${n}` : ''}${t >= 4 ? ` + ${n}` : ''}${t >= 5 ? ` + ${n}` : ''} = ?`, answer: n * t, hint: '這是 n 的 t 倍。', unitId }
+    }
+
+    case 'g3-muldiv': {
+      if (Math.random() < 0.5) {
+        const a = rand(2, 12)
+        const b = rand(2, 12)
+        return { text: `${a} × ${b} = ?`, answer: a * b, hint: '先想乘法表。', unitId }
       }
-    }
-    case 'mid-mul': {
-      const a = rand(2, 12)
-      const b = rand(2, 12)
-      return { text: `${a} × ${b} = ?`, answer: a * b, hint: '先想乘法表。', unitId }
-    }
-    case 'mid-div': {
       const b = rand(2, 12)
       const ans = rand(2, 12)
-      return { text: `${b * ans} ÷ ${b} = ?`, answer: ans, hint: '除法可反推乘法。', unitId }
+      return { text: `${b * ans} ÷ ${b} = ?`, answer: ans, hint: '除法可用乘法回推。', unitId }
     }
-    case 'mid-mixed': {
+    case 'g3-fraction': {
+      const a = rand(1, 8)
+      const b = rand(1, 8)
+      return { text: `${a}/10 + ${b}/10 = ?（小數一位）`, answer: Number(((a + b) / 10).toFixed(1)), hint: '同分母先加分子。', unitId }
+    }
+    case 'g3-mixed': {
       const a = rand(10, 60)
       const b = rand(2, 9)
       const c = rand(2, 9)
-      return { text: `${a} + ${b} × ${c} = ?`, answer: a + b * c, hint: '先乘除，後加減。', unitId }
+      return { text: `${a} + ${b} × ${c} = ?`, answer: a + b * c, hint: '先乘再加。', unitId }
     }
-    case 'high-decimal': {
-      const a = rand(1, 9)
-      const b = rand(1, 9)
-      return {
-        text: `0.${a} + 0.${b} = ?（小數一位）`,
-        answer: Number((a / 10 + b / 10).toFixed(1)),
-        hint: '小數點要對齊。',
-        unitId,
-      }
-    }
-    case 'high-fraction': {
-      const a = rand(1, 8)
-      const b = rand(1, 8)
-      return {
-        text: `${a}/10 + ${b}/10 = ?（小數一位）`,
-        answer: Number(((a + b) / 10).toFixed(1)),
-        hint: '同分母分數先加分子。',
-        unitId,
-      }
-    }
-    case 'high-mixed':
-    default: {
-      const type = rand(1, 2)
-      if (type === 1) {
-        const a = rand(20, 99)
-        const b = rand(2, 9)
-        const c = rand(2, 9)
-        return { text: `${a} - ${b} × ${c} = ?`, answer: a - b * c, hint: '先乘法，再減法。', unitId }
-      }
+
+    case 'g4-muldiv-large': {
+      const a = rand(12, 99)
       const b = rand(2, 9)
-      const ans = rand(3, 12)
-      return { text: `${b * ans} ÷ ${b} + 7 = ?`, answer: ans + 7, hint: '先除法，再加法。', unitId }
+      return { text: `${a} × ${b} = ?`, answer: a * b, hint: '把十位與個位拆開算。', unitId }
+    }
+    case 'g4-decimal': {
+      const a = rand(1, 19) / 10
+      const b = rand(1, 19) / 10
+      return { text: `${a.toFixed(1)} + ${b.toFixed(1)} = ?`, answer: Number((a + b).toFixed(1)), hint: '小數點對齊。', unitId }
+    }
+    case 'g4-area': {
+      const l = rand(3, 15)
+      const w = rand(2, 12)
+      return { text: `長方形長 ${l}、寬 ${w}，面積 = ?`, answer: l * w, hint: '面積 = 長 × 寬。', unitId }
+    }
+
+    case 'g5-fraction-op': {
+      const den = rand(4, 10)
+      const a = rand(1, den - 1)
+      const b = rand(1, den - a)
+      return { text: `${a}/${den} + ${b}/${den} = ?（小數一位）`, answer: Number(((a + b) / den).toFixed(1)), hint: '同分母加法。', unitId }
+    }
+    case 'g5-decimal-op': {
+      const a = rand(12, 80) / 10
+      const b = rand(2, 9)
+      return { text: `${a.toFixed(1)} × ${b} = ?（小數一位）`, answer: Number((a * b).toFixed(1)), hint: '先當整數乘，再補小數點。', unitId }
+    }
+    case 'g5-volume': {
+      const l = rand(2, 10)
+      const w = rand(2, 10)
+      const h = rand(2, 10)
+      return { text: `長方體 ${l}×${w}×${h}，體積 = ?`, answer: l * w * h, hint: '體積 = 長 × 寬 × 高。', unitId }
+    }
+
+    case 'g6-ratio': {
+      const a = rand(2, 9)
+      const b = rand(2, 9)
+      const k = rand(2, 5)
+      return { text: `比 ${a}:${b}，若前項是 ${a * k}，後項是 ?`, answer: b * k, hint: '同倍放大。', unitId }
+    }
+    case 'g6-percent': {
+      const base = rand(100, 500)
+      const p = rand(10, 50)
+      return { text: `${base} 的 ${p}% 是 ?`, answer: Number((base * p / 100).toFixed(1)), hint: '先乘再除 100。', unitId }
+    }
+    case 'g6-algebra':
+    default: {
+      const x = rand(2, 20)
+      const a = rand(2, 9)
+      const b = rand(1, 20)
+      return { text: `解 x：${a}x + ${b} = ${a * x + b}`, answer: x, hint: '先移項再除係數。', unitId }
     }
   }
 }
 
-function buildOptions(answer: number, elementaryDifficulty: 1 | 2 | 3): number[] {
-  const deltaPool = elementaryDifficulty === 1 ? [1, 2, 3, 5, 10] : elementaryDifficulty === 2 ? [1, 2, 3, 4, 6, 9] : [0.1, 0.2, 0.3, 0.5, 1, 2]
-  const options = new Set<number>([answer])
+function buildOptions(answer: number, grade: Grade): number[] {
+  const deltaPool = grade <= 2
+    ? [1, 2, 3, 5, 10]
+    : grade <= 4
+      ? [1, 2, 3, 4, 6, 8]
+      : [0.1, 0.2, 0.3, 0.5, 1, 2, 5]
 
+  const options = new Set<number>([answer])
   while (options.size < 4) {
     const delta = deltaPool[rand(0, deltaPool.length - 1)]
     const sign = Math.random() < 0.5 ? -1 : 1
     const candidate = Number((answer + sign * delta).toFixed(1))
     if (candidate !== answer) options.add(candidate)
   }
-
   return Array.from(options).sort(() => Math.random() - 0.5)
 }
 
@@ -166,28 +202,26 @@ function saveWrongBook(book: Record<string, Problem[]>) {
 }
 
 export default function MathChallengeGame() {
-  const difficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
 
-  const elementaryDifficulty = toElementaryDifficulty(difficulty)
-  const units = useMemo(() => getUnitsByDifficulty(elementaryDifficulty), [elementaryDifficulty])
-
-  const [selectedUnitId, setSelectedUnitId] = useState<UnitId>(units[0].id)
+  const [grade, setGrade] = useState<Grade>(2)
+  const [units, setUnits] = useState<Unit[]>(() => GRADE_UNITS[2])
+  const [selectedUnitId, setSelectedUnitId] = useState<string>(GRADE_UNITS[2][0].id)
   const [mode, setMode] = useState<'normal' | 'wrong-review'>('normal')
 
   const [wrongBook, setWrongBook] = useState<Record<string, Problem[]>>(() => loadWrongBook())
 
-  const buildNextProblem = (unitId: UnitId, nextMode: 'normal' | 'wrong-review'): Problem => {
-    const key = `${elementaryDifficulty}-${unitId}`
+  const buildNextProblem = (unitId: string, nextMode: 'normal' | 'wrong-review'): Problem => {
+    const key = `${grade}-${unitId}`
     if (nextMode === 'wrong-review') {
       const bucket = wrongBook[key] ?? []
       if (bucket.length > 0) return bucket[rand(0, bucket.length - 1)]
     }
-    return generateUnitProblem(unitId)
+    return generateProblem(unitId)
   }
 
-  const [problem, setProblem] = useState<Problem>(() => buildNextProblem(units[0].id, 'normal'))
-  const [options, setOptions] = useState<number[]>(() => buildOptions(problem.answer, elementaryDifficulty))
+  const [problem, setProblem] = useState<Problem>(() => buildNextProblem(selectedUnitId, 'normal'))
+  const [options, setOptions] = useState<number[]>(() => buildOptions(problem.answer, grade))
 
   const [questionNo, setQuestionNo] = useState(1)
   const [correct, setCorrect] = useState(0)
@@ -203,19 +237,17 @@ export default function MathChallengeGame() {
   const accuracy = answered === 0 ? 100 : Math.round((correct / answered) * 100)
   const durationSec = Math.max(1, Math.floor((Date.now() - startAt) / 1000))
 
-  const wrongKey = `${elementaryDifficulty}-${selectedUnitId}`
+  const wrongKey = `${grade}-${selectedUnitId}`
   const wrongCount = (wrongBook[wrongKey] ?? []).length
 
   const gradeGuide = useMemo(() => {
-    if (elementaryDifficulty === 1) return '國小低年級（含小二）單元化練習：加法、減法、倍數概念'
-    if (elementaryDifficulty === 2) return '國小中年級單元化練習：乘法、除法、四則混合'
-    return '國小高年級單元化練習：小數、分數、綜合應用'
-  }, [elementaryDifficulty])
+    return `108課綱國小 ${grade} 年級數學：${units.map((u) => u.name).join('、')}`
+  }, [grade, units])
 
-  const resetRun = (unitId: UnitId = selectedUnitId, nextMode: 'normal' | 'wrong-review' = mode) => {
+  const resetRun = (unitId: string = selectedUnitId, nextMode: 'normal' | 'wrong-review' = mode) => {
     const first = buildNextProblem(unitId, nextMode)
     setProblem(first)
-    setOptions(buildOptions(first.answer, elementaryDifficulty))
+    setOptions(buildOptions(first.answer, grade))
     setQuestionNo(1)
     setCorrect(0)
     setWrong(0)
@@ -227,19 +259,16 @@ export default function MathChallengeGame() {
   }
 
   const addWrongProblem = (p: Problem) => {
-    const key = `${elementaryDifficulty}-${p.unitId}`
+    const key = `${grade}-${p.unitId}`
     const prev = wrongBook[key] ?? []
     const exists = prev.some((x) => x.text === p.text && x.answer === p.answer)
-    const nextBook = {
-      ...wrongBook,
-      [key]: exists ? prev : [...prev, p].slice(-30),
-    }
+    const nextBook = { ...wrongBook, [key]: exists ? prev : [...prev, p].slice(-40) }
     setWrongBook(nextBook)
     saveWrongBook(nextBook)
   }
 
   const removeWrongProblem = (p: Problem) => {
-    const key = `${elementaryDifficulty}-${p.unitId}`
+    const key = `${grade}-${p.unitId}`
     const prev = wrongBook[key] ?? []
     const next = prev.filter((x) => !(x.text === p.text && x.answer === p.answer))
     const nextBook = { ...wrongBook, [key]: next }
@@ -251,7 +280,7 @@ export default function MathChallengeGame() {
     const next = buildNextProblem(selectedUnitId, mode)
     setQuestionNo(nextNo)
     setProblem(next)
-    setOptions(buildOptions(next.answer, elementaryDifficulty))
+    setOptions(buildOptions(next.answer, grade))
     setFeedback(null)
     setShowHint(false)
     setLocked(false)
@@ -276,7 +305,7 @@ export default function MathChallengeGame() {
     if (nextNo > total) {
       const finalAcc = Math.round((nextCorrect / total) * 100)
       const finalScore = Math.max(100, Math.round(nextCorrect * 120 + finalAcc * 8 - durationSec))
-      addScore({ gameType: 'math', difficulty: elementaryDifficulty, score: finalScore, durationSeconds: durationSec })
+      addScore({ gameType: 'math', difficulty: 1, score: finalScore, durationSeconds: durationSec })
       setFinished(true)
       return
     }
@@ -284,7 +313,28 @@ export default function MathChallengeGame() {
     setTimeout(() => nextQuestion(nextNo), 700)
   }
 
-  const onSelectUnit = (unitId: UnitId) => {
+  const onChangeGrade = (g: Grade) => {
+    const nextUnits = GRADE_UNITS[g]
+    const firstUnit = nextUnits[0].id
+    setGrade(g)
+    setUnits(nextUnits)
+    setSelectedUnitId(firstUnit)
+    setMode('normal')
+
+    const first = generateProblem(firstUnit)
+    setProblem(first)
+    setOptions(buildOptions(first.answer, g))
+    setQuestionNo(1)
+    setCorrect(0)
+    setWrong(0)
+    setStartAt(Date.now())
+    setFeedback(null)
+    setShowHint(false)
+    setFinished(false)
+    setLocked(false)
+  }
+
+  const onSelectUnit = (unitId: string) => {
     setSelectedUnitId(unitId)
     setMode('normal')
     resetRun(unitId, 'normal')
@@ -300,6 +350,18 @@ export default function MathChallengeGame() {
   return (
     <div className="w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
       <div className="rounded-xl bg-cream-light p-3 text-sm text-warm-text-light">{gradeGuide}</div>
+
+      <div className="flex flex-wrap gap-2">
+        {([1, 2, 3, 4, 5, 6] as Grade[]).map((g) => (
+          <button
+            key={g}
+            onClick={() => onChangeGrade(g)}
+            className={`px-3 py-1.5 rounded-full text-sm ${grade === g ? 'bg-mint text-warm-text' : 'bg-white text-warm-text-light'}`}
+          >
+            {g} 年級
+          </button>
+        ))}
+      </div>
 
       <div className="flex flex-wrap gap-2">
         {units.map((u) => (
