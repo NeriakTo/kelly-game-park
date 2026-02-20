@@ -1,5 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { Home, Grid3X3, Swords, Brain, Keyboard, Settings } from 'lucide-react'
+import DifficultySelector from '../UI/DifficultySelector'
 
 const NAV_ITEMS = [
   { path: '', icon: Home, label: '首頁' },
@@ -13,6 +14,7 @@ const NAV_ITEMS = [
 export default function Layout() {
   const location = useLocation()
   const current = location.pathname.replace(/^\//, '')
+  const isGameRoute = ['sudoku', 'chess', 'memory', 'typing'].includes(current)
 
   return (
     <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-warm-bg">
@@ -40,10 +42,17 @@ export default function Layout() {
             ))}
           </nav>
 
-          <div className="mt-6 p-3 rounded-xl bg-cream-light text-xs text-warm-text-light leading-relaxed">
-            左側：功能與選單
+          {isGameRoute && (
+            <div className="mt-5 p-3 rounded-xl bg-sky-light/60">
+              <p className="text-xs text-warm-text-light mb-2">🎚️ 難度切換</p>
+              <DifficultySelector />
+            </div>
+          )}
+
+          <div className="mt-4 p-3 rounded-xl bg-cream-light text-xs text-warm-text-light leading-relaxed">
+            左側：功能選單＋難度
             <br />
-            右側：完整遊戲區
+            右側：最大化遊戲區
           </div>
         </aside>
 

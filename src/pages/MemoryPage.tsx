@@ -3,10 +3,10 @@ import MemoryGame from '../games/memory/MemoryGame'
 
 export default function MemoryPage() {
   return (
-    <div className="h-full lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-4">
-      <section className="bg-white/65 rounded-2xl p-4 mb-4 lg:mb-0 lg:sticky lg:top-0 lg:self-start">
+    <div className="h-full space-y-3">
+      <section className="lg:hidden bg-white/65 rounded-2xl p-4">
         <h2 className="text-2xl font-bold">🃏 記憶翻牌</h2>
-        <p className="text-warm-text-light text-sm mt-1 mb-4">翻開兩張相同的卡片配對</p>
+        <p className="text-warm-text-light text-sm mt-1 mb-3">翻開兩張相同的卡片配對</p>
         <DifficultySelector />
       </section>
 
