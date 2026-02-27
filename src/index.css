@@ -12,6 +12,10 @@
   --color-warm-bg: #FDF6EC;
   --color-warm-text: #5D4E37;
   --color-warm-text-light: #8B7D6B;
+  --color-fossil: #D4A574;
+  --color-fossil-light: #E8C9A0;
+  --color-wood: #DEB887;
+  --color-wood-light: #F0DCC0;
 }
 
 @font-face {
@@ -23,4 +27,12 @@ body {
   font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', system-ui, sans-serif;
   background-color: var(--color-warm-bg);
   color: var(--color-warm-text);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

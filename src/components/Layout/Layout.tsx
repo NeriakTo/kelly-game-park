@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Home, Grid3X3, Swords, Brain, Keyboard, Calculator, Settings } from 'lucide-react'
+import { Home, Grid3X3, Swords, Brain, Keyboard, Calculator, Store, Circle, Settings } from 'lucide-react'
 import DifficultySelector from '../UI/DifficultySelector'
 
 const NAV_ITEMS = [
@@ -9,13 +9,15 @@ const NAV_ITEMS = [
   { path: 'memory', icon: Brain, label: '翻牌' },
   { path: 'typing', icon: Keyboard, label: '打字' },
   { path: 'math', icon: Calculator, label: '數學' },
+  { path: 'dino-shop', icon: Store, label: '商店' },
+  { path: 'go', icon: Circle, label: '圍棋' },
   { path: 'settings', icon: Settings, label: '設定' },
 ]
 
 export default function Layout() {
   const location = useLocation()
   const current = location.pathname.replace(/^\//, '')
-  const isGameRoute = ['sudoku', 'chess', 'memory', 'typing', 'math'].includes(current)
+  const isGameRoute = ['sudoku', 'chess', 'memory', 'typing', 'math', 'dino-shop', 'go'].includes(current)
 
   return (
     <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-warm-bg">
@@ -92,13 +94,13 @@ export default function Layout() {
           <Outlet />
         </main>
 
-        <nav className="sm:hidden fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur-sm border-t border-mint/30 z-50">
-          <div className="flex justify-around py-2">
+        <nav className="sm:hidden fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur-sm border-t border-mint/30 z-50 overflow-x-auto no-scrollbar">
+          <div className="flex gap-4 px-2 py-2 min-w-max">
             {NAV_ITEMS.map(({ path, icon: Icon, label }) => (
               <Link
                 key={path}
                 to={`/${path}`}
-                className={`flex flex-col items-center text-xs ${
+                className={`flex flex-col items-center text-xs shrink-0 ${
                   current === path ? 'text-warm-text' : 'text-warm-text-light'
                 }`}
               >

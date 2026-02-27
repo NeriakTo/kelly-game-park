@@ -7,6 +7,8 @@ import MemoryPage from './pages/MemoryPage'
 import TypingPage from './pages/TypingPage'
 import MathPage from './pages/MathPage'
 import SettingsPage from './pages/SettingsPage'
+import DinoShopPage from './pages/DinoShopPage'
+import GoPage from './pages/GoPage'
 
 export default function App() {
   return (
@@ -18,6 +20,8 @@ export default function App() {
         <Route path="memory" element={<MemoryPage />} />
         <Route path="typing" element={<TypingPage />} />
         <Route path="math" element={<MathPage />} />
+        <Route path="dino-shop" element={<DinoShopPage />} />
+        <Route path="go" element={<GoPage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
     </Routes>
