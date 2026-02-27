@@ -85,17 +85,19 @@ export const COLLECTION_STORAGE_KEY = 'kelly-dino-collection'
 export const PIECES_PER_DINO = 5
 export const CORRECT_PER_PIECE = 3
 
+/** 每個 stage×difficulty 對應多種題型，隨機選取避免重複 */
 export function getQuestionTypeForStage(stage: StageId, difficulty: Difficulty): QuestionType {
-  const map: Record<string, QuestionType> = {
-    'A-1': 'recognize-coins',
-    'B-1': 'exact-payment',
-    'C-1': 'calculate-change',
-    'A-2': 'multiple-items',
-    'B-2': 'budget-check',
-    'C-2': 'compare-prices',
-    'A-3': 'discount',
-    'B-3': 'multi-step',
-    'C-3': 'timed-shopping',
+  const pool: Record<string, readonly QuestionType[]> = {
+    'A-1': ['recognize-coins', 'compare-prices'],
+    'B-1': ['exact-payment', 'recognize-coins'],
+    'C-1': ['calculate-change', 'exact-payment'],
+    'A-2': ['multiple-items', 'compare-prices', 'budget-check'],
+    'B-2': ['budget-check', 'multiple-items', 'calculate-change'],
+    'C-2': ['compare-prices', 'calculate-change', 'multiple-items'],
+    'A-3': ['discount', 'multi-step', 'budget-check'],
+    'B-3': ['multi-step', 'discount', 'compare-prices'],
+    'C-3': ['timed-shopping', 'multi-step', 'discount'],
   }
-  return map[`${stage}-${difficulty}`] ?? 'recognize-coins'
+  const types = pool[`${stage}-${difficulty}`] ?? ['recognize-coins']
+  return types[Math.floor(Math.random() * types.length)]
 }

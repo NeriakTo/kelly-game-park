@@ -49,12 +49,14 @@ export default function PlayMode({ onBack }: PlayModeProps) {
   const [scores, setScores] = useState<{ black: number; white: number } | null>(null)
 
   const startTimeRef = useRef(Date.now())
+  const phaseRef = useRef(phase)
+  phaseRef.current = phase
   const playerColor = 'black' as const
   const aiColor = 'white' as const
 
-  // AI 回合
+  // AI 回合 — phase 用 ref 讀取，避免 setPhase 觸發 cleanup 清掉 timer
   useEffect(() => {
-    if (phase !== 'playing' || state.currentTurn !== aiColor) return
+    if (phaseRef.current !== 'playing' || state.currentTurn !== aiColor) return
 
     setPhase('ai-thinking')
     const timer = setTimeout(() => {
@@ -64,7 +66,6 @@ export default function PlayMode({ onBack }: PlayModeProps) {
         if (result) {
           setState(result)
           if (showHints) {
-            // AI 落子提示
             const capturedCount = result.captures[aiColor] - state.captures[aiColor]
             if (capturedCount > 0) {
               setHint(`白棋吃掉了 ${capturedCount} 顆黑棋！注意防守。`)
@@ -88,7 +89,7 @@ export default function PlayMode({ onBack }: PlayModeProps) {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [state, phase, aiColor, difficulty, showHints])
+  }, [state, aiColor, difficulty, showHints])
 
   const endGame = useCallback(
     (finalState: GoState) => {

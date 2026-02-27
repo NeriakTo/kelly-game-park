@@ -43,11 +43,14 @@ function pickRandomN<T>(arr: readonly T[], n: number): T[] {
 function buildOptions(answer: number, count: number = 4): readonly number[] {
   const opts = new Set<number>([answer])
   const offsets = [1, 2, 3, 5, 10, 15, 20]
-  while (opts.size < count) {
+  let attempts = 0
+  while (opts.size < count && attempts < 50) {
+    attempts++
     const offset = pickRandom(offsets)
     const candidate = Math.random() > 0.5 ? answer + offset : Math.max(1, answer - offset)
     if (candidate !== answer && candidate > 0) opts.add(candidate)
   }
+  while (opts.size < count) opts.add(answer + opts.size)
   return [...opts].sort(() => Math.random() - 0.5)
 }
 
@@ -55,165 +58,244 @@ function getItemsByPriceRange(min: number, max: number): readonly ShopItem[] {
   return SHOP_ITEMS.filter((item) => item.price >= min && item.price <= max)
 }
 
-// ─── 題目生成器 ───
+// ─── 題目生成器（每種題型含多個模板）───
 
-function generateRecognizeCoins(): ShopQuestion {
-  // 認識硬幣：顯示幾個硬幣，問合計多少
-  const coinCounts: [CoinValue, number][] = []
-  const usableCoins: CoinValue[] = [1, 5, 10, 50]
-  const numTypes = rand(2, 3)
-  const picked = pickRandomN(usableCoins, numTypes)
-  let total = 0
-  for (const coin of picked) {
-    const count = rand(1, 3)
-    coinCounts.push([coin, count])
-    total += coin * count
+function generateRecognizeCoins(easy: boolean): ShopQuestion {
+  const t = rand(0, 2)
+  if (t === 0) {
+    // 模板 A：數硬幣數量
+    const usable: CoinValue[] = easy ? [1, 5, 10] : [1, 5, 10, 50]
+    const coinCounts: [CoinValue, number][] = []
+    const picked = pickRandomN(usable, rand(2, 3))
+    let total = 0
+    for (const coin of picked) {
+      const count = rand(1, easy ? 2 : 3)
+      coinCounts.push([coin, count])
+      total += coin * count
+    }
+    const coinDesc = coinCounts.map(([v, c]) => `${v}元×${c}`).join('、')
+    return {
+      type: 'recognize-coins', description: `數數看，${coinDesc} 一共是多少元？`,
+      items: [], targetAmount: total, options: buildOptions(total),
+      hint: '把每種硬幣的金額加起來就對了！', answer: total,
+    }
   }
-  const coinDesc = coinCounts.map(([v, c]) => `${v}元×${c}`).join('、')
+  if (t === 1) {
+    // 模板 B：看圖片認識硬幣面值
+    const coin = pickRandom(easy ? [1, 5, 10] as CoinValue[] : [10, 50, 100] as CoinValue[])
+    const count = rand(2, easy ? 4 : 6)
+    const total = coin * count
+    return {
+      type: 'recognize-coins', description: `有 ${count} 個 ${coin} 元硬幣，一共多少元？`,
+      items: [], targetAmount: total, options: buildOptions(total),
+      hint: `${coin} × ${count} = ?`, answer: total,
+    }
+  }
+  // 模板 C：換算問題
+  const small = pickRandom(easy ? [1, 5] as CoinValue[] : [5, 10] as CoinValue[])
+  const big = pickRandom(easy ? [10] as CoinValue[] : [50, 100] as CoinValue[])
+  const howMany = big / small
   return {
-    type: 'recognize-coins',
-    description: `數數看，${coinDesc} 一共是多少元？`,
-    items: [],
-    targetAmount: total,
-    options: buildOptions(total),
-    hint: '把每種硬幣的金額加起來就對了！',
-    answer: total,
+    type: 'recognize-coins', description: `1 個 ${big} 元可以換成幾個 ${small} 元？`,
+    items: [], targetAmount: howMany, options: buildOptions(howMany),
+    hint: `${big} ÷ ${small} = ?`, answer: howMany,
   }
 }
 
-function generateExactPayment(): ShopQuestion {
-  // 單品付款：用硬幣付正確金額
-  const items = getItemsByPriceRange(5, 60)
+function generateExactPayment(easy: boolean): ShopQuestion {
+  const maxPrice = easy ? 30 : 60
+  const items = getItemsByPriceRange(easy ? 3 : 5, maxPrice)
   const item = pickRandom(items)
   return {
     type: 'exact-payment',
     description: `${item.emoji} ${item.name}要 ${item.price} 元，請用硬幣付剛好的金額！`,
-    items: [item],
-    targetAmount: item.price,
-    hint: `想想看，怎麼湊出剛好 ${item.price} 元？`,
-    answer: item.price,
-    coinPayment: true,
+    items: [item], targetAmount: item.price,
+    hint: `想想看，怎麼湊出剛好 ${item.price} 元？`, answer: item.price, coinPayment: true,
   }
 }
 
-function generateCalculateChange(): ShopQuestion {
-  // 找零：付了多少錢，要找回多少
-  const items = getItemsByPriceRange(5, 80)
-  const item = pickRandom(items)
-  const paidOptions = COIN_VALUES.filter((v) => v > item.price)
-  const paid = paidOptions.length > 0 ? pickRandom(paidOptions) : item.price + rand(5, 20)
-  const change = paid - item.price
+function generateCalculateChange(easy: boolean): ShopQuestion {
+  const t = rand(0, 1)
+  if (t === 0) {
+    // 模板 A：標準找零
+    const maxPrice = easy ? 30 : 80
+    const items = getItemsByPriceRange(easy ? 3 : 5, maxPrice)
+    const item = pickRandom(items)
+    const paidOptions = COIN_VALUES.filter((v) => v > item.price)
+    const paid = paidOptions.length > 0 ? pickRandom(paidOptions) : item.price + rand(5, 20)
+    const change = paid - item.price
+    return {
+      type: 'calculate-change',
+      description: `${item.emoji} ${item.name} ${item.price} 元，付了 ${paid} 元，要找回多少？`,
+      items: [item], targetAmount: change, options: buildOptions(change),
+      hint: `${paid} - ${item.price} = ?`, answer: change,
+    }
+  }
+  // 模板 B：買兩樣找零
+  const items = pickRandomN(getItemsByPriceRange(easy ? 3 : 5, easy ? 20 : 40), 2)
+  const totalPrice = items.reduce((s, i) => s + i.price, 0)
+  const paidOptions = COIN_VALUES.filter((v) => v > totalPrice)
+  const paid = paidOptions.length > 0 ? pickRandom(paidOptions) : totalPrice + rand(10, 30)
+  const change = paid - totalPrice
+  const desc = items.map((i) => `${i.emoji}${i.name}(${i.price}元)`).join('和')
   return {
     type: 'calculate-change',
-    description: `${item.emoji} ${item.name} ${item.price} 元，付了 ${paid} 元，要找回多少？`,
-    items: [item],
-    targetAmount: change,
-    options: buildOptions(change),
-    hint: `${paid} - ${item.price} = ?`,
-    answer: change,
+    description: `買了${desc}，付了 ${paid} 元，找回多少？`,
+    items, targetAmount: change, options: buildOptions(change),
+    hint: `先算總價 ${totalPrice}，再算 ${paid} - ${totalPrice}。`, answer: change,
   }
 }
 
-function generateMultipleItems(): ShopQuestion {
-  // 多品合計：算出總價
-  const items = pickRandomN(getItemsByPriceRange(5, 50), rand(2, 3))
-  const total = items.reduce((sum, item) => sum + item.price, 0)
-  const itemDesc = items.map((i) => `${i.emoji}${i.name}(${i.price}元)`).join('、')
+function generateMultipleItems(easy: boolean): ShopQuestion {
+  const t = rand(0, 1)
+  if (t === 0) {
+    // 模板 A：算總價
+    const count = easy ? 2 : rand(2, 3)
+    const items = pickRandomN(getItemsByPriceRange(easy ? 3 : 5, easy ? 30 : 50), count)
+    const total = items.reduce((sum, item) => sum + item.price, 0)
+    const itemDesc = items.map((i) => `${i.emoji}${i.name}(${i.price}元)`).join('、')
+    return {
+      type: 'multiple-items', description: `買了 ${itemDesc}，一共要付多少元？`,
+      items, targetAmount: total, options: buildOptions(total),
+      hint: '把每樣東西的價格加起來！', answer: total,
+    }
+  }
+  // 模板 B：同一商品買多個
+  const items = getItemsByPriceRange(easy ? 3 : 5, easy ? 20 : 50)
+  const item = pickRandom(items)
+  const qty = rand(2, easy ? 3 : 5)
+  const total = item.price * qty
   return {
     type: 'multiple-items',
-    description: `買了 ${itemDesc}，一共要付多少元？`,
-    items,
-    targetAmount: total,
-    options: buildOptions(total),
-    hint: '把每樣東西的價格加起來！',
-    answer: total,
+    description: `${item.emoji} ${item.name}每個 ${item.price} 元，買 ${qty} 個要多少元？`,
+    items: [item], targetAmount: total, options: buildOptions(total),
+    hint: `${item.price} × ${qty} = ?`, answer: total,
   }
 }
 
-function generateBudgetCheck(): ShopQuestion {
-  // 預算管理：N元能買什麼（選出能買得起的最貴組合）
-  const budget = pickRandom([50, 100, 150, 200])
-  const candidates = pickRandomN(getItemsByPriceRange(10, budget + 30), 4)
-  // 找出 budget 內最貴的那個
-  const affordable = candidates.filter((i) => i.price <= budget)
-  const mostExpensive = affordable.length > 0
-    ? affordable.reduce((a, b) => (a.price > b.price ? a : b))
-    : candidates.reduce((a, b) => (a.price < b.price ? a : b))
+function generateBudgetCheck(easy: boolean): ShopQuestion {
+  const t = rand(0, 1)
+  if (t === 0) {
+    // 模板 A：哪個買得起且最貴
+    const budget = easy ? pickRandom([30, 50]) : pickRandom([50, 100, 150, 200])
+    const candidates = pickRandomN(getItemsByPriceRange(easy ? 3 : 10, budget + 30), 4)
+    const affordable = candidates.filter((i) => i.price <= budget)
+    const mostExpensive = affordable.length > 0
+      ? affordable.reduce((a, b) => (a.price > b.price ? a : b))
+      : candidates.reduce((a, b) => (a.price < b.price ? a : b))
+    return {
+      type: 'budget-check',
+      description: `你有 ${budget} 元，下面哪個買得起而且最貴？`,
+      items: candidates, budget, options: candidates.map((i) => i.price),
+      hint: `找出 ${budget} 元以內最貴的東西！`, answer: mostExpensive.price,
+    }
+  }
+  // 模板 B：夠不夠買
+  const budget = easy ? pickRandom([50, 100]) : pickRandom([100, 200, 300])
+  const items = pickRandomN(getItemsByPriceRange(easy ? 3 : 10, easy ? 30 : 80), easy ? 2 : 3)
+  const total = items.reduce((s, i) => s + i.price, 0)
+  const enough = total <= budget ? 1 : 0
+  const itemDesc = items.map((i) => `${i.emoji}${i.name}(${i.price}元)`).join('、')
   return {
     type: 'budget-check',
-    description: `你有 ${budget} 元，下面哪個買得起而且最貴？`,
-    items: candidates,
-    budget,
-    options: candidates.map((i) => i.price),
-    hint: `找出 ${budget} 元以內最貴的東西！`,
-    answer: mostExpensive.price,
+    description: `你有 ${budget} 元，買 ${itemDesc} 夠嗎？（夠=1，不夠=0）`,
+    items, budget, options: [0, 1].sort(() => Math.random() - 0.5),
+    hint: `先算總價 ${total} 元，再跟 ${budget} 元比較。`, answer: enough,
   }
 }
 
-function generateComparePrices(): ShopQuestion {
-  // 比價：選最便宜或最貴
-  const items = pickRandomN(SHOP_ITEMS, 4)
-  const cheapest = items.reduce((a, b) => (a.price < b.price ? a : b))
+function generateComparePrices(easy: boolean): ShopQuestion {
+  const t = rand(0, 1)
+  if (t === 0) {
+    // 模板 A：找最便宜的
+    const items = pickRandomN(easy ? getItemsByPriceRange(3, 30) : SHOP_ITEMS, 4)
+    const cheapest = items.reduce((a, b) => (a.price < b.price ? a : b))
+    return {
+      type: 'compare-prices', description: '哪一個最便宜？',
+      items, options: items.map((i) => i.price),
+      hint: '比較每樣東西的價格，找最小的數字！', answer: cheapest.price,
+    }
+  }
+  // 模板 B：找最貴的
+  const items = pickRandomN(easy ? getItemsByPriceRange(3, 50) : SHOP_ITEMS, 4)
+  const most = items.reduce((a, b) => (a.price > b.price ? a : b))
   return {
-    type: 'compare-prices',
-    description: '哪一個最便宜？',
-    items,
-    options: items.map((i) => i.price),
-    hint: '比較每樣東西的價格，找最小的數字！',
-    answer: cheapest.price,
+    type: 'compare-prices', description: '哪一個最貴？',
+    items, options: items.map((i) => i.price),
+    hint: '比較每樣東西的價格，找最大的數字！', answer: most.price,
   }
 }
 
-function generateDiscount(): ShopQuestion {
-  // 打折：八折/半價
-  const items = getItemsByPriceRange(20, 100)
+function generateDiscount(easy: boolean): ShopQuestion {
+  const t = rand(0, 2)
+  const items = getItemsByPriceRange(easy ? 10 : 20, easy ? 50 : 100)
   const item = pickRandom(items)
-  const discountType = pickRandom(['half', 'eighty'] as const)
-  const discounted = discountType === 'half'
-    ? Math.round(item.price / 2)
-    : Math.round(item.price * 0.8)
-  const discountLabel = discountType === 'half' ? '半價' : '八折'
+  if (t === 0) {
+    // 半價
+    const ans = Math.round(item.price / 2)
+    return {
+      type: 'discount',
+      description: `${item.emoji} ${item.name}原價 ${item.price} 元，半價是多少元？`,
+      items: [item], targetAmount: ans, options: buildOptions(ans),
+      hint: `半價就是除以 2：${item.price} ÷ 2 = ?`, answer: ans,
+    }
+  }
+  if (t === 1) {
+    // 八折
+    const ans = Math.round(item.price * 0.8)
+    return {
+      type: 'discount',
+      description: `${item.emoji} ${item.name}原價 ${item.price} 元，八折是多少元？`,
+      items: [item], targetAmount: ans, options: buildOptions(ans),
+      hint: `八折就是乘以 0.8：${item.price} × 0.8 = ?`, answer: ans,
+    }
+  }
+  // 買一送一相當於半價
+  const ans = Math.round(item.price / 2)
   return {
     type: 'discount',
-    description: `${item.emoji} ${item.name}原價 ${item.price} 元，${discountLabel}是多少元？`,
-    items: [item],
-    targetAmount: discounted,
-    options: buildOptions(discounted),
-    hint: discountType === 'half'
-      ? `半價就是除以 2：${item.price} ÷ 2 = ?`
-      : `八折就是乘以 0.8：${item.price} × 0.8 = ?`,
-    answer: discounted,
+    description: `${item.emoji} ${item.name} ${item.price} 元，買一送一等於每個多少元？`,
+    items: [item], targetAmount: ans, options: buildOptions(ans),
+    hint: '買一送一就是兩個的價錢除以二。', answer: ans,
   }
 }
 
-function generateMultiStep(): ShopQuestion {
-  // 多步驟：買東西 → 付款 → 找零 → 再買
-  const item1 = pickRandom(getItemsByPriceRange(10, 40))
-  const item2 = pickRandom(getItemsByPriceRange(5, 30))
-  const totalBudget = 100
-  const remaining = totalBudget - item1.price - item2.price
+function generateMultiStep(easy: boolean): ShopQuestion {
+  const t = rand(0, 1)
+  if (t === 0) {
+    // 模板 A：買東西→找零→再買
+    const item1 = pickRandom(getItemsByPriceRange(easy ? 5 : 10, easy ? 20 : 40))
+    const item2 = pickRandom(getItemsByPriceRange(easy ? 3 : 5, easy ? 15 : 30))
+    const totalBudget = easy ? 50 : 100
+    const remaining = totalBudget - item1.price - item2.price
+    return {
+      type: 'multi-step',
+      description: `你有 ${totalBudget} 元。先買 ${item1.emoji}${item1.name}(${item1.price}元)，再買 ${item2.emoji}${item2.name}(${item2.price}元)，還剩多少元？`,
+      items: [item1, item2], budget: totalBudget, targetAmount: remaining, options: buildOptions(remaining),
+      hint: `${totalBudget} - ${item1.price} - ${item2.price} = ?`, answer: remaining,
+    }
+  }
+  // 模板 B：比較兩種購買方案
+  const item = pickRandom(getItemsByPriceRange(easy ? 5 : 10, easy ? 30 : 50))
+  const qty1 = rand(2, 3), qty2 = rand(4, 5)
+  const diff = item.price * (qty2 - qty1)
   return {
     type: 'multi-step',
-    description: `你有 ${totalBudget} 元。先買 ${item1.emoji}${item1.name}(${item1.price}元)，再買 ${item2.emoji}${item2.name}(${item2.price}元)，還剩多少元？`,
-    items: [item1, item2],
-    budget: totalBudget,
-    targetAmount: remaining,
-    options: buildOptions(remaining),
-    hint: `${totalBudget} - ${item1.price} - ${item2.price} = ?`,
-    answer: remaining,
+    description: `${item.emoji} ${item.name}每個 ${item.price} 元，買 ${qty2} 個比買 ${qty1} 個多花多少元？`,
+    items: [item], targetAmount: diff, options: buildOptions(diff),
+    hint: `先分別算出兩種的總價再相減。`, answer: diff,
   }
 }
 
-function generateTimedShopping(): ShopQuestion {
-  // 限時題：其實跟其他題目類似，但標記為限時
+function generateTimedShopping(easy: boolean): ShopQuestion {
   const generators = [generateMultipleItems, generateCalculateChange, generateComparePrices]
-  const q = pickRandom(generators)()
+  const q = pickRandom(generators)(easy)
   return { ...q, type: 'timed-shopping' }
 }
 
 // ─── 公開 API ───
 
-const GENERATORS: Record<string, () => ShopQuestion> = {
+const GENERATORS: Record<string, (easy: boolean) => ShopQuestion> = {
   'recognize-coins': generateRecognizeCoins,
   'exact-payment': generateExactPayment,
   'calculate-change': generateCalculateChange,
@@ -225,10 +307,10 @@ const GENERATORS: Record<string, () => ShopQuestion> = {
   'timed-shopping': generateTimedShopping,
 }
 
-export function generateQuestion(stage: StageId, difficulty: Difficulty): ShopQuestion {
+export function generateQuestion(stage: StageId, difficulty: Difficulty, easy: boolean = false): ShopQuestion {
   const type = getQuestionTypeForStage(stage, difficulty)
   const gen = GENERATORS[type]
-  return gen ? gen() : generateRecognizeCoins()
+  return gen ? gen(easy) : generateRecognizeCoins(easy)
 }
 
 export function calculateScore(

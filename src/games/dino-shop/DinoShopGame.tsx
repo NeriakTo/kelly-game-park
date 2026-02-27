@@ -81,6 +81,8 @@ export default function DinoShopGame() {
 
   const startTimeRef = useRef(Date.now())
   const correctStreakRef = useRef(0)
+  const consecutiveWrongRef = useRef(0)
+  const [easyNotice, setEasyNotice] = useState(false)
 
   // 難度或關卡改變時重新開始
   useEffect(() => {
@@ -88,7 +90,9 @@ export default function DinoShopGame() {
   }, [difficulty, stage])
 
   const resetGame = useCallback(() => {
-    const q = generateQuestion(stage, difficulty)
+    consecutiveWrongRef.current = 0
+    setEasyNotice(false)
+    const q = generateQuestion(stage, difficulty, false)
     setQuestion(q)
     setQuestionIndex(0)
     setCorrect(0)
@@ -118,7 +122,9 @@ export default function DinoShopGame() {
       return
     }
 
-    const q = generateQuestion(stage, difficulty)
+    const isEasy = consecutiveWrongRef.current >= 2
+    setEasyNotice(isEasy)
+    const q = generateQuestion(stage, difficulty, isEasy)
     setQuestion(q)
     setQuestionIndex((prev) => prev + 1)
     setPhase('playing')
@@ -134,6 +140,8 @@ export default function DinoShopGame() {
       if (isCorrect) {
         setCorrect((prev) => prev + 1)
         correctStreakRef.current += 1
+        consecutiveWrongRef.current = 0
+        setEasyNotice(false)
         setFeedback('correct')
         setMessage('答對了！好厲害！🎉')
         setMood('happy')
@@ -148,6 +156,7 @@ export default function DinoShopGame() {
         saveCollection(updated)
       } else {
         correctStreakRef.current = 0
+        consecutiveWrongRef.current += 1
         setFeedback('wrong')
         setMessage(`答案是 ${question.answer} 元喔，沒關係，下次會更好！`)
         setMood('hint')
@@ -238,6 +247,13 @@ export default function DinoShopGame() {
       {/* 遊戲中 / 回饋 */}
       {phase !== 'result' && (
         <>
+          {/* 自適應難度提示 */}
+          {easyNotice && (
+            <div className="rounded-xl bg-amber-50 border border-amber-200 p-2 text-sm text-amber-700 text-center">
+              沒關係！先從簡單一點的題目練習吧 💪
+            </div>
+          )}
+
           {/* 商品展示 */}
           {question.items.length > 0 && (
             <ShopDisplay
