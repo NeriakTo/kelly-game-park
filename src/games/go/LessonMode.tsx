@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react'
 import type { GoState, Position, GoProgress } from './types'
 import { GO_PROGRESS_KEY } from './types'
-import { createStateFromSetup, placeStone } from './engine'
+import { createStateFromSetup, placeStone, getAllLegalMoves } from './engine'
 import { LESSONS } from './lessons'
+import type { StepTarget } from './lessons'
 import GoBoard from './GoBoard'
 import HintBubble from './HintBubble'
 
@@ -26,6 +27,14 @@ function saveProgress(progress: GoProgress): void {
   } catch {}
 }
 
+function posKey(pos: Position): string {
+  return `${pos[0]},${pos[1]}`
+}
+
+function isPositionInList(pos: Position, list: readonly Position[]): boolean {
+  return list.some((p) => p[0] === pos[0] && p[1] === pos[1])
+}
+
 export default function LessonMode({ onBack }: LessonModeProps) {
   const [progress, setProgress] = useState<GoProgress>(loadProgress)
   const [lessonIndex, setLessonIndex] = useState(0)
@@ -38,6 +47,27 @@ export default function LessonMode({ onBack }: LessonModeProps) {
 
   const lesson = LESSONS[lessonIndex]
   const step = lesson.steps[stepIndex]
+  const target: StepTarget = lesson.targets[stepIndex] ?? null
+
+  // 解析 target 三態
+  const isObservation = target === null
+  const isFree = target === 'free'
+  const isSpecific = Array.isArray(target)
+
+  // 棋盤鎖定：觀察步驟 或 該步驟已完成
+  const boardLocked = isObservation || stepCompleted
+
+  // 綠色高亮位置
+  const highlightPositions = useMemo((): readonly Position[] => {
+    if (stepCompleted || isObservation) return []
+    if (isSpecific) return target
+    if (isFree) {
+      // 自由落子：高亮所有合法位置（最多 20 個以免棋盤太亂）
+      const legal = getAllLegalMoves(state)
+      return legal.length <= 20 ? legal : []
+    }
+    return []
+  }, [stepCompleted, isObservation, isSpecific, isFree, target, state])
 
   const startLesson = useCallback((idx: number) => {
     const l = LESSONS[idx]
@@ -48,22 +78,19 @@ export default function LessonMode({ onBack }: LessonModeProps) {
     setStepCompleted(false)
   }, [])
 
-  // 當前步驟是否為觀察步驟（targetMoves[stepIndex] === null）
-  const currentTarget = lesson.targetMoves[stepIndex] ?? null
-  const isObservationStep = currentTarget === null
-  // 棋盤鎖定：觀察步驟 或 該步驟已完成
-  const boardLocked = isObservationStep || stepCompleted
-
   const handleCellClick = useCallback(
     (pos: Position) => {
       if (boardLocked) return
 
-      // 只接受目標位置的落子
-      if (pos[0] !== currentTarget![0] || pos[1] !== currentTarget![1]) {
-        setHint(step.hint ?? '試試看綠色標記的位置！')
-        return
+      if (isSpecific) {
+        // 指定位置模式：只接受列出的位置
+        if (!isPositionInList(pos, target)) {
+          setHint(step.hint ?? '試試看綠色標記的位置！')
+          return
+        }
       }
 
+      // free 模式或指定位置命中：嘗試落子
       const result = placeStone(state, pos)
       if (!result) {
         setHint('這個位置不能下喔！')
@@ -74,7 +101,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
       setHint(null)
       setStepCompleted(true)
     },
-    [state, currentTarget, boardLocked, step],
+    [state, boardLocked, isSpecific, target, step],
   )
 
   const nextStep = useCallback(() => {
@@ -100,7 +127,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
     }
   }, [stepIndex, lesson, lessonIndex, progress, startLesson])
 
-  const canProceed = stepCompleted || isObservationStep
+  const canProceed = stepCompleted || isObservation
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -130,11 +157,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
               onCellClick={handleCellClick}
               disabled={boardLocked}
               showIllegalMoves={lessonIndex >= 4}
-              highlightPositions={
-                !stepCompleted && currentTarget
-                  ? [currentTarget]
-                  : []
-              }
+              highlightPositions={highlightPositions}
             />
           </div>
 
@@ -145,7 +168,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
 
           {/* 下一步 */}
           <div className="flex justify-center gap-3">
-            {step.hint && !hint && !stepCompleted && !isObservationStep && (
+            {step.hint && !hint && !stepCompleted && !isObservation && (
               <button
                 onClick={() => setHint(step.hint!)}
                 className="px-3 py-2 rounded-xl text-sm bg-cream text-warm-text hover:bg-cream/80 transition-colors"
