@@ -51,30 +51,19 @@ export default function LessonMode({ onBack }: LessonModeProps) {
   // 當前步驟是否為觀察步驟（targetMoves[stepIndex] === null）
   const currentTarget = lesson.targetMoves[stepIndex] ?? null
   const isObservationStep = currentTarget === null
+  // 棋盤鎖定：觀察步驟 或 該步驟已完成
+  const boardLocked = isObservationStep || stepCompleted
 
   const handleCellClick = useCallback(
     (pos: Position) => {
-      if (stepCompleted) return
-      // 觀察步驟仍允許自由落子（探索用），但不強制
-      if (isObservationStep) {
-        const result = placeStone(state, pos)
-        if (result) {
-          setState(result)
-        } else {
-          setHint('這個位置不能下喔！')
-        }
+      if (boardLocked) return
+
+      // 只接受目標位置的落子
+      if (pos[0] !== currentTarget![0] || pos[1] !== currentTarget![1]) {
+        setHint(step.hint ?? '試試看綠色標記的位置！')
         return
       }
 
-      // 有目標位置的引導題
-      if (currentTarget) {
-        if (pos[0] !== currentTarget[0] || pos[1] !== currentTarget[1]) {
-          setHint(step.hint ?? '試試看其他位置！')
-          return
-        }
-      }
-
-      // 嘗試落子
       const result = placeStone(state, pos)
       if (!result) {
         setHint('這個位置不能下喔！')
@@ -85,7 +74,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
       setHint(null)
       setStepCompleted(true)
     },
-    [state, currentTarget, isObservationStep, step, stepCompleted],
+    [state, currentTarget, boardLocked, step],
   )
 
   const nextStep = useCallback(() => {
@@ -139,6 +128,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
             <GoBoard
               state={state}
               onCellClick={handleCellClick}
+              disabled={boardLocked}
               showIllegalMoves={lessonIndex >= 4}
               highlightPositions={
                 !stepCompleted && currentTarget
@@ -155,7 +145,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
 
           {/* 下一步 */}
           <div className="flex justify-center gap-3">
-            {step.hint && !hint && !stepCompleted && (
+            {step.hint && !hint && !stepCompleted && !isObservationStep && (
               <button
                 onClick={() => setHint(step.hint!)}
                 className="px-3 py-2 rounded-xl text-sm bg-cream text-warm-text hover:bg-cream/80 transition-colors"
