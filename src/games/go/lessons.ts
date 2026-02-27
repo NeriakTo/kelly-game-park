@@ -20,6 +20,7 @@ export interface Lesson {
   readonly description: string
   readonly boardSize: number
   readonly setup: readonly { pos: Position; color: StoneColor }[]
+  readonly currentTurn?: StoneColor // 起始落子顏色，預設 'black'
   readonly steps: readonly LessonStep[]
   readonly targets: readonly StepTarget[]
 }
@@ -51,6 +52,7 @@ export const LESSONS: readonly Lesson[] = [
     setup: [
       { pos: [4, 4], color: 'black' },
     ],
+    currentTurn: 'white',
     steps: [
       { instruction: '中間的黑棋有 4 口氣（上、下、左、右四個空的交叉點）。看看棋盤上的黑棋！' },
       { instruction: '如果白棋下在黑棋旁邊，黑棋的氣就少了。請在綠色標記的位置放一顆白棋。', hint: '點綠色標記的位置' },

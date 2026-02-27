@@ -40,7 +40,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
   const [lessonIndex, setLessonIndex] = useState(0)
   const [stepIndex, setStepIndex] = useState(0)
   const [state, setState] = useState<GoState>(() =>
-    createStateFromSetup(LESSONS[0].boardSize, LESSONS[0].setup),
+    createStateFromSetup(LESSONS[0].boardSize, LESSONS[0].setup, LESSONS[0].currentTurn),
   )
   const [hint, setHint] = useState<string | null>(null)
   const [stepCompleted, setStepCompleted] = useState(false)
@@ -73,7 +73,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
     const l = LESSONS[idx]
     setLessonIndex(idx)
     setStepIndex(0)
-    setState(createStateFromSetup(l.boardSize, l.setup))
+    setState(createStateFromSetup(l.boardSize, l.setup, l.currentTurn))
     setHint(null)
     setStepCompleted(false)
   }, [])
@@ -120,12 +120,14 @@ export default function LessonMode({ onBack }: LessonModeProps) {
       setProgress(updated)
       saveProgress(updated)
 
-      // 進入下一課或回到列表
+      // 進入下一課或回到首頁
       if (lessonIndex + 1 < LESSONS.length) {
         startLesson(lessonIndex + 1)
+      } else {
+        onBack()
       }
     }
-  }, [stepIndex, lesson, lessonIndex, progress, startLesson])
+  }, [stepIndex, lesson, lessonIndex, progress, startLesson, onBack])
 
   const canProceed = stepCompleted || isObservation
 
