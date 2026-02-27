@@ -5,7 +5,6 @@ import type { GoState, Position, GoProgress } from './types'
 import { GO_PROGRESS_KEY } from './types'
 import { createStateFromSetup, placeStone } from './engine'
 import { LESSONS } from './lessons'
-import type { Lesson } from './lessons'
 import GoBoard from './GoBoard'
 import HintBubble from './HintBubble'
 
@@ -49,15 +48,27 @@ export default function LessonMode({ onBack }: LessonModeProps) {
     setStepCompleted(false)
   }, [])
 
+  // 當前步驟是否為觀察步驟（targetMoves[stepIndex] === null）
+  const currentTarget = lesson.targetMoves[stepIndex] ?? null
+  const isObservationStep = currentTarget === null
+
   const handleCellClick = useCallback(
     (pos: Position) => {
       if (stepCompleted) return
-
-      const targetMove = lesson.targetMoves[stepIndex]
+      // 觀察步驟仍允許自由落子（探索用），但不強制
+      if (isObservationStep) {
+        const result = placeStone(state, pos)
+        if (result) {
+          setState(result)
+        } else {
+          setHint('這個位置不能下喔！')
+        }
+        return
+      }
 
       // 有目標位置的引導題
-      if (targetMove) {
-        if (pos[0] !== targetMove[0] || pos[1] !== targetMove[1]) {
+      if (currentTarget) {
+        if (pos[0] !== currentTarget[0] || pos[1] !== currentTarget[1]) {
           setHint(step.hint ?? '試試看其他位置！')
           return
         }
@@ -74,7 +85,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
       setHint(null)
       setStepCompleted(true)
     },
-    [state, lesson, stepIndex, step, stepCompleted],
+    [state, currentTarget, isObservationStep, step, stepCompleted],
   )
 
   const nextStep = useCallback(() => {
@@ -100,7 +111,7 @@ export default function LessonMode({ onBack }: LessonModeProps) {
     }
   }, [stepIndex, lesson, lessonIndex, progress, startLesson])
 
-  const canProceed = stepCompleted || lesson.freePlay || lesson.targetMoves.length === 0
+  const canProceed = stepCompleted || isObservationStep
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -130,8 +141,8 @@ export default function LessonMode({ onBack }: LessonModeProps) {
               onCellClick={handleCellClick}
               showIllegalMoves={lessonIndex >= 4}
               highlightPositions={
-                !stepCompleted && lesson.targetMoves[stepIndex]
-                  ? [lesson.targetMoves[stepIndex]]
+                !stepCompleted && currentTarget
+                  ? [currentTarget]
                   : []
               }
             />
