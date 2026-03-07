@@ -8,6 +8,7 @@ interface CoinPanelProps {
   readonly onRemoveCoin: (index: number) => void
   readonly onConfirm: () => void
   readonly onClear: () => void
+  readonly targetAmount?: number
   readonly disabled?: boolean
 }
 
@@ -46,9 +47,11 @@ export default function CoinPanel({
   onRemoveCoin,
   onConfirm,
   onClear,
+  targetAmount,
   disabled = false,
 }: CoinPanelProps) {
   const total = paidCoins.reduce((sum, v) => sum + v, 0)
+  const diff = typeof targetAmount === 'number' ? total - targetAmount : null
 
   return (
     <div className="space-y-3">
@@ -58,6 +61,16 @@ export default function CoinPanel({
           <span className="text-xs text-warm-text-light">已付款</span>
           <span className="text-sm font-bold text-fossil">合計：{total} 元</span>
         </div>
+        {typeof targetAmount === 'number' && (
+          <div className="mb-2 text-xs text-warm-text-light">
+            目標金額：{targetAmount} 元
+            {diff !== null && (
+              <span className={`ml-2 font-medium ${diff === 0 ? 'text-emerald-600' : diff > 0 ? 'text-amber-700' : 'text-sky-700'}`}>
+                {diff === 0 ? '剛剛好！' : diff > 0 ? `多付 ${diff} 元` : `還差 ${Math.abs(diff)} 元`}
+              </span>
+            )}
+          </div>
+        )}
         <div className="flex flex-wrap gap-1.5">
           <AnimatePresence>
             {paidCoins.map((coin, idx) => (

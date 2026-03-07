@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BookOpen, CheckCircle2, Keyboard, Languages, Lock, PenLine, RotateCcw, Timer } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
@@ -105,6 +105,8 @@ export default function TypingGame() {
   const [lessonStartAt, setLessonStartAt] = useState<number | null>(null)
   const [lessonFinished, setLessonFinished] = useState(false)
   const [lessonPassed, setLessonPassed] = useState(false)
+  const [lessonResultSec, setLessonResultSec] = useState<number | null>(null)
+  const [lessonResultAcc, setLessonResultAcc] = useState<number | null>(null)
 
   const [articleText, setArticleText] = useState<string>(() => pickRandom(ZH_ARTICLES[difficulty]))
   const [articleInput, setArticleInput] = useState('')
@@ -129,6 +131,14 @@ export default function TypingGame() {
     setArticleDone(false)
   }
 
+  useEffect(() => {
+    const source = lang === 'zh' ? ZH_ARTICLES[difficulty] : EN_ARTICLES[difficulty]
+    setArticleText(pickRandom(source))
+    setArticleInput('')
+    setArticleStartAt(null)
+    setArticleDone(false)
+  }, [difficulty, lang])
+
   function resetLessonProgress() {
     setKeyIndex(0)
     setCorrectCount(0)
@@ -136,6 +146,8 @@ export default function TypingGame() {
     setLessonStartAt(null)
     setLessonFinished(false)
     setLessonPassed(false)
+    setLessonResultSec(null)
+    setLessonResultAcc(null)
   }
 
   const selectLesson = (idx: number) => {
@@ -149,10 +161,10 @@ export default function TypingGame() {
     }
   }
 
-  const onLessonInput = (value: string) => {
+  const handleLessonKey = useCallback((rawKey: string) => {
     if (lessonFinished) return
-    const key = value.trim().toLowerCase().slice(-1)
-    if (!key || !expectedKey) return
+    const key = rawKey.trim().toLowerCase().slice(-1)
+    if (!key || !expectedKey || !/^[a-z]$/.test(key)) return
     if (!lessonStartAt) setLessonStartAt(Date.now())
 
     if (key === expectedKey) {
@@ -164,6 +176,8 @@ export default function TypingGame() {
         const passed = sec <= currentLesson.passMaxSeconds && acc >= currentLesson.passMinAccuracy
         setLessonFinished(true)
         setLessonPassed(passed)
+        setLessonResultSec(sec)
+        setLessonResultAcc(acc)
 
         addScore({
           gameType: 'typing',
@@ -181,7 +195,38 @@ export default function TypingGame() {
     } else {
       setMistakeCount((v) => v + 1)
     }
-  }
+  }, [
+    lessonFinished,
+    expectedKey,
+    lessonStartAt,
+    correctCount,
+    keyIndex,
+    currentLesson.sequence.length,
+    currentLesson.passMaxSeconds,
+    currentLesson.passMinAccuracy,
+    mistakeCount,
+    addScore,
+    difficulty,
+    lessonIdx,
+    lang,
+  ])
+
+  useEffect(() => {
+    if (mode !== 'lesson' || lessonFinished) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key.length !== 1) return
+      const key = e.key.toLowerCase()
+      if (!/^[a-z]$/.test(key)) return
+
+      e.preventDefault()
+      handleLessonKey(key)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [mode, lessonFinished, handleLessonKey])
 
   const retryLesson = () => {
     if (lessonIdx === 3) {
@@ -192,8 +237,12 @@ export default function TypingGame() {
     resetLessonProgress()
   }
 
-  const lessonElapsed = lessonStartAt ? Math.max(1, Math.floor((Date.now() - lessonStartAt) / 1000)) : 0
-  const lessonAccuracy = correctCount + mistakeCount === 0 ? 100 : Math.round((correctCount / (correctCount + mistakeCount)) * 100)
+  const lessonElapsed = lessonFinished
+    ? (lessonResultSec ?? 0)
+    : (lessonStartAt ? Math.max(1, Math.floor((Date.now() - lessonStartAt) / 1000)) : 0)
+  const lessonAccuracy = lessonFinished
+    ? (lessonResultAcc ?? 100)
+    : (correctCount + mistakeCount === 0 ? 100 : Math.round((correctCount / (correctCount + mistakeCount)) * 100))
 
   const switchArticle = () => {
     const source = lang === 'zh' ? ZH_ARTICLES[difficulty] : EN_ARTICLES[difficulty]
@@ -203,14 +252,19 @@ export default function TypingGame() {
     setArticleDone(false)
   }
 
-  const { artCorrect, artMistakes } = useMemo(() => {
+  const calcArticleStats = (input: string) => {
     let c = 0
     let m = 0
-    for (let i = 0; i < articleInput.length; i++) {
-      if (articleInput[i] === articleText[i]) c += 1
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] === articleText[i]) c += 1
       else m += 1
     }
-    return { artCorrect: c, artMistakes: m }
+    return { correct: c, mistakes: m }
+  }
+
+  const { artCorrect, artMistakes } = useMemo(() => {
+    const stats = calcArticleStats(articleInput)
+    return { artCorrect: stats.correct, artMistakes: stats.mistakes }
   }, [articleInput, articleText])
 
   const artAcc = articleInput.length === 0 ? 100 : Math.max(0, Math.round((artCorrect / articleInput.length) * 100))
@@ -224,8 +278,10 @@ export default function TypingGame() {
 
     if (value === articleText) {
       const sec = articleStartAt ? Math.max(1, Math.floor((Date.now() - articleStartAt) / 1000)) : 1
-      const finalCpm = Math.round((articleText.length / sec) * 60)
-      const finalScore = Math.max(100, Math.round(finalCpm * 2 + artAcc * 5 - artMistakes * 3 + difficulty * 10))
+      const { correct, mistakes } = calcArticleStats(value)
+      const finalAcc = Math.max(0, Math.round((correct / value.length) * 100))
+      const finalCpm = Math.round((correct / sec) * 60)
+      const finalScore = Math.max(100, Math.round(finalCpm * 2 + finalAcc * 5 - mistakes * 3 + difficulty * 10))
       addScore({ gameType: 'typing', difficulty, score: finalScore, durationSeconds: sec })
       setArticleDone(true)
     }
@@ -281,12 +337,11 @@ export default function TypingGame() {
             <p className="text-xs text-warm-text-light">達標：{currentLesson.passMaxSeconds} 秒內，正確率 ≥ {currentLesson.passMinAccuracy}%</p>
           </div>
 
-          <input
-            autoFocus
-            onChange={(e) => { onLessonInput(e.target.value); e.currentTarget.value = '' }}
-            placeholder={lang === 'zh' ? '請按對應注音鍵位（輸入英文字母鍵）…' : 'Press the target key...'}
-            className="w-full rounded-xl border border-mint/40 bg-white p-3 text-base focus:outline-none focus:ring-2 focus:ring-mint"
-          />
+          <div className="rounded-xl border border-mint/40 bg-white p-3 text-sm text-warm-text-light">
+            {lang === 'zh'
+              ? '⌨️ 已啟用直接鍵盤輸入：不用點任何輸入框，直接按目標鍵即可。'
+              : '⌨️ Direct keyboard input is enabled. Just press the target key.'}
+          </div>
 
           <div className="space-y-2 rounded-xl bg-white p-3">
             {KEY_ROWS.map((row) => (
@@ -334,15 +389,17 @@ export default function TypingGame() {
           <textarea
             value={articleInput}
             onChange={(e) => onArticleChange(e.target.value)}
+            disabled={articleDone}
             placeholder={lang === 'zh' ? '請輸入上方短文…' : 'Type the short article above...'}
-            className="w-full min-h-32 rounded-xl border border-mint/40 bg-white p-3 text-base focus:outline-none focus:ring-2 focus:ring-mint"
+            className="w-full min-h-32 rounded-xl border border-mint/40 bg-white p-3 text-base focus:outline-none focus:ring-2 focus:ring-mint disabled:opacity-70"
           />
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-sm">
             <div className="bg-white rounded-lg p-2">正確字元：<b>{artCorrect}</b></div>
             <div className="bg-white rounded-lg p-2">錯誤數：<b>{artMistakes}</b></div>
             <div className="bg-white rounded-lg p-2">正確率：<b>{artAcc}%</b></div>
             <div className="bg-white rounded-lg p-2 flex items-center gap-1"><Timer className="w-4 h-4" />CPM：<b>{cpm}</b></div>
+            <div className="bg-white rounded-lg p-2">剩餘字元：<b>{Math.max(0, articleText.length - articleInput.length)}</b></div>
           </div>
 
           {articleDone && (

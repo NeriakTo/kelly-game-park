@@ -36,8 +36,12 @@ function pickRandom<T>(arr: readonly T[]): T {
 }
 
 function pickRandomN<T>(arr: readonly T[], n: number): T[] {
-  const shuffled = [...arr].sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, n)
+  const cloned = [...arr]
+  for (let i = cloned.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[cloned[i], cloned[j]] = [cloned[j], cloned[i]]
+  }
+  return cloned.slice(0, n)
 }
 
 function buildOptions(answer: number, count: number = 4): readonly number[] {
@@ -176,21 +180,31 @@ function generateMultipleItems(easy: boolean): ShopQuestion {
 function generateBudgetCheck(easy: boolean): ShopQuestion {
   const t = rand(0, 1)
   if (t === 0) {
-    // 模板 A：哪個買得起且最貴
+    // 模板 A：哪個買得起且最貴（保證至少有 1 個買得起）
     const budget = easy ? pickRandom([30, 50]) : pickRandom([50, 100, 150, 200])
-    const candidates = pickRandomN(getItemsByPriceRange(easy ? 3 : 10, budget + 30), 4)
+    const minPrice = easy ? 3 : 10
+    const affordablePool = getItemsByPriceRange(minPrice, budget)
+    const candidatePool = getItemsByPriceRange(minPrice, budget + 30)
+
+    const mustAffordable = pickRandom(affordablePool)
+    const others = pickRandomN(candidatePool.filter((i) => i.id !== mustAffordable.id), 3)
+    const candidates = [mustAffordable, ...others]
+
     const affordable = candidates.filter((i) => i.price <= budget)
-    const mostExpensive = affordable.length > 0
-      ? affordable.reduce((a, b) => (a.price > b.price ? a : b))
-      : candidates.reduce((a, b) => (a.price < b.price ? a : b))
+    const mostExpensive = affordable.reduce((a, b) => (a.price > b.price ? a : b))
+
     return {
       type: 'budget-check',
       description: `你有 ${budget} 元，下面哪個買得起而且最貴？`,
-      items: candidates, budget, options: candidates.map((i) => i.price),
-      hint: `找出 ${budget} 元以內最貴的東西！`, answer: mostExpensive.price,
+      items: candidates,
+      budget,
+      options: candidates.map((i) => i.price),
+      hint: `找出 ${budget} 元以內最貴的東西！`,
+      answer: mostExpensive.price,
     }
   }
-  // 模板 B：夠不夠買
+
+  // 模板 B：夠不夠買（UI 會顯示成「夠 / 不夠」）
   const budget = easy ? pickRandom([50, 100]) : pickRandom([100, 200, 300])
   const items = pickRandomN(getItemsByPriceRange(easy ? 3 : 10, easy ? 30 : 80), easy ? 2 : 3)
   const total = items.reduce((s, i) => s + i.price, 0)
@@ -198,9 +212,12 @@ function generateBudgetCheck(easy: boolean): ShopQuestion {
   const itemDesc = items.map((i) => `${i.emoji}${i.name}(${i.price}元)`).join('、')
   return {
     type: 'budget-check',
-    description: `你有 ${budget} 元，買 ${itemDesc} 夠嗎？（夠=1，不夠=0）`,
-    items, budget, options: [0, 1].sort(() => Math.random() - 0.5),
-    hint: `先算總價 ${total} 元，再跟 ${budget} 元比較。`, answer: enough,
+    description: `你有 ${budget} 元，買 ${itemDesc}，請選擇「夠」或「不夠」。`,
+    items,
+    budget,
+    options: Math.random() > 0.5 ? [0, 1] : [1, 0],
+    hint: `先算總價 ${total} 元，再跟 ${budget} 元比較。`,
+    answer: enough,
   }
 }
 

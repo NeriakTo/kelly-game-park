@@ -158,7 +158,10 @@ export default function DinoShopGame() {
         correctStreakRef.current = 0
         consecutiveWrongRef.current += 1
         setFeedback('wrong')
-        setMessage(`答案是 ${question.answer} 元喔，沒關係，下次會更好！`)
+        const answerLabel = isBinaryBudgetCheck
+          ? (question.answer === 1 ? '夠' : '不夠')
+          : `${question.answer} 元`
+        setMessage(`答案是「${answerLabel}」喔，沒關係，下次會更好！`)
         setMood('hint')
       }
       setPhase('feedback')
@@ -180,6 +183,15 @@ export default function DinoShopGame() {
     handleAnswer(total)
   }, [paidCoins, handleAnswer])
 
+  const isBinaryBudgetCheck =
+    question.type === 'budget-check' &&
+    !!question.options &&
+    question.options.length === 2 &&
+    question.options.includes(0) &&
+    question.options.includes(1)
+
+  const isItemSelectBudgetCheck = question.type === 'budget-check' && !isBinaryBudgetCheck
+
   const handleAddCoin = useCallback((value: CoinValue) => {
     setPaidCoins((prev) => [...prev, value])
   }, [])
@@ -189,7 +201,7 @@ export default function DinoShopGame() {
   }, [])
 
   const showHint = useCallback(() => {
-    setMessage(question.hint)
+    setMessage(`${question.description}（提示：${question.hint}）`)
     setMood('hint')
   }, [question])
 
@@ -258,7 +270,7 @@ export default function DinoShopGame() {
           {question.items.length > 0 && (
             <ShopDisplay
               items={question.items}
-              selectable={question.type === 'budget-check' && phase === 'playing'}
+              selectable={isItemSelectBudgetCheck && phase === 'playing'}
               onSelect={(item) => handleOptionSelect(item.price)}
             />
           )}
@@ -271,11 +283,12 @@ export default function DinoShopGame() {
               onRemoveCoin={handleRemoveCoin}
               onConfirm={handleCoinConfirm}
               onClear={() => setPaidCoins([])}
+              targetAmount={question.targetAmount}
             />
           )}
 
           {/* 選擇題模式 */}
-          {question.options && !question.coinPayment && question.type !== 'budget-check' && (
+          {question.options && !question.coinPayment && (question.type !== 'budget-check' || isBinaryBudgetCheck) && (
             <div className="grid grid-cols-2 gap-2 p-2">
               {question.options.map((opt) => {
                 let btnClass = 'bg-white/70 border-fossil-light/40 text-warm-text hover:border-fossil'
@@ -288,6 +301,9 @@ export default function DinoShopGame() {
                     btnClass = 'bg-white/40 border-gray-200 text-gray-400'
                   }
                 }
+                const label = isBinaryBudgetCheck
+                  ? (opt === 1 ? '夠' : '不夠')
+                  : `${opt} 元`
                 return (
                   <motion.button
                     key={opt}
@@ -296,7 +312,7 @@ export default function DinoShopGame() {
                     disabled={phase !== 'playing'}
                     className={`py-3 px-4 rounded-xl border-2 text-lg font-bold transition-all ${btnClass}`}
                   >
-                    {opt} 元
+                    {label}
                   </motion.button>
                 )
               })}
