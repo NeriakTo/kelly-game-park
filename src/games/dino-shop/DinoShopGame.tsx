@@ -162,8 +162,8 @@ export default function DinoShopGame() {
         const answerLabel = isBinaryBudgetCheck
           ? (question.answer === 1 ? '夠' : '不夠')
           : isComparePrices
-            ? (compareAnswerItem ? `${compareAnswerItem.emoji} ${compareAnswerItem.name}` : `${question.answer} 元`)
-            : `${question.answer} 元`
+            ? (compareAnswerItem ? `${compareAnswerItem.emoji} ${compareAnswerItem.name}` : formatNumericOption(question.answer))
+            : formatNumericOption(question.answer)
         setMessage(`答案是「${answerLabel}」喔，沒關係，下次會更好！`)
         setMood('hint')
       }
@@ -195,6 +195,8 @@ export default function DinoShopGame() {
 
   const isItemSelectBudgetCheck = question.type === 'budget-check' && !isBinaryBudgetCheck
   const isComparePrices = question.type === 'compare-prices'
+  const numericOptionUnit = question.optionUnit ?? 'yuan'
+  const formatNumericOption = (value: number) => (numericOptionUnit === 'count' ? `${value} 個` : `${value} 元`)
 
   const handleAddCoin = useCallback((value: CoinValue) => {
     setPaidCoins((prev) => [...prev, value])
@@ -307,7 +309,7 @@ export default function DinoShopGame() {
                 }
                 const label = isBinaryBudgetCheck
                   ? (opt === 1 ? '夠' : '不夠')
-                  : `${opt} 元`
+                  : formatNumericOption(opt)
                 return (
                   <motion.button
                     key={opt}

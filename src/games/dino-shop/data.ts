@@ -101,7 +101,7 @@ function generateRecognizeCoins(easy: boolean): ShopQuestion {
   const howMany = big / small
   return {
     type: 'recognize-coins', description: `1 個 ${big} 元可以換成幾個 ${small} 元？`,
-    items: [], targetAmount: howMany, options: buildOptions(howMany),
+    items: [], targetAmount: howMany, options: buildOptions(howMany), optionUnit: 'count',
     hint: `${big} ÷ ${small} = ?`, answer: howMany,
   }
 }

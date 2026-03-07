@@ -22,6 +22,8 @@ export interface ShopItem {
   readonly category: 'egg' | 'fossil' | 'tool' | 'model' | 'food'
 }
 
+export type OptionUnit = 'yuan' | 'count'
+
 export interface ShopQuestion {
   readonly type: QuestionType
   readonly description: string
@@ -29,6 +31,7 @@ export interface ShopQuestion {
   readonly targetAmount?: number
   readonly budget?: number
   readonly options?: readonly number[]
+  readonly optionUnit?: OptionUnit // 題目選項顯示單位，預設為 yuan
   readonly hint: string
   readonly answer: number
   readonly coinPayment?: boolean // true = 需要用硬幣面板付款
