@@ -158,9 +158,12 @@ export default function DinoShopGame() {
         correctStreakRef.current = 0
         consecutiveWrongRef.current += 1
         setFeedback('wrong')
+        const compareAnswerItem = question.items.find((item) => item.price === question.answer)
         const answerLabel = isBinaryBudgetCheck
           ? (question.answer === 1 ? '夠' : '不夠')
-          : `${question.answer} 元`
+          : isComparePrices
+            ? (compareAnswerItem ? `${compareAnswerItem.emoji} ${compareAnswerItem.name}` : `${question.answer} 元`)
+            : `${question.answer} 元`
         setMessage(`答案是「${answerLabel}」喔，沒關係，下次會更好！`)
         setMood('hint')
       }
@@ -191,6 +194,7 @@ export default function DinoShopGame() {
     question.options.includes(1)
 
   const isItemSelectBudgetCheck = question.type === 'budget-check' && !isBinaryBudgetCheck
+  const isComparePrices = question.type === 'compare-prices'
 
   const handleAddCoin = useCallback((value: CoinValue) => {
     setPaidCoins((prev) => [...prev, value])
@@ -270,7 +274,7 @@ export default function DinoShopGame() {
           {question.items.length > 0 && (
             <ShopDisplay
               items={question.items}
-              selectable={isItemSelectBudgetCheck && phase === 'playing'}
+              selectable={(isItemSelectBudgetCheck || isComparePrices) && phase === 'playing'}
               onSelect={(item) => handleOptionSelect(item.price)}
             />
           )}
@@ -288,7 +292,7 @@ export default function DinoShopGame() {
           )}
 
           {/* 選擇題模式 */}
-          {question.options && !question.coinPayment && (question.type !== 'budget-check' || isBinaryBudgetCheck) && (
+          {question.options && !question.coinPayment && question.type !== 'compare-prices' && (question.type !== 'budget-check' || isBinaryBudgetCheck) && (
             <div className="grid grid-cols-2 gap-2 p-2">
               {question.options.map((opt) => {
                 let btnClass = 'bg-white/70 border-fossil-light/40 text-warm-text hover:border-fossil'
