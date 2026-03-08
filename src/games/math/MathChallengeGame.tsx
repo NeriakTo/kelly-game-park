@@ -52,6 +52,8 @@ function saveUnitStats(stats: Record<string, UnitStat>) {
 export default function MathChallengeGame() {
   const addScore = useGameStore((s) => s.addScore)
   const aiConfig = useGameStore((s) => s.aiConfig)
+  const aiMode = useGameStore((s) => s.aiModes.math)
+  const setAIMode = useGameStore((s) => s.setAIMode)
 
   const [grade, setGrade] = useState<Grade>(2)
   const [units, setUnits] = useState<readonly Unit[]>(() => GRADE_UNITS[2])
@@ -137,7 +139,7 @@ export default function MathChallengeGame() {
     easy: boolean,
   ): Promise<{ problem: Problem; source: 'local' | 'ai'; reason: string | null }> => {
     const fallback = () => buildNextProblem(unitId, nextMode, easy)
-    if (!aiConfig || nextMode === 'wrong-review') {
+    if (aiMode !== 'ai' || !aiConfig || nextMode === 'wrong-review') {
       return { problem: fallback(), source: 'local', reason: null }
     }
 
@@ -156,7 +158,7 @@ export default function MathChallengeGame() {
       source: result.source,
       reason: result.source === 'local' ? result.reason : null,
     }
-  }, [aiConfig, grade, buildNextProblem])
+  }, [aiMode, aiConfig, grade, buildNextProblem])
 
   const prefetchUpcoming = useCallback((unitId: string, nextMode: 'normal' | 'wrong-review', easy: boolean) => {
     const seq = ++prefetchSeqRef.current
@@ -338,6 +340,22 @@ export default function MathChallengeGame() {
     <div className="w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
       <div className="rounded-xl bg-cream-light p-3 text-sm text-warm-text-light">{gradeGuide}</div>
 
+      <div className="flex items-center justify-center gap-2 text-sm">
+        <span className="text-warm-text-light">出題模式：</span>
+        <button
+          onClick={() => { setAIMode('math', 'local'); resetRun() }}
+          className={`px-3 py-1.5 rounded-full ${aiMode === 'local' ? 'bg-mint text-warm-text' : 'bg-white text-warm-text-light'}`}
+        >
+          本地題庫
+        </button>
+        <button
+          onClick={() => { setAIMode('math', 'ai'); resetRun() }}
+          className={`px-3 py-1.5 rounded-full ${aiMode === 'ai' ? 'bg-sky-light text-warm-text' : 'bg-white text-warm-text-light'}`}
+        >
+          AI 出題
+        </button>
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {([1, 2, 3, 4, 5, 6] as Grade[]).map((g) => (
           <button
@@ -416,7 +434,7 @@ export default function MathChallengeGame() {
               {mode === 'wrong-review' ? '錯題回練模式' : '單元練習模式'}｜課綱：{problem.curriculumTag}｜來源：
               {problemSource === 'ai'
                 ? 'AI'
-                : aiConfig
+                : aiMode === 'ai' && aiConfig
                   ? `本地題庫${mapAIReasonLabel(aiFallbackReason)}`
                   : '本地題庫'}
             </p>

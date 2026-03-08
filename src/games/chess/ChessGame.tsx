@@ -35,6 +35,8 @@ const CUTE_PIECES: Record<string, CutePieceSkin> = {
 export default function ChessGame() {
   const currentDifficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
+  const aiMode = useGameStore((s) => s.aiModes.chess)
+  const setAIMode = useGameStore((s) => s.setAIMode)
   const [board, setBoard] = useState<ChessBoard>(createInitialBoard)
   const [selected, setSelected] = useState<Position | null>(null)
   const [validMoves, setValidMoves] = useState<Position[]>([])
@@ -92,7 +94,7 @@ export default function ChessGame() {
   }, [startTime, currentDifficulty, addScore])
 
   useEffect(() => {
-    if (turn !== 'black' || gameOver) return
+    if (aiMode !== 'ai' || turn !== 'black' || gameOver) return
     setThinking(true)
     const timer = setTimeout(() => {
       const move = getAIMove(board, currentDifficulty)
@@ -110,10 +112,11 @@ export default function ChessGame() {
       }
     }, 450)
     return () => clearTimeout(timer)
-  }, [turn, board, currentDifficulty, gameOver, checkGameEnd])
+  }, [aiMode, turn, board, currentDifficulty, gameOver, checkGameEnd])
 
   const handleClick = useCallback((r: number, c: number) => {
-    if (turn !== 'red' || gameOver || thinking) return
+    if (gameOver || thinking) return
+    if (aiMode === 'ai' && turn !== 'red') return
 
     const piece = board[r][c]
 
@@ -126,14 +129,15 @@ export default function ChessGame() {
         setValidMoves([])
         setLastAIMove(null)
 
-        if (!checkGameEnd(next, 'black')) {
-          setTurn('black')
+        const nextTurn = turn === 'red' ? 'black' : 'red'
+        if (!checkGameEnd(next, nextTurn)) {
+          setTurn(nextTurn)
         }
         return
       }
     }
 
-    if (piece && piece.color === 'red') {
+    if (piece && piece.color === turn) {
       setSelected([r, c])
       setValidMoves(getValidMoves(board, r, c))
     } else {

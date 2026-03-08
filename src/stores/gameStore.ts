@@ -2,16 +2,21 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { Difficulty, GameScore, GameType, PlayerProfile, AIConfig } from '../types'
 
+type AIToggleGame = 'math' | 'dino-shop' | 'chess' | 'go'
+export type GameAIModes = Record<AIToggleGame, 'ai' | 'local'>
+
 interface GameState {
   profile: PlayerProfile
   scores: GameScore[]
   aiConfig: AIConfig | null
+  aiModes: GameAIModes
   currentDifficulty: Difficulty
 
   setProfile: (profile: PlayerProfile) => void
   setDifficulty: (d: Difficulty) => void
   addScore: (score: { gameType: GameType; difficulty: Difficulty; score: number; durationSeconds: number }) => void
   setAIConfig: (config: AIConfig | null) => void
+  setAIMode: (game: AIToggleGame, mode: 'ai' | 'local') => void
 }
 
 // API Key 分離儲存：只存在使用者瀏覽器，不進主 persist
@@ -45,12 +50,20 @@ function writeAIConfigToBrowser(config: AIConfig | null) {
   } catch {}
 }
 
+const DEFAULT_AI_MODES: GameAIModes = {
+  math: 'ai',
+  'dino-shop': 'ai',
+  chess: 'ai',
+  go: 'ai',
+}
+
 export const useGameStore = create<GameState>()(
   persist(
     (set) => ({
       profile: { nickname: 'Kelly', avatar: '🐱' },
       scores: [],
       aiConfig: readAIConfigFromBrowser(),
+      aiModes: DEFAULT_AI_MODES,
       currentDifficulty: 1 as Difficulty,
 
       setProfile: (profile) => set({ profile }),
@@ -66,6 +79,9 @@ export const useGameStore = create<GameState>()(
         writeAIConfigToBrowser(aiConfig)
         set({ aiConfig })
       },
+      setAIMode: (game, mode) => {
+        set((state) => ({ aiModes: { ...state.aiModes, [game]: mode } }))
+      },
     }),
     {
       name: 'kelly-game-park',
@@ -73,7 +89,19 @@ export const useGameStore = create<GameState>()(
         profile: state.profile,
         scores: state.scores,
         currentDifficulty: state.currentDifficulty,
+        aiModes: state.aiModes,
       }),
+      merge: (persisted, current) => {
+        const incoming = (persisted as Partial<GameState>) ?? {}
+        return {
+          ...current,
+          ...incoming,
+          aiModes: {
+            ...DEFAULT_AI_MODES,
+            ...(incoming.aiModes ?? {}),
+          },
+        }
+      },
     },
   ),
 )

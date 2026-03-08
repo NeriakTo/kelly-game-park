@@ -67,6 +67,8 @@ export default function DinoShopGame() {
   const difficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
   const aiConfig = useGameStore((s) => s.aiConfig)
+  const aiMode = useGameStore((s) => s.aiModes['dino-shop'])
+  const setAIMode = useGameStore((s) => s.setAIMode)
 
   const [stage, setStage] = useState<StageId>('A')
   const [question, setQuestion] = useState<ShopQuestion>(() => generateQuestion('A', difficulty))
@@ -138,7 +140,7 @@ export default function DinoShopGame() {
       fallbackQuestion.type === 'compare-prices' ||
       (fallbackQuestion.type === 'budget-check' && !isBinaryBudgetCheck)
 
-    if (!aiConfig || aiUnsafeQuestion) {
+    if (aiMode !== 'ai' || !aiConfig || aiUnsafeQuestion) {
       return { question: fallbackQuestion, source: 'local', reason: null }
     }
 
@@ -172,7 +174,7 @@ export default function DinoShopGame() {
       source: result.source,
       reason: result.source === 'local' ? result.reason : null,
     }
-  }, [aiConfig, difficulty])
+  }, [aiMode, aiConfig, difficulty])
 
   const prefetchUpcoming = useCallback((currentStage: StageId, easy: boolean) => {
     const seq = ++prefetchSeqRef.current
@@ -357,13 +359,29 @@ export default function DinoShopGame() {
         </span>
       </div>
 
+      <div className="flex items-center justify-center gap-2 text-xs">
+        <span className="text-warm-text-light">出題模式：</span>
+        <button
+          onClick={() => { setAIMode('dino-shop', 'local'); resetGame() }}
+          className={`px-2.5 py-1 rounded-full ${aiMode === 'local' ? 'bg-mint text-warm-text' : 'bg-white text-warm-text-light'}`}
+        >
+          本地題庫
+        </button>
+        <button
+          onClick={() => { setAIMode('dino-shop', 'ai'); resetGame() }}
+          className={`px-2.5 py-1 rounded-full ${aiMode === 'ai' ? 'bg-sky-light text-warm-text' : 'bg-white text-warm-text-light'}`}
+        >
+          AI 出題
+        </button>
+      </div>
+
       {/* 店長對話 */}
       <Shopkeeper message={message} mood={mood} />
       <div className="text-xs text-warm-text-light text-center">
         出題來源：
         {questionSource === 'ai'
           ? 'AI'
-          : aiConfig
+          : aiMode === 'ai' && aiConfig
             ? mapAIReasonLabel(aiFallbackReason)
             : '本地題庫'}
       </div>
