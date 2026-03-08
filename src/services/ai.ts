@@ -35,6 +35,19 @@ export type AIResult<T> =
 
 const AI_TIMEOUT_MS = 6000
 
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0
+}
+
+function toFiniteNumber(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) return value
+  if (typeof value === 'string' && value.trim() !== '') {
+    const n = Number(value)
+    if (Number.isFinite(n)) return n
+  }
+  return null
+}
+
 function safeJsonParse<T>(raw: string): T | null {
   try {
     return JSON.parse(raw) as T
@@ -43,27 +56,50 @@ function safeJsonParse<T>(raw: string): T | null {
   }
 }
 
-function isNonEmptyString(value: unknown): value is string {
-  return typeof value === 'string' && value.trim().length > 0
+function extractJsonObjectString(raw: string): string {
+  const trimmed = raw.trim()
+
+  // ```json ... ```
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i)
+  if (fenced?.[1]) return fenced[1].trim()
+
+  // 抓第一個完整 JSON 物件
+  const first = trimmed.indexOf('{')
+  const last = trimmed.lastIndexOf('}')
+  if (first >= 0 && last > first) return trimmed.slice(first, last + 1)
+
+  return trimmed
 }
 
-function isFiniteNumber(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value)
+function parseAiJson<T>(raw: string): T | null {
+  const direct = safeJsonParse<T>(raw)
+  if (direct) return direct
+
+  const extracted = extractJsonObjectString(raw)
+  if (extracted !== raw) return safeJsonParse<T>(extracted)
+
+  return null
 }
 
-function normalizeOptions(options?: readonly number[]): number[] | undefined {
+function normalizeOptions(options?: readonly unknown[]): number[] | undefined {
   if (!options || options.length === 0) return undefined
-  const deduped = Array.from(new Set(options.filter((n) => isFiniteNumber(n) && n >= 0)))
+  const normalized = options
+    .map((n) => toFiniteNumber(n))
+    .filter((n): n is number => n !== null && n >= 0)
+  const deduped = Array.from(new Set(normalized))
   return deduped.length > 0 ? deduped : undefined
 }
 
 function isMathProblem(value: unknown): value is AIMathProblem {
   if (!value || typeof value !== 'object') return false
   const v = value as Record<string, unknown>
+
+  const answer = toFiniteNumber(v.answer)
+
   return (
     isNonEmptyString(v.text) &&
-    isFiniteNumber(v.answer) &&
-    Math.abs(v.answer) <= 1_000_000_000 &&
+    answer !== null &&
+    Math.abs(answer) <= 1_000_000_000 &&
     isNonEmptyString(v.hint) &&
     isNonEmptyString(v.unitId) &&
     isNonEmptyString(v.curriculumTag)
@@ -85,15 +121,15 @@ function isShopQuestion(value: unknown): value is AIShopQuestion {
   if (!value || typeof value !== 'object') return false
   const v = value as Record<string, unknown>
 
-  const options = Array.isArray(v.options) ? v.options : undefined
-  const optionsOk =
-    options === undefined ||
-    (options.length >= 2 && options.length <= 6 && options.every((n) => isFiniteNumber(n) && n >= 0))
+  const answer = toFiniteNumber(v.answer)
+  const optionsRaw = Array.isArray(v.options) ? v.options : undefined
+  const normalizedOptions = normalizeOptions(optionsRaw)
+  const optionsOk = optionsRaw === undefined || Boolean(normalizedOptions && normalizedOptions.length >= 2 && normalizedOptions.length <= 6)
 
   return (
     isNonEmptyString(v.description) &&
-    isFiniteNumber(v.answer) &&
-    Math.abs(v.answer) <= 1_000_000_000 &&
+    answer !== null &&
+    Math.abs(answer) <= 1_000_000_000 &&
     isNonEmptyString(v.hint) &&
     optionsOk
   )
@@ -135,9 +171,17 @@ async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: numbe
   }
 }
 
-function detectProviderReason(error: unknown): string {
+function normalizeProviderReason(error: unknown): string {
   if (error instanceof DOMException && error.name === 'AbortError') return 'provider_timeout'
-  if (error instanceof Error && /AbortError|timed out|timeout/i.test(error.message)) return 'provider_timeout'
+  if (error instanceof Error) {
+    if (/AbortError|timed out|timeout/i.test(error.message)) return 'provider_timeout'
+    if (/HTTP 400/i.test(error.message)) return 'provider_bad_request'
+    if (/HTTP 401/i.test(error.message)) return 'provider_auth_error'
+    if (/HTTP 403/i.test(error.message)) return 'provider_permission_denied'
+    if (/HTTP 404/i.test(error.message)) return 'provider_not_found'
+    if (/HTTP 429/i.test(error.message)) return 'provider_rate_limited'
+    if (/HTTP 5\d\d/i.test(error.message)) return 'provider_server_error'
+  }
   return 'provider_error'
 }
 
@@ -163,7 +207,11 @@ async function callOpenAI(config: AIConfig, systemPrompt: string, userPrompt: st
     AI_TIMEOUT_MS,
   )
 
-  if (!res.ok) throw new Error(`OpenAI HTTP ${res.status}`)
+  if (!res.ok) {
+    const body = await res.text().catch(() => '')
+    throw new Error(`OpenAI HTTP ${res.status}${body ? ` ${body.slice(0, 120)}` : ''}`)
+  }
+
   const json = await res.json() as { choices?: Array<{ message?: { content?: string } }> }
   const content = json.choices?.[0]?.message?.content
   if (!content) throw new Error('OpenAI empty response')
@@ -189,9 +237,17 @@ async function callGemini(config: AIConfig, systemPrompt: string, userPrompt: st
     AI_TIMEOUT_MS,
   )
 
-  if (!res.ok) throw new Error(`Gemini HTTP ${res.status}`)
-  const json = await res.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> }
-  const content = json.candidates?.[0]?.content?.parts?.[0]?.text
+  if (!res.ok) {
+    const body = await res.text().catch(() => '')
+    throw new Error(`Gemini HTTP ${res.status}${body ? ` ${body.slice(0, 120)}` : ''}`)
+  }
+
+  const json = await res.json() as {
+    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>
+  }
+
+  const parts = json.candidates?.[0]?.content?.parts ?? []
+  const content = parts.map((p) => p.text ?? '').join('').trim()
   if (!content) throw new Error('Gemini empty response')
   return content
 }
@@ -226,13 +282,13 @@ export async function generateMathProblemWithAI(
 
   try {
     const raw = await callAI(config, systemPrompt, userPrompt)
-    const parsed = safeJsonParse<unknown>(raw)
+    const parsed = parseAiJson<unknown>(raw)
     if (!isMathProblem(parsed)) {
       return { source: 'local', data: fallback(), reason: 'invalid_schema' }
     }
     return { source: 'ai', data: sanitizeMathProblem(parsed, req) }
   } catch (error) {
-    return { source: 'local', data: fallback(), reason: detectProviderReason(error) }
+    return { source: 'local', data: fallback(), reason: normalizeProviderReason(error) }
   }
 }
 
@@ -260,12 +316,12 @@ export async function generateShopQuestionWithAI(
 
   try {
     const raw = await callAI(config, systemPrompt, userPrompt)
-    const parsed = safeJsonParse<unknown>(raw)
+    const parsed = parseAiJson<unknown>(raw)
     if (!isShopQuestion(parsed)) {
       return { source: 'local', data: fallback(), reason: 'invalid_schema' }
     }
     return { source: 'ai', data: sanitizeShopQuestion(parsed) }
   } catch (error) {
-    return { source: 'local', data: fallback(), reason: detectProviderReason(error) }
+    return { source: 'local', data: fallback(), reason: normalizeProviderReason(error) }
   }
 }

@@ -77,6 +77,7 @@ export default function MathChallengeGame() {
   const [problem, setProblem] = useState<Problem>(() => buildNextProblem(selectedUnitId, 'normal', false))
   const [options, setOptions] = useState<number[]>(() => buildOptions(problem.answer, grade))
   const [problemSource, setProblemSource] = useState<'local' | 'ai'>('local')
+  const [aiFallbackReason, setAiFallbackReason] = useState<string | null>(null)
 
   const [questionNo, setQuestionNo] = useState(1)
   const [correct, setCorrect] = useState(0)
@@ -100,6 +101,24 @@ export default function MathChallengeGame() {
     return `108課綱國小 ${grade} 年級數學：${units.map((u) => u.name).join('、')}`
   }, [grade, units])
 
+  const mapAIReasonLabel = (reason: string | null): string => {
+    switch (reason) {
+      case 'provider_auth_error':
+      case 'provider_permission_denied':
+        return '（AI Key 權限或限制設定問題，自動回退）'
+      case 'provider_rate_limited':
+        return '（AI 配額或速率限制，自動回退）'
+      case 'provider_timeout':
+        return '（AI 回應逾時，自動回退）'
+      case 'invalid_schema':
+        return '（AI 回傳格式異常，自動回退）'
+      case 'provider_bad_request':
+        return '（AI 請求參數異常，自動回退）'
+      default:
+        return '（AI 暫不可用，自動回退）'
+    }
+  }
+
   const buildNextProblemWithAI = useCallback(async (
     unitId: string,
     nextMode: 'normal' | 'wrong-review',
@@ -108,6 +127,7 @@ export default function MathChallengeGame() {
     const fallback = () => buildNextProblem(unitId, nextMode, easy)
     if (!aiConfig || nextMode === 'wrong-review') {
       setProblemSource('local')
+      setAiFallbackReason(null)
       return fallback()
     }
 
@@ -121,6 +141,7 @@ export default function MathChallengeGame() {
       fallback,
     )
     setProblemSource(result.source)
+    setAiFallbackReason(result.source === 'local' ? result.reason : null)
     return result.data
   }, [aiConfig, grade, buildNextProblem])
 
@@ -354,7 +375,7 @@ export default function MathChallengeGame() {
               {problemSource === 'ai'
                 ? 'AI'
                 : aiConfig
-                  ? '本地題庫（AI 暫不可用，自動回退）'
+                  ? `本地題庫${mapAIReasonLabel(aiFallbackReason)}`
                   : '本地題庫'}
             </p>
             <p className="text-2xl sm:text-3xl font-bold leading-relaxed">{problem.text}</p>

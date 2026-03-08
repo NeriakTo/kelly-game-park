@@ -81,16 +81,36 @@ export default function DinoShopGame() {
   const [message, setMessage] = useState('歡迎來到達克比的恐龍商店！')
   const [mood, setMood] = useState<'idle' | 'thinking' | 'happy' | 'hint'>('idle')
   const [questionSource, setQuestionSource] = useState<'local' | 'ai'>('local')
+  const [aiFallbackReason, setAiFallbackReason] = useState<string | null>(null)
 
   const startTimeRef = useRef(Date.now())
   const correctStreakRef = useRef(0)
   const consecutiveWrongRef = useRef(0)
   const [easyNotice, setEasyNotice] = useState(false)
 
+  const mapAIReasonLabel = (reason: string | null): string => {
+    switch (reason) {
+      case 'provider_auth_error':
+      case 'provider_permission_denied':
+        return '本地題庫（AI Key 權限或限制設定問題，自動回退）'
+      case 'provider_rate_limited':
+        return '本地題庫（AI 配額或速率限制，自動回退）'
+      case 'provider_timeout':
+        return '本地題庫（AI 回應逾時，自動回退）'
+      case 'invalid_schema':
+        return '本地題庫（AI 回傳格式異常，自動回退）'
+      case 'provider_bad_request':
+        return '本地題庫（AI 請求參數異常，自動回退）'
+      default:
+        return '本地題庫（AI 暫不可用，自動回退）'
+    }
+  }
+
   const buildQuestionWithAI = useCallback(async (currentStage: StageId, easy: boolean): Promise<ShopQuestion> => {
     const fallbackQuestion = generateQuestion(currentStage, difficulty, easy)
     if (!aiConfig || fallbackQuestion.coinPayment) {
       setQuestionSource('local')
+      setAiFallbackReason(null)
       return fallbackQuestion
     }
 
@@ -106,6 +126,7 @@ export default function DinoShopGame() {
     )
 
     setQuestionSource(result.source)
+    setAiFallbackReason(result.source === 'local' ? result.reason : null)
 
     return {
       ...fallbackQuestion,
@@ -281,7 +302,7 @@ export default function DinoShopGame() {
         {questionSource === 'ai'
           ? 'AI'
           : aiConfig
-            ? '本地題庫（AI 暫不可用，自動回退）'
+            ? mapAIReasonLabel(aiFallbackReason)
             : '本地題庫'}
       </div>
 

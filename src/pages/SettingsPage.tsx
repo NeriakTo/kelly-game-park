@@ -89,6 +89,7 @@ export default function SettingsPage() {
         <h3 className="font-bold text-lg">🤖 AI 助手</h3>
         <p className="text-xs text-warm-text-light">提供 API Key 可啟用 AI 解題提示（Key 僅存於你的瀏覽器）</p>
         <p className="text-xs text-warm-text-light">貼上 Google Key（通常是 AIza 開頭）會自動切換為 Gemini。</p>
+        <p className="text-xs text-warm-text-light">若仍無法使用，請確認該 Key 已開啟 Gemini API（Generative Language API）且允許目前網域。</p>
         <div>
           <label className="text-sm text-warm-text-light">AI 供應商</label>
           <select
