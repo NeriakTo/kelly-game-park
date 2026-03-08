@@ -89,6 +89,16 @@ export default function MathChallengeGame() {
   const [locked, setLocked] = useState(false)
   const [easyNotice, setEasyNotice] = useState(false)
 
+  const prefetchedRef = useRef<{
+    unitId: string
+    mode: 'normal' | 'wrong-review'
+    easy: boolean
+    problem: Problem
+    source: 'local' | 'ai'
+    reason: string | null
+  } | null>(null)
+  const prefetchSeqRef = useRef(0)
+
   const total = 10
   const answered = correct + wrong
   const accuracy = answered === 0 ? 100 : Math.round((correct / answered) * 100)
@@ -125,12 +135,10 @@ export default function MathChallengeGame() {
     unitId: string,
     nextMode: 'normal' | 'wrong-review',
     easy: boolean,
-  ): Promise<Problem> => {
+  ): Promise<{ problem: Problem; source: 'local' | 'ai'; reason: string | null }> => {
     const fallback = () => buildNextProblem(unitId, nextMode, easy)
     if (!aiConfig || nextMode === 'wrong-review') {
-      setProblemSource('local')
-      setAiFallbackReason(null)
-      return fallback()
+      return { problem: fallback(), source: 'local', reason: null }
     }
 
     const result = await generateMathProblemWithAI(
@@ -142,17 +150,41 @@ export default function MathChallengeGame() {
       },
       fallback,
     )
-    setProblemSource(result.source)
-    setAiFallbackReason(result.source === 'local' ? result.reason : null)
-    return result.data
+
+    return {
+      problem: result.data,
+      source: result.source,
+      reason: result.source === 'local' ? result.reason : null,
+    }
   }, [aiConfig, grade, buildNextProblem])
+
+  const prefetchUpcoming = useCallback((unitId: string, nextMode: 'normal' | 'wrong-review', easy: boolean) => {
+    const seq = ++prefetchSeqRef.current
+    void (async () => {
+      const next = await buildNextProblemWithAI(unitId, nextMode, easy)
+      if (seq !== prefetchSeqRef.current) return
+      prefetchedRef.current = {
+        unitId,
+        mode: nextMode,
+        easy,
+        problem: next.problem,
+        source: next.source,
+        reason: next.reason,
+      }
+    })()
+  }, [buildNextProblemWithAI])
 
   const resetRun = (unitId: string = selectedUnitId, nextMode: 'normal' | 'wrong-review' = mode) => {
     consecutiveWrongRef.current = 0
     setEasyNotice(false)
+    prefetchedRef.current = null
+    prefetchSeqRef.current += 1
+
     const first = buildNextProblem(unitId, nextMode, false)
     setProblem(first)
     setOptions(buildOptions(first.answer, grade))
+    setProblemSource('local')
+    setAiFallbackReason(null)
     setQuestionNo(1)
     setCorrect(0)
     setWrong(0)
@@ -162,11 +194,7 @@ export default function MathChallengeGame() {
     setFinished(false)
     setLocked(false)
 
-    void (async () => {
-      const aiFirst = await buildNextProblemWithAI(unitId, nextMode, false)
-      setProblem(aiFirst)
-      setOptions(buildOptions(aiFirst.answer, grade))
-    })()
+    prefetchUpcoming(unitId, nextMode, false)
   }
 
   const addWrongProblem = (p: Problem) => {
@@ -204,17 +232,29 @@ export default function MathChallengeGame() {
     const isEasy = consecutiveWrongRef.current >= 2
     setEasyNotice(isEasy)
 
-    const localNext = buildNextProblem(selectedUnitId, mode, isEasy)
+    const cached = prefetchedRef.current
+    const canUseCached = Boolean(
+      cached &&
+      cached.unitId === selectedUnitId &&
+      cached.mode === mode &&
+      cached.easy === isEasy,
+    )
+
+    const nextProblem = canUseCached
+      ? (cached as NonNullable<typeof cached>).problem
+      : buildNextProblem(selectedUnitId, mode, isEasy)
+
     setQuestionNo(nextNo)
-    setProblem(localNext)
-    setOptions(buildOptions(localNext.answer, grade))
+    setProblem(nextProblem)
+    setOptions(buildOptions(nextProblem.answer, grade))
+    setProblemSource(canUseCached ? (cached as NonNullable<typeof cached>).source : 'local')
+    setAiFallbackReason(canUseCached ? (cached as NonNullable<typeof cached>).reason : null)
     setFeedback(null)
     setShowHint(false)
     setLocked(false)
 
-    const aiNext = await buildNextProblemWithAI(selectedUnitId, mode, isEasy)
-    setProblem(aiNext)
-    setOptions(buildOptions(aiNext.answer, grade))
+    prefetchedRef.current = null
+    prefetchUpcoming(selectedUnitId, mode, isEasy)
   }
 
   const submitOption = (choice: number) => {

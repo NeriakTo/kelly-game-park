@@ -88,6 +88,16 @@ export default function DinoShopGame() {
   const consecutiveWrongRef = useRef(0)
   const [easyNotice, setEasyNotice] = useState(false)
 
+  const prefetchedRef = useRef<{
+    stage: StageId
+    difficulty: number
+    easy: boolean
+    question: ShopQuestion
+    source: 'local' | 'ai'
+    reason: string | null
+  } | null>(null)
+  const prefetchSeqRef = useRef(0)
+
   const mapAIReasonLabel = (reason: string | null): string => {
     switch (reason) {
       case 'provider_auth_error':
@@ -108,12 +118,14 @@ export default function DinoShopGame() {
     }
   }
 
-  const buildQuestionWithAI = useCallback(async (currentStage: StageId, easy: boolean): Promise<ShopQuestion> => {
+  const buildQuestionWithAI = useCallback(async (currentStage: StageId, easy: boolean): Promise<{
+    question: ShopQuestion
+    source: 'local' | 'ai'
+    reason: string | null
+  }> => {
     const fallbackQuestion = generateQuestion(currentStage, difficulty, easy)
     if (!aiConfig || fallbackQuestion.coinPayment) {
-      setQuestionSource('local')
-      setAiFallbackReason(null)
-      return fallbackQuestion
+      return { question: fallbackQuestion, source: 'local', reason: null }
     }
 
     const result = await generateShopQuestionWithAI(
@@ -127,26 +139,47 @@ export default function DinoShopGame() {
       }),
     )
 
-    setQuestionSource(result.source)
-    setAiFallbackReason(result.source === 'local' ? result.reason : null)
-
     return {
-      ...fallbackQuestion,
-      description: result.data.description,
-      answer: result.data.answer,
-      hint: result.data.hint,
-      options: result.data.options?.length ? result.data.options : fallbackQuestion.options,
-      coinPayment: false,
-      targetAmount: undefined,
+      question: {
+        ...fallbackQuestion,
+        description: result.data.description,
+        answer: result.data.answer,
+        hint: result.data.hint,
+        options: result.data.options?.length ? result.data.options : fallbackQuestion.options,
+        coinPayment: false,
+        targetAmount: undefined,
+      },
+      source: result.source,
+      reason: result.source === 'local' ? result.reason : null,
     }
   }, [aiConfig, difficulty])
+
+  const prefetchUpcoming = useCallback((currentStage: StageId, easy: boolean) => {
+    const seq = ++prefetchSeqRef.current
+    void (async () => {
+      const next = await buildQuestionWithAI(currentStage, easy)
+      if (seq !== prefetchSeqRef.current) return
+      prefetchedRef.current = {
+        stage: currentStage,
+        difficulty,
+        easy,
+        question: next.question,
+        source: next.source,
+        reason: next.reason,
+      }
+    })()
+  }, [buildQuestionWithAI, difficulty])
 
   const resetGame = useCallback(() => {
     consecutiveWrongRef.current = 0
     setEasyNotice(false)
+    prefetchedRef.current = null
+    prefetchSeqRef.current += 1
+
     const q = generateQuestion(stage, difficulty, false)
     setQuestion(q)
     setQuestionSource('local')
+    setAiFallbackReason(null)
     setQuestionIndex(0)
     setCorrect(0)
     setPhase('playing')
@@ -157,12 +190,8 @@ export default function DinoShopGame() {
     startTimeRef.current = Date.now()
     correctStreakRef.current = 0
 
-    void (async () => {
-      const aiQ = await buildQuestionWithAI(stage, false)
-      setQuestion(aiQ)
-      setMessage(aiQ.description)
-    })()
-  }, [stage, difficulty, buildQuestionWithAI])
+    prefetchUpcoming(stage, false)
+  }, [stage, difficulty, prefetchUpcoming])
 
   // 難度或關卡改變時重新開始
   useEffect(() => {
@@ -189,20 +218,31 @@ export default function DinoShopGame() {
     const isEasy = consecutiveWrongRef.current >= 2
     setEasyNotice(isEasy)
 
-    const localQ = generateQuestion(stage, difficulty, isEasy)
-    setQuestion(localQ)
-    setQuestionSource('local')
+    const cached = prefetchedRef.current
+    const canUseCached = Boolean(
+      cached &&
+      cached.stage === stage &&
+      cached.difficulty === difficulty &&
+      cached.easy === isEasy,
+    )
+
+    const shownQuestion = canUseCached
+      ? (cached as NonNullable<typeof cached>).question
+      : generateQuestion(stage, difficulty, isEasy)
+
+    setQuestion(shownQuestion)
+    setQuestionSource(canUseCached ? (cached as NonNullable<typeof cached>).source : 'local')
+    setAiFallbackReason(canUseCached ? (cached as NonNullable<typeof cached>).reason : null)
     setQuestionIndex((prev) => prev + 1)
     setPhase('playing')
     setSelectedOption(null)
     setPaidCoins([])
-    setMessage(localQ.description)
+    setMessage(shownQuestion.description)
     setMood('idle')
 
-    const aiQ = await buildQuestionWithAI(stage, isEasy)
-    setQuestion(aiQ)
-    setMessage(aiQ.description)
-  }, [questionIndex, stage, difficulty, correct, addScore, buildQuestionWithAI])
+    prefetchedRef.current = null
+    prefetchUpcoming(stage, isEasy)
+  }, [questionIndex, stage, difficulty, correct, addScore, prefetchUpcoming])
 
   const handleAnswer = useCallback(
     (answer: number) => {
