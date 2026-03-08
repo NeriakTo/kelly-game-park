@@ -51,8 +51,8 @@ function writeAIConfigToBrowser(config: AIConfig | null) {
 }
 
 const DEFAULT_AI_MODES: GameAIModes = {
-  math: 'ai',
-  'dino-shop': 'ai',
+  math: 'local',
+  'dino-shop': 'local',
   chess: 'ai',
   go: 'ai',
 }

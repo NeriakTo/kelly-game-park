@@ -115,21 +115,27 @@ export default function MathChallengeGame() {
 
   const mapAIReasonLabel = (reason: string | null): string => {
     switch (reason) {
+      case 'missing_api_key':
+        return '（未設定 API Key）'
       case 'provider_auth_error':
       case 'provider_permission_denied':
-        return '（AI Key 權限或限制設定問題，自動回退）'
+        return '（API Key 無效或權限不足）'
       case 'provider_rate_limited':
-        return '（AI 配額或速率限制，自動回退）'
+        return '（AI 配額或速率限制）'
       case 'provider_network_or_cors':
-        return '（AI 連線被瀏覽器或網域限制，自動回退）'
+        return '（網路連線或 CORS 限制）'
       case 'provider_timeout':
-        return '（AI 回應逾時，自動回退）'
+        return '（AI 回應逾時）'
       case 'invalid_schema':
-        return '（AI 回傳格式異常，自動回退）'
+        return '（AI 回傳格式異常）'
       case 'provider_bad_request':
-        return '（AI 請求參數異常，自動回退）'
+        return '（請求參數異常）'
+      case 'provider_not_found':
+        return '（AI 模型不存在，請確認 API 設定）'
+      case 'provider_server_error':
+        return '（AI 伺服器錯誤）'
       default:
-        return '（AI 暫不可用，自動回退）'
+        return `（AI 錯誤：${reason ?? '未知'}）`
     }
   }
 

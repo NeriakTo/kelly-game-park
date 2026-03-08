@@ -260,6 +260,20 @@ async function callAI(config: AIConfig, systemPrompt: string, userPrompt: string
   return callGemini(config, systemPrompt, userPrompt)
 }
 
+/** 測試 API Key 連線 */
+export async function testAIConnection(
+  config: AIConfig,
+): Promise<{ ok: boolean; message: string; raw?: string }> {
+  try {
+    const raw = await callAI(config, '回應 JSON：{"status":"ok"}', '請回應')
+    return { ok: true, message: `✅ 連線成功（${config.provider}）`, raw }
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error)
+    console.warn('[AI Test]', error)
+    return { ok: false, message: `❌ ${msg}` }
+  }
+}
+
 export async function generateMathProblemWithAI(
   config: AIConfig | null,
   req: AIMathRequest,
@@ -291,6 +305,7 @@ export async function generateMathProblemWithAI(
     }
     return { source: 'ai', data: sanitizeMathProblem(parsed, req) }
   } catch (error) {
+    console.warn('[AI Math]', error)
     return { source: 'local', data: fallback(), reason: normalizeProviderReason(error) }
   }
 }
@@ -325,6 +340,7 @@ export async function generateShopQuestionWithAI(
     }
     return { source: 'ai', data: sanitizeShopQuestion(parsed) }
   } catch (error) {
+    console.warn('[AI Shop]', error)
     return { source: 'local', data: fallback(), reason: normalizeProviderReason(error) }
   }
 }

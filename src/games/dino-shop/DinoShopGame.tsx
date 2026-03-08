@@ -102,21 +102,27 @@ export default function DinoShopGame() {
 
   const mapAIReasonLabel = (reason: string | null): string => {
     switch (reason) {
+      case 'missing_api_key':
+        return '本地題庫（未設定 API Key）'
       case 'provider_auth_error':
       case 'provider_permission_denied':
-        return '本地題庫（AI Key 權限或限制設定問題，自動回退）'
+        return '本地題庫（API Key 無效或權限不足）'
       case 'provider_rate_limited':
-        return '本地題庫（AI 配額或速率限制，自動回退）'
+        return '本地題庫（AI 配額或速率限制）'
       case 'provider_network_or_cors':
-        return '本地題庫（AI 連線被瀏覽器或網域限制，自動回退）'
+        return '本地題庫（網路連線或 CORS 限制）'
       case 'provider_timeout':
-        return '本地題庫（AI 回應逾時，自動回退）'
+        return '本地題庫（AI 回應逾時）'
       case 'invalid_schema':
-        return '本地題庫（AI 回傳格式異常，自動回退）'
+        return '本地題庫（AI 回傳格式異常）'
       case 'provider_bad_request':
-        return '本地題庫（AI 請求參數異常，自動回退）'
+        return '本地題庫（請求參數異常）'
+      case 'provider_not_found':
+        return '本地題庫（AI 模型不存在，請確認 API 設定）'
+      case 'provider_server_error':
+        return '本地題庫（AI 伺服器錯誤）'
       default:
-        return '本地題庫（AI 暫不可用，自動回退）'
+        return `本地題庫（AI 錯誤：${reason ?? '未知'}）`
     }
   }
 

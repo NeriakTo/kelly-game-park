@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Save } from 'lucide-react'
+import { Save, Zap } from 'lucide-react'
 import { useGameStore } from '../stores/gameStore'
+import { testAIConnection } from '../services/ai'
 
 const AVATARS = ['🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🦁', '🦄', '🐧']
 
@@ -14,6 +15,8 @@ export default function SettingsPage() {
   const [avatar, setAvatar] = useState(profile.avatar)
   const [aiProvider, setAiProvider] = useState<'openai' | 'gemini'>(aiConfig?.provider ?? 'openai')
   const [apiKey, setApiKey] = useState(aiConfig?.apiKey ?? '')
+  const [testResult, setTestResult] = useState<string | null>(null)
+  const [testing, setTesting] = useState(false)
 
   useEffect(() => {
     setAiProvider(aiConfig?.provider ?? 'openai')
@@ -111,9 +114,31 @@ export default function SettingsPage() {
             className="w-full mt-1 px-3 py-2 rounded-xl border border-mint/50 focus:outline-none focus:ring-2 focus:ring-mint"
           />
         </div>
-        <button onClick={saveAI} className="flex items-center gap-1 px-4 py-2 bg-sky-light rounded-full text-sm font-medium hover:bg-sky/50">
-          <Save className="w-4 h-4" /> 儲存 AI 設定
-        </button>
+        <div className="flex gap-2 flex-wrap">
+          <button onClick={saveAI} className="flex items-center gap-1 px-4 py-2 bg-sky-light rounded-full text-sm font-medium hover:bg-sky/50">
+            <Save className="w-4 h-4" /> 儲存 AI 設定
+          </button>
+          <button
+            disabled={testing || !apiKey.trim()}
+            onClick={async () => {
+              setTesting(true)
+              setTestResult(null)
+              const trimmedKey = apiKey.trim()
+              const inferred = trimmedKey.startsWith('AIza') ? 'gemini' : trimmedKey.startsWith('sk-') ? 'openai' : aiProvider
+              const result = await testAIConnection({ provider: inferred, apiKey: trimmedKey })
+              setTestResult(result.message)
+              setTesting(false)
+            }}
+            className="flex items-center gap-1 px-4 py-2 bg-mint rounded-full text-sm font-medium hover:bg-mint/80 disabled:opacity-40"
+          >
+            <Zap className="w-4 h-4" /> {testing ? '測試中...' : '測試連線'}
+          </button>
+        </div>
+        {testResult && (
+          <p className={`text-xs px-2 py-1 rounded-lg ${testResult.startsWith('✅') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+            {testResult}
+          </p>
+        )}
       </section>
 
       {/* Stats */}
