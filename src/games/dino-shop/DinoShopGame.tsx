@@ -10,6 +10,7 @@ import {
   CORRECT_PER_PIECE,
 } from './types'
 import { generateQuestion, calculateScore } from './data'
+import { generateShopQuestionWithAI } from '../../services/ai'
 import Shopkeeper from './Shopkeeper'
 import ShopDisplay from './ShopDisplay'
 import CoinPanel from './CoinPanel'
@@ -65,6 +66,7 @@ type FeedbackType = 'correct' | 'wrong'
 export default function DinoShopGame() {
   const difficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
+  const aiConfig = useGameStore((s) => s.aiConfig)
 
   const [stage, setStage] = useState<StageId>('A')
   const [question, setQuestion] = useState<ShopQuestion>(() => generateQuestion('A', difficulty))
@@ -78,22 +80,50 @@ export default function DinoShopGame() {
   const [showCollection, setShowCollection] = useState(false)
   const [message, setMessage] = useState('歡迎來到達克比的恐龍商店！')
   const [mood, setMood] = useState<'idle' | 'thinking' | 'happy' | 'hint'>('idle')
+  const [questionSource, setQuestionSource] = useState<'local' | 'ai'>('local')
 
   const startTimeRef = useRef(Date.now())
   const correctStreakRef = useRef(0)
   const consecutiveWrongRef = useRef(0)
   const [easyNotice, setEasyNotice] = useState(false)
 
-  // 難度或關卡改變時重新開始
-  useEffect(() => {
-    resetGame()
-  }, [difficulty, stage])
+  const buildQuestionWithAI = useCallback(async (currentStage: StageId, easy: boolean): Promise<ShopQuestion> => {
+    const fallbackQuestion = generateQuestion(currentStage, difficulty, easy)
+    if (!aiConfig || fallbackQuestion.coinPayment) {
+      setQuestionSource('local')
+      return fallbackQuestion
+    }
+
+    const result = await generateShopQuestionWithAI(
+      aiConfig,
+      { stage: currentStage, difficulty, weakPoints: easy ? ['easy-mode'] : [] },
+      () => ({
+        description: fallbackQuestion.description,
+        answer: fallbackQuestion.answer,
+        hint: fallbackQuestion.hint,
+        options: fallbackQuestion.options ? [...fallbackQuestion.options] : undefined,
+      }),
+    )
+
+    setQuestionSource(result.source)
+
+    return {
+      ...fallbackQuestion,
+      description: result.data.description,
+      answer: result.data.answer,
+      hint: result.data.hint,
+      options: result.data.options?.length ? result.data.options : fallbackQuestion.options,
+      coinPayment: false,
+      targetAmount: undefined,
+    }
+  }, [aiConfig, difficulty])
 
   const resetGame = useCallback(() => {
     consecutiveWrongRef.current = 0
     setEasyNotice(false)
     const q = generateQuestion(stage, difficulty, false)
     setQuestion(q)
+    setQuestionSource('local')
     setQuestionIndex(0)
     setCorrect(0)
     setPhase('playing')
@@ -103,9 +133,20 @@ export default function DinoShopGame() {
     setMood('idle')
     startTimeRef.current = Date.now()
     correctStreakRef.current = 0
-  }, [stage, difficulty])
 
-  const nextQuestion = useCallback(() => {
+    void (async () => {
+      const aiQ = await buildQuestionWithAI(stage, false)
+      setQuestion(aiQ)
+      setMessage(aiQ.description)
+    })()
+  }, [stage, difficulty, buildQuestionWithAI])
+
+  // 難度或關卡改變時重新開始
+  useEffect(() => {
+    resetGame()
+  }, [difficulty, stage, resetGame])
+
+  const nextQuestion = useCallback(async () => {
     if (questionIndex + 1 >= QUESTIONS_PER_ROUND) {
       // 結算
       const duration = Math.round((Date.now() - startTimeRef.current) / 1000)
@@ -124,15 +165,21 @@ export default function DinoShopGame() {
 
     const isEasy = consecutiveWrongRef.current >= 2
     setEasyNotice(isEasy)
-    const q = generateQuestion(stage, difficulty, isEasy)
-    setQuestion(q)
+
+    const localQ = generateQuestion(stage, difficulty, isEasy)
+    setQuestion(localQ)
+    setQuestionSource('local')
     setQuestionIndex((prev) => prev + 1)
     setPhase('playing')
     setSelectedOption(null)
     setPaidCoins([])
-    setMessage(q.description)
+    setMessage(localQ.description)
     setMood('idle')
-  }, [questionIndex, stage, difficulty, correct, addScore])
+
+    const aiQ = await buildQuestionWithAI(stage, isEasy)
+    setQuestion(aiQ)
+    setMessage(aiQ.description)
+  }, [questionIndex, stage, difficulty, correct, addScore, buildQuestionWithAI])
 
   const handleAnswer = useCallback(
     (answer: number) => {
@@ -229,6 +276,14 @@ export default function DinoShopGame() {
 
       {/* 店長對話 */}
       <Shopkeeper message={message} mood={mood} />
+      <div className="text-xs text-warm-text-light text-center">
+        出題來源：
+        {questionSource === 'ai'
+          ? 'AI'
+          : aiConfig
+            ? '本地題庫（AI 暫不可用，自動回退）'
+            : '本地題庫'}
+      </div>
 
       {/* 結算畫面 */}
       {phase === 'result' && (

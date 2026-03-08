@@ -1,9 +1,10 @@
-import { useMemo, useState, useRef } from 'react'
+import { useMemo, useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, RotateCcw, XCircle, BookOpen, Target } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
 import type { Grade, Unit, Problem } from './generators'
 import { GRADE_UNITS, generateProblem, buildOptions, gradeToDifficulty } from './generators'
+import { generateMathProblemWithAI } from '../../services/ai'
 
 type UnitStat = {
   attempts: number
@@ -50,6 +51,7 @@ function saveUnitStats(stats: Record<string, UnitStat>) {
 
 export default function MathChallengeGame() {
   const addScore = useGameStore((s) => s.addScore)
+  const aiConfig = useGameStore((s) => s.aiConfig)
 
   const [grade, setGrade] = useState<Grade>(2)
   const [units, setUnits] = useState<readonly Unit[]>(() => GRADE_UNITS[2])
@@ -74,6 +76,7 @@ export default function MathChallengeGame() {
 
   const [problem, setProblem] = useState<Problem>(() => buildNextProblem(selectedUnitId, 'normal', false))
   const [options, setOptions] = useState<number[]>(() => buildOptions(problem.answer, grade))
+  const [problemSource, setProblemSource] = useState<'local' | 'ai'>('local')
 
   const [questionNo, setQuestionNo] = useState(1)
   const [correct, setCorrect] = useState(0)
@@ -97,6 +100,30 @@ export default function MathChallengeGame() {
     return `108課綱國小 ${grade} 年級數學：${units.map((u) => u.name).join('、')}`
   }, [grade, units])
 
+  const buildNextProblemWithAI = useCallback(async (
+    unitId: string,
+    nextMode: 'normal' | 'wrong-review',
+    easy: boolean,
+  ): Promise<Problem> => {
+    const fallback = () => buildNextProblem(unitId, nextMode, easy)
+    if (!aiConfig || nextMode === 'wrong-review') {
+      setProblemSource('local')
+      return fallback()
+    }
+
+    const result = await generateMathProblemWithAI(
+      aiConfig,
+      {
+        gradeBand: `grade-${grade}`,
+        unitId,
+        difficulty: gradeToDifficulty(grade),
+      },
+      fallback,
+    )
+    setProblemSource(result.source)
+    return result.data
+  }, [aiConfig, grade, buildNextProblem])
+
   const resetRun = (unitId: string = selectedUnitId, nextMode: 'normal' | 'wrong-review' = mode) => {
     consecutiveWrongRef.current = 0
     setEasyNotice(false)
@@ -111,6 +138,12 @@ export default function MathChallengeGame() {
     setShowHint(false)
     setFinished(false)
     setLocked(false)
+
+    void (async () => {
+      const aiFirst = await buildNextProblemWithAI(unitId, nextMode, false)
+      setProblem(aiFirst)
+      setOptions(buildOptions(aiFirst.answer, grade))
+    })()
   }
 
   const addWrongProblem = (p: Problem) => {
@@ -144,16 +177,21 @@ export default function MathChallengeGame() {
     saveUnitStats(nextStats)
   }
 
-  const nextQuestion = (nextNo: number) => {
+  const nextQuestion = async (nextNo: number) => {
     const isEasy = consecutiveWrongRef.current >= 2
     setEasyNotice(isEasy)
-    const next = buildNextProblem(selectedUnitId, mode, isEasy)
+
+    const localNext = buildNextProblem(selectedUnitId, mode, isEasy)
     setQuestionNo(nextNo)
-    setProblem(next)
-    setOptions(buildOptions(next.answer, grade))
+    setProblem(localNext)
+    setOptions(buildOptions(localNext.answer, grade))
     setFeedback(null)
     setShowHint(false)
     setLocked(false)
+
+    const aiNext = await buildNextProblemWithAI(selectedUnitId, mode, isEasy)
+    setProblem(aiNext)
+    setOptions(buildOptions(aiNext.answer, grade))
   }
 
   const submitOption = (choice: number) => {
@@ -189,7 +227,7 @@ export default function MathChallengeGame() {
       return
     }
 
-    setTimeout(() => nextQuestion(nextNo), 700)
+    setTimeout(() => { void nextQuestion(nextNo) }, 700)
   }
 
   const onChangeGrade = (g: Grade) => {
@@ -202,10 +240,6 @@ export default function MathChallengeGame() {
     consecutiveWrongRef.current = 0
     setEasyNotice(false)
 
-    const first = generateProblem(firstUnit, false)
-    setProblem(first)
-    setOptions(buildOptions(first.answer, g))
-    setQuestionNo(1)
     setCorrect(0)
     setWrong(0)
     setStartAt(Date.now())
@@ -315,7 +349,14 @@ export default function MathChallengeGame() {
           )}
 
           <div className="rounded-2xl bg-white p-6 text-center shadow-sm">
-            <p className="text-sm text-warm-text-light mb-2">{mode === 'wrong-review' ? '錯題回練模式' : '單元練習模式'}｜課綱：{problem.curriculumTag}</p>
+            <p className="text-sm text-warm-text-light mb-2">
+              {mode === 'wrong-review' ? '錯題回練模式' : '單元練習模式'}｜課綱：{problem.curriculumTag}｜來源：
+              {problemSource === 'ai'
+                ? 'AI'
+                : aiConfig
+                  ? '本地題庫（AI 暫不可用，自動回退）'
+                  : '本地題庫'}
+            </p>
             <p className="text-2xl sm:text-3xl font-bold leading-relaxed">{problem.text}</p>
           </div>
 

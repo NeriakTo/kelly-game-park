@@ -100,6 +100,14 @@ export function getQuestionTypeForStage(stage: StageId, difficulty: Difficulty):
     'A-3': ['discount', 'multi-step', 'budget-check'],
     'B-3': ['multi-step', 'discount', 'compare-prices'],
     'C-3': ['timed-shopping', 'multi-step', 'discount'],
+    // 國中：偏重策略與多步驟
+    'A-4': ['budget-check', 'multi-step', 'discount'],
+    'B-4': ['multi-step', 'budget-check', 'calculate-change'],
+    'C-4': ['timed-shopping', 'multi-step', 'discount'],
+    // 高中：高壓情境與綜合題
+    'A-5': ['discount', 'budget-check', 'multi-step'],
+    'B-5': ['multi-step', 'timed-shopping', 'budget-check'],
+    'C-5': ['timed-shopping', 'discount', 'multi-step'],
   }
   const types = pool[`${stage}-${difficulty}`] ?? ['recognize-coins']
   return types[Math.floor(Math.random() * types.length)]
