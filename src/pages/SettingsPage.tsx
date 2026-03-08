@@ -21,9 +21,24 @@ export default function SettingsPage() {
   }, [aiConfig])
 
   const saveProfile = () => setProfile({ nickname, avatar })
+
+  const inferProviderFromKey = (key: string): 'openai' | 'gemini' | null => {
+    if (key.startsWith('AIza')) return 'gemini'
+    if (key.startsWith('sk-')) return 'openai'
+    return null
+  }
+
   const saveAI = () => {
-    if (apiKey.trim()) setAIConfig({ provider: aiProvider, apiKey: apiKey.trim() })
-    else setAIConfig(null)
+    const trimmedKey = apiKey.trim()
+    if (!trimmedKey) {
+      setAIConfig(null)
+      return
+    }
+
+    const inferredProvider = inferProviderFromKey(trimmedKey)
+    const finalProvider = inferredProvider ?? aiProvider
+    setAiProvider(finalProvider)
+    setAIConfig({ provider: finalProvider, apiKey: trimmedKey })
   }
 
   const totalGames = scores.length
@@ -73,6 +88,7 @@ export default function SettingsPage() {
       <section className="bg-white/60 rounded-2xl p-5 space-y-4">
         <h3 className="font-bold text-lg">🤖 AI 助手</h3>
         <p className="text-xs text-warm-text-light">提供 API Key 可啟用 AI 解題提示（Key 僅存於你的瀏覽器）</p>
+        <p className="text-xs text-warm-text-light">貼上 Google Key（通常是 AIza 開頭）會自動切換為 Gemini。</p>
         <div>
           <label className="text-sm text-warm-text-light">AI 供應商</label>
           <select
