@@ -135,7 +135,7 @@ export default function MathChallengeGame() {
       case 'provider_server_error':
         return '（AI 伺服器錯誤）'
       default:
-        return `（AI 錯誤：${reason ?? '未知'}）`
+        return reason ? `（AI 錯誤：${reason}）` : ''
     }
   }
 

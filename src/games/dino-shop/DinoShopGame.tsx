@@ -122,7 +122,7 @@ export default function DinoShopGame() {
       case 'provider_server_error':
         return '本地題庫（AI 伺服器錯誤）'
       default:
-        return `本地題庫（AI 錯誤：${reason ?? '未知'}）`
+        return reason ? `本地題庫（AI 錯誤：${reason}）` : '本地題庫'
     }
   }
 
