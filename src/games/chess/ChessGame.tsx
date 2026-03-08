@@ -151,8 +151,22 @@ export default function ChessGame() {
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex items-center gap-1.5 text-xs">
+          <button
+            onClick={() => { setAIMode('chess', 'local'); newGame() }}
+            className={`px-2.5 py-1 rounded-full ${aiMode === 'local' ? 'bg-mint text-warm-text font-medium' : 'bg-white text-warm-text-light'}`}
+          >
+            👫 雙人
+          </button>
+          <button
+            onClick={() => { setAIMode('chess', 'ai'); newGame() }}
+            className={`px-2.5 py-1 rounded-full ${aiMode === 'ai' ? 'bg-sky-light text-warm-text font-medium' : 'bg-white text-warm-text-light'}`}
+          >
+            🤖 對戰 AI
+          </button>
+        </div>
         <span className={`text-sm font-medium px-3 py-1 rounded-full ${turn === 'red' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'}`}>
-          {thinking ? '🤔 AI 思考中...' : turn === 'red' ? '🔴 你的回合' : '⚫ AI 回合'}
+          {thinking ? '🤔 AI 思考中...' : aiMode === 'ai' ? (turn === 'red' ? '🔴 你的回合' : '⚫ AI 回合') : (turn === 'red' ? '🔴 紅方回合' : '⚫ 黑方回合')}
         </span>
         {inCheck && !gameOver && (
           <span className="text-sm font-medium px-3 py-1 rounded-full bg-red-200 text-red-800 animate-pulse">

@@ -40,6 +40,8 @@ function saveProgress(progress: GoProgress): void {
 export default function PlayMode({ onBack }: PlayModeProps) {
   const difficulty = useGameStore((s) => s.currentDifficulty)
   const addScore = useGameStore((s) => s.addScore)
+  const aiMode = useGameStore((s) => s.aiModes.go)
+  const setAIMode = useGameStore((s) => s.setAIMode)
 
   const [state, setState] = useState<GoState>(() => createInitialState(9))
   const [phase, setPhase] = useState<GamePhase>('playing')
@@ -56,6 +58,7 @@ export default function PlayMode({ onBack }: PlayModeProps) {
 
   // AI 回合 — phase 用 ref 讀取，避免 setPhase 觸發 cleanup 清掉 timer
   useEffect(() => {
+    if (aiMode !== 'ai') return
     if (phaseRef.current !== 'playing' || state.currentTurn !== aiColor) return
 
     setPhase('ai-thinking')
@@ -89,7 +92,7 @@ export default function PlayMode({ onBack }: PlayModeProps) {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [state, aiColor, difficulty, showHints])
+  }, [aiMode, state, aiColor, difficulty, showHints])
 
   const endGame = useCallback(
     (finalState: GoState) => {
@@ -121,7 +124,8 @@ export default function PlayMode({ onBack }: PlayModeProps) {
 
   const handleCellClick = useCallback(
     (pos: Position) => {
-      if (phase !== 'playing' || state.currentTurn !== playerColor) return
+      if (phase !== 'playing') return
+      if (aiMode === 'ai' && state.currentTurn !== playerColor) return
 
       const result = placeStone(state, pos)
       if (!result) {
@@ -156,18 +160,19 @@ export default function PlayMode({ onBack }: PlayModeProps) {
       setUndoStack((prev) => [...prev, state])
       setState(result)
     },
-    [state, phase, playerColor, showHints],
+    [state, phase, playerColor, aiMode, showHints],
   )
 
   const handlePass = useCallback(() => {
-    if (phase !== 'playing' || state.currentTurn !== playerColor) return
+    if (phase !== 'playing') return
+    if (aiMode === 'ai' && state.currentTurn !== playerColor) return
     setUndoStack((prev) => [...prev, state])
     const passedState = pass(state)
     setState(passedState)
     if (passedState.consecutivePasses >= 2) {
       endGame(passedState)
     }
-  }, [state, phase, playerColor, endGame])
+  }, [state, phase, playerColor, aiMode, endGame])
 
   const handleUndo = useCallback(() => {
     if (undoStack.length < 2) return // 需要撤回玩家和AI兩步
@@ -192,6 +197,22 @@ export default function PlayMode({ onBack }: PlayModeProps) {
 
   return (
     <div className="w-full max-w-lg mx-auto space-y-3">
+      {/* 模式切換 */}
+      <div className="flex items-center justify-center gap-2 text-xs">
+        <button
+          onClick={() => { setAIMode('go', 'local'); handleRestart() }}
+          className={`px-2.5 py-1 rounded-full ${aiMode === 'local' ? 'bg-mint text-warm-text font-medium' : 'bg-white text-warm-text-light'}`}
+        >
+          👫 雙人
+        </button>
+        <button
+          onClick={() => { setAIMode('go', 'ai'); handleRestart() }}
+          className={`px-2.5 py-1 rounded-full ${aiMode === 'ai' ? 'bg-sky-light text-warm-text font-medium' : 'bg-white text-warm-text-light'}`}
+        >
+          🤖 對戰 AI
+        </button>
+      </div>
+
       {/* 標題列 */}
       <div className="flex items-center justify-between bg-wood-light/60 rounded-xl px-3 py-2">
         <button
@@ -203,13 +224,13 @@ export default function PlayMode({ onBack }: PlayModeProps) {
         <div className="flex items-center gap-4 text-sm">
           <span className="flex items-center gap-1">
             <span className="w-3 h-3 rounded-full bg-black inline-block" />
-            <span className="font-medium">黑(你)</span>
+            <span className="font-medium">{aiMode === 'ai' ? '黑(你)' : '黑方'}</span>
             <span className="text-warm-text-light">提:{state.captures.black}</span>
           </span>
           <span className="text-warm-text-light">vs</span>
           <span className="flex items-center gap-1">
             <span className="w-3 h-3 rounded-full bg-white border border-gray-300 inline-block" />
-            <span className="font-medium">白(AI)</span>
+            <span className="font-medium">{aiMode === 'ai' ? '白(AI)' : '白方'}</span>
             <span className="text-warm-text-light">提:{state.captures.white}</span>
           </span>
         </div>
@@ -227,9 +248,16 @@ export default function PlayMode({ onBack }: PlayModeProps) {
       </div>
 
       {/* AI 思考提示 */}
-      {phase === 'ai-thinking' && (
+      {aiMode === 'ai' && phase === 'ai-thinking' && (
         <div className="text-center text-sm text-warm-text-light animate-pulse">
           白棋正在思考中...
+        </div>
+      )}
+
+      {/* 雙人模式：回合提示 */}
+      {aiMode === 'local' && phase === 'playing' && (
+        <div className="text-center text-sm font-medium">
+          {state.currentTurn === 'black' ? '⚫ 黑方回合' : '⚪ 白方回合'}
         </div>
       )}
 
@@ -238,7 +266,7 @@ export default function PlayMode({ onBack }: PlayModeProps) {
         <GoBoard
           state={state}
           onCellClick={handleCellClick}
-          disabled={phase !== 'playing' || state.currentTurn !== playerColor}
+          disabled={phase !== 'playing' || (aiMode === 'ai' && state.currentTurn !== playerColor)}
           showIllegalMoves={showHints}
         />
       </div>
@@ -278,7 +306,7 @@ export default function PlayMode({ onBack }: PlayModeProps) {
         <div className="flex justify-center gap-2 flex-wrap">
           <button
             onClick={handlePass}
-            disabled={phase !== 'playing' || state.currentTurn !== playerColor}
+            disabled={phase !== 'playing' || (aiMode === 'ai' && state.currentTurn !== playerColor)}
             className="flex items-center gap-1 px-3 py-2 rounded-xl text-sm bg-white border border-warm-text-light/30 text-warm-text hover:bg-gray-50 disabled:opacity-40 transition-all"
           >
             Pass
