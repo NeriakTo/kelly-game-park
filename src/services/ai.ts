@@ -175,6 +175,9 @@ function normalizeProviderReason(error: unknown): string {
   if (error instanceof DOMException && error.name === 'AbortError') return 'provider_timeout'
   if (error instanceof Error) {
     if (/AbortError|timed out|timeout/i.test(error.message)) return 'provider_timeout'
+    if (/Failed to fetch|NetworkError|Load failed|fetch failed|TypeError: Failed to fetch/i.test(error.message)) {
+      return 'provider_network_or_cors'
+    }
     if (/HTTP 400/i.test(error.message)) return 'provider_bad_request'
     if (/HTTP 401/i.test(error.message)) return 'provider_auth_error'
     if (/HTTP 403/i.test(error.message)) return 'provider_permission_denied'

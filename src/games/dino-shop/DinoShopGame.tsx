@@ -95,6 +95,8 @@ export default function DinoShopGame() {
         return '本地題庫（AI Key 權限或限制設定問題，自動回退）'
       case 'provider_rate_limited':
         return '本地題庫（AI 配額或速率限制，自動回退）'
+      case 'provider_network_or_cors':
+        return '本地題庫（AI 連線被瀏覽器或網域限制，自動回退）'
       case 'provider_timeout':
         return '本地題庫（AI 回應逾時，自動回退）'
       case 'invalid_schema':
