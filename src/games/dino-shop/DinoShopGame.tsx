@@ -124,7 +124,21 @@ export default function DinoShopGame() {
     reason: string | null
   }> => {
     const fallbackQuestion = generateQuestion(currentStage, difficulty, easy)
-    if (!aiConfig || fallbackQuestion.coinPayment) {
+
+    const isBinaryBudgetCheck =
+      fallbackQuestion.type === 'budget-check' &&
+      !!fallbackQuestion.options &&
+      fallbackQuestion.options.length === 2 &&
+      fallbackQuestion.options.includes(0) &&
+      fallbackQuestion.options.includes(1)
+
+    // 需要「點商品」或「硬幣面板」的題型，答案綁定本地 items/流程，不做 AI 覆寫
+    const aiUnsafeQuestion =
+      fallbackQuestion.coinPayment ||
+      fallbackQuestion.type === 'compare-prices' ||
+      (fallbackQuestion.type === 'budget-check' && !isBinaryBudgetCheck)
+
+    if (!aiConfig || aiUnsafeQuestion) {
       return { question: fallbackQuestion, source: 'local', reason: null }
     }
 
@@ -139,13 +153,19 @@ export default function DinoShopGame() {
       }),
     )
 
+    const mergedOptions = result.data.options?.length
+      ? [...result.data.options]
+      : fallbackQuestion.options
+        ? Array.from(new Set([...(fallbackQuestion.options as number[]), result.data.answer]))
+        : undefined
+
     return {
       question: {
         ...fallbackQuestion,
         description: result.data.description,
         answer: result.data.answer,
         hint: result.data.hint,
-        options: result.data.options?.length ? result.data.options : fallbackQuestion.options,
+        options: mergedOptions,
         coinPayment: false,
         targetAmount: undefined,
       },
