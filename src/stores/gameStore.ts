@@ -14,15 +14,43 @@ interface GameState {
   setAIConfig: (config: AIConfig | null) => void
 }
 
-// [FIX Warning #4] API Key 分離儲存，不放在主 persist
+// API Key 分離儲存：只存在使用者瀏覽器，不進主 persist
 const AI_KEY_STORAGE = 'kelly-game-park-ai'
+
+function readAIConfigFromBrowser(): AIConfig | null {
+  try {
+    const raw = localStorage.getItem(AI_KEY_STORAGE) ?? sessionStorage.getItem(AI_KEY_STORAGE)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as AIConfig
+    if (!parsed?.apiKey || !parsed?.provider) return null
+    // 舊版 sessionStorage 資料遷移到 localStorage
+    try { localStorage.setItem(AI_KEY_STORAGE, JSON.stringify(parsed)) } catch {}
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+function writeAIConfigToBrowser(config: AIConfig | null) {
+  try {
+    if (config) {
+      const raw = JSON.stringify(config)
+      try { localStorage.setItem(AI_KEY_STORAGE, raw) } catch {}
+      try { sessionStorage.setItem(AI_KEY_STORAGE, raw) } catch {}
+      return
+    }
+
+    try { localStorage.removeItem(AI_KEY_STORAGE) } catch {}
+    try { sessionStorage.removeItem(AI_KEY_STORAGE) } catch {}
+  } catch {}
+}
 
 export const useGameStore = create<GameState>()(
   persist(
     (set) => ({
       profile: { nickname: 'Kelly', avatar: '🐱' },
       scores: [],
-      aiConfig: null,
+      aiConfig: readAIConfigFromBrowser(),
       currentDifficulty: 1 as Difficulty,
 
       setProfile: (profile) => set({ profile }),
@@ -35,12 +63,7 @@ export const useGameStore = create<GameState>()(
           ],
         })),
       setAIConfig: (aiConfig) => {
-        // API Key 存在獨立 sessionStorage（關閉瀏覽器即清除）
-        if (aiConfig) {
-          try { sessionStorage.setItem(AI_KEY_STORAGE, JSON.stringify(aiConfig)) } catch {}
-        } else {
-          try { sessionStorage.removeItem(AI_KEY_STORAGE) } catch {}
-        }
+        writeAIConfigToBrowser(aiConfig)
         set({ aiConfig })
       },
     }),
@@ -50,19 +73,7 @@ export const useGameStore = create<GameState>()(
         profile: state.profile,
         scores: state.scores,
         currentDifficulty: state.currentDifficulty,
-        // aiConfig 不持久化到 localStorage
       }),
-      onRehydrate: () => {
-        return (state) => {
-          // 從 sessionStorage 恢復 AI config
-          if (state) {
-            try {
-              const stored = sessionStorage.getItem(AI_KEY_STORAGE)
-              if (stored) state.aiConfig = JSON.parse(stored)
-            } catch {}
-          }
-        }
-      },
     },
   ),
 )

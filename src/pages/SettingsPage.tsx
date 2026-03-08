@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Save } from 'lucide-react'
 import { useGameStore } from '../stores/gameStore'
 
@@ -14,6 +14,11 @@ export default function SettingsPage() {
   const [avatar, setAvatar] = useState(profile.avatar)
   const [aiProvider, setAiProvider] = useState<'openai' | 'gemini'>(aiConfig?.provider ?? 'openai')
   const [apiKey, setApiKey] = useState(aiConfig?.apiKey ?? '')
+
+  useEffect(() => {
+    setAiProvider(aiConfig?.provider ?? 'openai')
+    setApiKey(aiConfig?.apiKey ?? '')
+  }, [aiConfig])
 
   const saveProfile = () => setProfile({ nickname, avatar })
   const saveAI = () => {
