@@ -222,7 +222,7 @@ async function callOpenAI(config: AIConfig, systemPrompt: string, userPrompt: st
 }
 
 async function callGemini(config: AIConfig, systemPrompt: string, userPrompt: string): Promise<string> {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(config.apiKey)}`
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(config.apiKey)}`
   const res = await fetchWithTimeout(
     url,
     {
