@@ -8,7 +8,7 @@ import { security, safePath, staticFile } from './static.js'
 export interface Config extends ModelConfig { passcodeHash?: string; dataDir: string; staticDir: string; dailyLimit: number }
 interface Request { path: string; method: string; headers: Record<string, string | undefined>; body: string | Buffer; remoteAddress?: string; oversized?: boolean }
 interface Response { status: number; headers: Record<string, string>; body: string | Buffer; json?: any }
-interface Deps { now?: () => number; log?: (line: string) => void; model?: Model }
+interface Deps { now?: () => number; log?: (line: string) => void; model?: Model; randomInt?: (max: number) => number }
 const json = (status: number, data: unknown): Response => ({ status, headers: { ...security, 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }, body: JSON.stringify(data), json: data })
 const error = (status: number, code: string) => json(status, { error: code })
 export function createApp(config: Config, deps: Deps = {}) {
@@ -49,7 +49,7 @@ export function createApp(config: Config, deps: Deps = {}) {
       const result = await model!.generate(kind!, input)
       tokens.input = result.usage?.input_tokens ?? 0; tokens.output = result.usage?.output_tokens ?? 0
       if (result.stop_reason === 'refusal' || result.stop_reason === 'max_tokens' || result.parsed_output == null) return error(502, 'upstream')
-      return json(200, normalize(kind!, result.parsed_output, input))
+      return json(200, normalize(kind!, result.parsed_output, input, deps.randomInt))
     } catch (e) {
       if (e instanceof APIConnectionTimeoutError) return error(504, 'timeout')
       return error(502, 'upstream')

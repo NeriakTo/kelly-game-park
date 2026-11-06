@@ -1,0 +1,80 @@
+
+> test
+> vitest run test/fix1-options.test.ts test/edges.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/fix1-options.test.ts (3 tests | 3 failed) 25ms
+   × Fisher–Yates 使用注入序列，補答案截到六個後打亂 6ms
+   × 預設亂數六十次至少三種答案位置且選項完整不重複 17ms
+   × 打亂前去除重複選項並保留答案 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/fix1-options.test.ts > Fisher–Yates 使用注入序列，補答案截到六個後打亂
+AssertionError: expected [] to deeply equal [ 6, 5, 4, 3, 2 ]
+
+- Expected
++ Received
+
+- [
+-   6,
+-   5,
+-   4,
+-   3,
+-   2,
+- ]
++ []
+
+ ❯ test/fix1-options.test.ts:11:17
+      9|  const r = await f.request('/api/ai/shop', shop)
+     10|  expect(r.status).toBe(200)
+     11|  expect(bounds).toEqual([6, 5, 4, 3, 2])
+       |                 ^
+     12|  expect(r.json.options).toEqual([2, 3, 4, 5, 1, 9])
+     13|  expect(r.json.options.indexOf(r.json.answer)).not.toBe(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/fix1-options.test.ts > 預設亂數六十次至少三種答案位置且選項完整不重複
+AssertionError: expected 1 to be greater than or equal to 3
+ ❯ test/fix1-options.test.ts:26:25
+     24|   positions.add(options.indexOf(r.json.answer))
+     25|  }
+     26|  expect(positions.size).toBeGreaterThanOrEqual(3)
+       |                         ^
+     27| })
+     28| test('打亂前去除重複選項並保留答案', async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/fix1-options.test.ts > 打亂前去除重複選項並保留答案
+AssertionError: expected [ 9, 1, 2 ] to deeply equal [ 1, 2, 9 ]
+
+- Expected
++ Received
+
+  [
++   9,
+    1,
+    2,
+-   9,
+  ]
+
+ ❯ test/fix1-options.test.ts:32:25
+     30|  const r = await f.request('/api/ai/shop', shop)
+     31|  expect(r.status).toBe(200)
+     32|  expect(r.json.options).toEqual([1, 2, 9])
+       |                         ^
+     33| })
+     34|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 7 passed (10)
+   Start at  14:34:39
+   Duration  227ms (transform 58ms, setup 0ms, import 224ms, tests 49ms, environment 0ms)
+

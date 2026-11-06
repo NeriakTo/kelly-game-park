@@ -1,3 +1,4 @@
+import { randomInt as cryptoRandomInt } from 'node:crypto'
 import { z } from 'zod'
 const difficulty = z.number().int().min(1).max(5)
 const weakPoints = z.array(z.string().min(1).max(30)).max(5).optional()
@@ -16,13 +17,17 @@ export const shopOutput = z.object({
   options: z.array(z.number().min(0)).min(2).max(6).optional(),
 })
 export type Kind = 'math' | 'shop'
-export function normalize(kind: Kind, output: unknown, input: Record<string, unknown>) {
+export function normalize(kind: Kind, output: unknown, input: Record<string, unknown>, randomInt: (max: number) => number = cryptoRandomInt) {
   if (kind === 'math') return { ...mathOutput.parse(output), unitId: input.unitId, curriculumTag: input.curriculumTag }
   const data = shopOutput.parse(output)
   if (data.options) {
     if (data.answer < 0) throw new Error('invalid options')
     data.options = [data.answer, ...new Set(data.options.filter(n => n !== data.answer))].slice(0, 6)
     if (data.options.length < 2) throw new Error('invalid options')
+    for (let i = data.options.length - 1; i > 0; i--) {
+      const j = randomInt(i + 1)
+      ;[data.options[i], data.options[j]] = [data.options[j], data.options[i]]
+    }
   }
   return data
 }
