@@ -67,8 +67,14 @@ export default function MathChallengeGame() {
   const consecutiveWrongRef = useRef(0)
   const easyMode = consecutiveWrongRef.current >= 2
 
-  const buildNextProblem = (unitId: string, nextMode: 'normal' | 'wrong-review', easy: boolean = easyMode): Problem => {
-    const key = `${grade}-${unitId}`
+  // forGrade：切年級時 state 還沒更新，要由呼叫端明確帶入新年級
+  const buildNextProblem = (
+    unitId: string,
+    nextMode: 'normal' | 'wrong-review',
+    easy: boolean = easyMode,
+    forGrade: Grade = grade,
+  ): Problem => {
+    const key = `${forGrade}-${unitId}`
     if (nextMode === 'wrong-review') {
       const bucket = wrongBook[key] ?? []
       if (bucket.length > 0) return bucket[rand(0, bucket.length - 1)]
@@ -100,6 +106,8 @@ export default function MathChallengeGame() {
     reason: string | null
   } | null>(null)
   const prefetchSeqRef = useRef(0)
+  // 每次重開一回合就加一；答題後排定的下一題會比對它，避免舊回合蓋掉新題目
+  const runIdRef = useRef(0)
 
   const total = 10
   const answered = correct + wrong
@@ -143,8 +151,9 @@ export default function MathChallengeGame() {
     unitId: string,
     nextMode: 'normal' | 'wrong-review',
     easy: boolean,
+    forGrade: Grade,
   ): Promise<{ problem: Problem; source: 'local' | 'ai'; reason: string | null }> => {
-    const fallback = () => buildNextProblem(unitId, nextMode, easy)
+    const fallback = () => buildNextProblem(unitId, nextMode, easy, forGrade)
     if (aiMode !== 'ai' || !aiConfig || nextMode === 'wrong-review') {
       return { problem: fallback(), source: 'local', reason: null }
     }
@@ -152,9 +161,9 @@ export default function MathChallengeGame() {
     const result = await generateMathProblemWithAI(
       aiConfig,
       {
-        gradeBand: `grade-${grade}`,
+        gradeBand: `grade-${forGrade}`,
         unitId,
-        difficulty: gradeToDifficulty(grade),
+        difficulty: gradeToDifficulty(forGrade),
       },
       fallback,
     )
@@ -164,12 +173,17 @@ export default function MathChallengeGame() {
       source: result.source,
       reason: result.source === 'local' ? result.reason : null,
     }
-  }, [aiMode, aiConfig, grade, buildNextProblem])
+  }, [aiMode, aiConfig, buildNextProblem])
 
-  const prefetchUpcoming = useCallback((unitId: string, nextMode: 'normal' | 'wrong-review', easy: boolean) => {
+  const prefetchUpcoming = useCallback((
+    unitId: string,
+    nextMode: 'normal' | 'wrong-review',
+    easy: boolean,
+    forGrade: Grade,
+  ) => {
     const seq = ++prefetchSeqRef.current
     void (async () => {
-      const next = await buildNextProblemWithAI(unitId, nextMode, easy)
+      const next = await buildNextProblemWithAI(unitId, nextMode, easy, forGrade)
       if (seq !== prefetchSeqRef.current) return
       prefetchedRef.current = {
         unitId,
@@ -182,15 +196,21 @@ export default function MathChallengeGame() {
     })()
   }, [buildNextProblemWithAI])
 
-  const resetRun = (unitId: string = selectedUnitId, nextMode: 'normal' | 'wrong-review' = mode) => {
+  const resetRun = (
+    unitId: string = selectedUnitId,
+    nextMode: 'normal' | 'wrong-review' = mode,
+    forGrade: Grade = grade,
+  ) => {
+    // 新的一回合：讓上一回合答題後排定的「下一題」失效
+    runIdRef.current += 1
     consecutiveWrongRef.current = 0
     setEasyNotice(false)
     prefetchedRef.current = null
     prefetchSeqRef.current += 1
 
-    const first = buildNextProblem(unitId, nextMode, false)
+    const first = buildNextProblem(unitId, nextMode, false, forGrade)
     setProblem(first)
-    setOptions(buildOptions(first.answer, grade))
+    setOptions(buildOptions(first.answer, forGrade))
     setProblemSource('local')
     setAiFallbackReason(null)
     setQuestionNo(1)
@@ -202,7 +222,7 @@ export default function MathChallengeGame() {
     setFinished(false)
     setLocked(false)
 
-    prefetchUpcoming(unitId, nextMode, false)
+    prefetchUpcoming(unitId, nextMode, false, forGrade)
   }
 
   const addWrongProblem = (p: Problem) => {
@@ -262,7 +282,7 @@ export default function MathChallengeGame() {
     setLocked(false)
 
     prefetchedRef.current = null
-    prefetchUpcoming(selectedUnitId, mode, isEasy)
+    prefetchUpcoming(selectedUnitId, mode, isEasy, grade)
   }
 
   const submitOption = (choice: number) => {
@@ -298,7 +318,12 @@ export default function MathChallengeGame() {
       return
     }
 
-    setTimeout(() => { void nextQuestion(nextNo) }, 700)
+    const runId = runIdRef.current
+    setTimeout(() => {
+      // 等待期間若已切年級、換單元或重來，這一題就不再換上來
+      if (runId !== runIdRef.current) return
+      void nextQuestion(nextNo)
+    }, 700)
   }
 
   const onChangeGrade = (g: Grade) => {
@@ -308,16 +333,8 @@ export default function MathChallengeGame() {
     setUnits(nextUnits)
     setSelectedUnitId(firstUnit)
     setMode('normal')
-    consecutiveWrongRef.current = 0
-    setEasyNotice(false)
-
-    setCorrect(0)
-    setWrong(0)
-    setStartAt(Date.now())
-    setFeedback(null)
-    setShowHint(false)
-    setFinished(false)
-    setLocked(false)
+    // 立即換成新年級第一個單元的題目，並重設計數
+    resetRun(firstUnit, 'normal', g)
   }
 
   const onSelectUnit = (unitId: string) => {
