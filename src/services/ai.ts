@@ -165,9 +165,12 @@ const GRADE_BAND = /^grade-[1-6]$/
 const UNIT_ID = /^[a-z0-9-]{1,40}$/
 const CURRICULUM_TAG = /^[A-Za-z0-9-]{1,12}$/
 
-/** 分數與時間單元的單一數字問法容易彆扭，直接用本機題目 */
+/**
+ * 分數類單元（編號含 frac：分數、分數乘法、分數除法）的答案常常不是單一整數，
+ * 用「一個數字當答案」的問法容易彆扭，直接用本機題目
+ */
 function isLocalOnlyUnit(unitId: string): boolean {
-  return unitId.includes('fraction') || unitId.includes('time')
+  return unitId.includes('frac')
 }
 
 function mathBody(req: AIMathRequest): Record<string, unknown> | null {
