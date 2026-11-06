@@ -122,6 +122,16 @@
   },
   {
     "viewport": "820x1180",
+    "page": "parent-ai",
+    "file": "parent-ai-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
     "page": "level-picker",
     "file": "level-picker-820x1180.png",
     "problems": [],
