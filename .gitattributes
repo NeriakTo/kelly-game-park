@@ -1,0 +1,2 @@
+# 字型授權檔照上游原樣保留（含行尾空白），不做空白檢查
+src/assets/fonts/OFL.txt -whitespace
