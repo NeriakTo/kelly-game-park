@@ -15,6 +15,8 @@ const DinoShopPage = lazy(() => import('./pages/DinoShopPage'))
 const GoPage = lazy(() => import('./pages/GoPage'))
 // 家長區也分開載入：裡面有 AI 連線與學習紀錄，孩子平常用不到
 const ParentPage = lazy(() => import('./pages/parent/ParentPage'))
+// 我的收藏冊（恐龍商店的化石）
+const AlbumPage = lazy(() => import('./pages/AlbumPage'))
 
 export default function App() {
   return (
@@ -29,6 +31,7 @@ export default function App() {
         <Route path="dino-shop/:level?" element={<DinoShopPage />} />
         <Route path="go/:level?" element={<GoPage />} />
         <Route path="parent" element={<ParentPage />} />
+        <Route path="album" element={<AlbumPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
         {/* 舊的設定頁網址導到家長區（一樣要先過家長驗證） */}
         <Route path="settings" element={<Navigate to="/parent" replace />} />

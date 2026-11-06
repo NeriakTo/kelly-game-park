@@ -1,0 +1,70 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/pages/AlbumPage.test.tsx (4 tests | 4 failed) 20064ms
+     × 首頁的收藏冊卡片連到收藏冊頁，頁面有標題與回首頁 5022ms
+     × 列出六隻恐龍各收集了幾片，集滿 5 片的標示完成；每隻都有畫（不是表情符號） 5008ms
+     × 上方有總數：一共幾片、答對幾題 5014ms
+     × 還沒收集時，提示去恐龍商店，並有按鈕過去 5019ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/AlbumPage.test.tsx > 我的收藏冊 > 首頁的收藏冊卡片連到收藏冊頁，頁面有標題與回首頁
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/AlbumPage.test.tsx:42:3
+     40|   })
+     41|
+     42|   it('首頁的收藏冊卡片連到收藏冊頁，頁面有標題與回首頁', async () => {
+       |   ^
+     43|     renderAt('/album')
+     44|     expect(await screen.findByRole('heading', { name: '我的收藏冊' }, { tim…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/pages/AlbumPage.test.tsx > 我的收藏冊 > 列出六隻恐龍各收集了幾片，集滿 5 片的標示完成；每隻都有畫（不是表情符號）
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/AlbumPage.test.tsx:48:3
+     46|   })
+     47|
+     48|   it('列出六隻恐龍各收集了幾片，集滿 5 片的標示完成；每隻都有畫（不是表情符號）', async () => {
+       |   ^
+     49|     saveCollection({ trex: 5, bronto: 2 }, 21)
+     50|     renderAt('/album')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/pages/AlbumPage.test.tsx > 我的收藏冊 > 上方有總數：一共幾片、答對幾題
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/AlbumPage.test.tsx:62:3
+     60|   })
+     61|
+     62|   it('上方有總數：一共幾片、答對幾題', async () => {
+       |   ^
+     63|     saveCollection({ trex: 5, bronto: 2 }, 21)
+     64|     renderAt('/album')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/pages/AlbumPage.test.tsx > 我的收藏冊 > 還沒收集時，提示去恐龍商店，並有按鈕過去
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/AlbumPage.test.tsx:69:3
+     67|   })
+     68|
+     69|   it('還沒收集時，提示去恐龍商店，並有按鈕過去', async () => {
+       |   ^
+     70|     renderAt('/album')
+     71|     expect(await screen.findByText(/去恐龍商店答對題目，就能挖到化石/, {}, { timeout: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  14:23:52
+   Duration  20.42s (transform 72ms, setup 46ms, import 85ms, tests 20.06s, environment 141ms)
+
+結束碼：1
