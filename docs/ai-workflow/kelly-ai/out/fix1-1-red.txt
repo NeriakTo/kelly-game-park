@@ -41,4 +41,3 @@ AssertionError: expected { Object (status, headers, ...) } to match object { sta
       Tests  1 failed | 3 passed (4)
    Start at  14:33:57
    Duration  235ms (transform 29ms, setup 0ms, import 118ms, tests 19ms, environment 0ms)
-

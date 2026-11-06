@@ -77,4 +77,3 @@ AssertionError: expected [ 9, 1, 2 ] to deeply equal [ 1, 2, 9 ]
       Tests  3 failed | 7 passed (10)
    Start at  14:34:39
    Duration  227ms (transform 58ms, setup 0ms, import 224ms, tests 49ms, environment 0ms)
-
