@@ -1,0 +1,16 @@
+# 主控沙箱外驗收 2026-11-06 14:42:57
+## test -z "$(git diff --stat 2eafd42 HEAD -- src .github package.json package-lock.json)" → exit 0
+## (cd server && npm test) → exit 0
+ Test Files  11 passed (11)
+      Tests  50 passed (50)
+## (cd server && npm run typecheck) → exit 0
+## (cd server && npm run build) → exit 0
+## npm test → exit 0
+ Test Files  4 passed (4)
+      Tests  24 passed (24)
+## npx tsc -p tsconfig.app.json --noEmit → exit 0
+## npm run build → exit 0
+✓ built in 1.03s
+## VITE_BASE=/ npm run build → exit 0
+✓ built in 1.00s
+## git diff --check 2eafd42 HEAD → exit 0
