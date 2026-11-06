@@ -7,6 +7,8 @@
 // 用全域安裝的 Playwright，不加進專案相依：
 //   NODE_PATH=$(npm root -g) node scripts/check-screens.mjs
 // 截圖存到 docs/ai-workflow/kelly-p1/shots/，檢查結果另存 shots/report.json。
+// 家長區 AI 區另拍一張只有該區的圖（iPad 直向）：先存好測試用通行碼，按「檢查」，
+// api/ai/status 用 Playwright 攔下來回假資料，不連任何伺服器。
 // 只停自己啟動的 vite preview（用它的 PID），不用 pkill。
 
 import { spawn, spawnSync } from 'node:child_process'
@@ -54,11 +56,45 @@ const ALBUM = {
   },
 }
 
+// 家長區 AI 區：已存好的通行碼（測試用的假值）、兩個 AI 出題開關打開
+const AI_READY = {
+  ...PLAYED,
+  'kelly-game-park': {
+    state: {
+      profile: { nickname: '悅悅', avatar: '🐱' },
+      scores: [],
+      aiModes: { math: 'ai', 'dino-shop': 'ai', chess: 'ai', go: 'ai' },
+      aiConfig: { passcode: 'demo-passcode-0000' },
+    },
+    version: 1,
+  },
+}
+const FAKE_STATUS = { enabled: true, remainingToday: 287, dailyLimit: 300 }
+
+async function checkPasscode(page) {
+  await page.route('**/api/ai/status', (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(FAKE_STATUS) }),
+  )
+  await page.getByRole('button', { name: '檢查', exact: true }).click()
+  await page.getByRole('status').filter({ hasText: '通行碼正確' }).waitFor({ timeout: 5000 })
+}
+
 const PAGES = [
   { name: 'home', hash: '#/', seed: PLAYED, waitFor: 'main.home' },
   { name: 'home-first-visit', hash: '#/', seed: {}, waitFor: 'main.home', only: ['ipad-portrait'] },
   { name: 'parent-gate', hash: '#/parent', seed: {}, waitFor: '[aria-label="按住 3 秒進入家長區"]' },
   { name: 'parent', hash: '#/parent', seed: PLAYED, unlock: true, waitFor: 'text=學習紀錄' },
+  {
+    name: 'parent-ai',
+    hash: '#/parent',
+    seed: AI_READY,
+    unlock: true,
+    waitFor: 'text=家用通行碼',
+    only: ['ipad-portrait'],
+    prepare: checkPasscode,
+    // 只拍 AI 設定那一區
+    shoot: (page) => page.locator('section.sheet', { has: page.getByRole('heading', { level: 2, name: 'AI 設定' }) }),
+  },
   { name: 'level-picker', hash: '#/chess', seed: PLAYED, waitFor: 'nav[aria-label="選關卡"]' },
   { name: 'game-chess', hash: '#/chess/easy', seed: PLAYED, waitFor: '[data-game-root]', game: true },
   { name: 'album', hash: '#/album', seed: ALBUM, waitFor: 'ul[aria-label="化石收藏"]' },
@@ -151,11 +187,13 @@ async function main() {
         await page.goto(BASE + p.hash)
         await page.locator(p.waitFor).first().waitFor({ timeout: 10000 })
         await page.evaluate(() => document.fonts.ready)
+        if (p.prepare) await p.prepare(page)
         await page.waitForTimeout(150)
 
         const info = await inspect(page)
         const file = `${p.name}-${vp.width}x${vp.height}.png`
-        await page.screenshot({ path: join(OUT, file), fullPage: true })
+        if (p.shoot) await p.shoot(page).screenshot({ path: join(OUT, file) })
+        else await page.screenshot({ path: join(OUT, file), fullPage: true })
 
         const problems = []
         if (info.horizontal.scrollWidth > info.horizontal.innerWidth) {
