@@ -163,11 +163,23 @@ describe('數學出題改接伺服器', () => {
     expect(result.data).toEqual(LOCAL_MATH)
   })
 
-  it.each(['g3-fraction', 'g5-time-clock'])('分數與時間單元（%s）不呼叫伺服器', async (unitId) => {
+  // 收貨後補修：不問 AI 的單元改成編號含 frac（分數、分數乘法、分數除法都算）；現有單元沒有時間單元，時間條件拿掉
+  it.each(['g3-fraction', 'g4-fraction', 'g5-fraction', 'g5-fracmul', 'g6-fracdiv'])(
+    '分數類單元（%s）不呼叫伺服器',
+    async (unitId) => {
+      const mock = stubFetch(async () => json(200, AI_MATH_BODY))
+      const result = await generateMathProblemWithAI(FAMILY, { ...MATH_REQ, unitId }, () => LOCAL_MATH)
+      expect(mock).not.toHaveBeenCalled()
+      expect(result.source).toBe('local')
+    },
+  )
+
+  it('一般單元（g3-multiply）照常呼叫伺服器', async () => {
     const mock = stubFetch(async () => json(200, AI_MATH_BODY))
-    const result = await generateMathProblemWithAI(FAMILY, { ...MATH_REQ, unitId }, () => LOCAL_MATH)
-    expect(mock).not.toHaveBeenCalled()
-    expect(result.source).toBe('local')
+    const result = await generateMathProblemWithAI(FAMILY, { ...MATH_REQ, unitId: 'g3-multiply' }, () => LOCAL_MATH)
+    expect(mock).toHaveBeenCalledTimes(1)
+    expect(sentBody(mock).unitId).toBe('g3-multiply')
+    expect(result.source).toBe('ai')
   })
 
   it.each([
