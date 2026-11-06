@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { RotateCcw } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 import type { Difficulty } from '../../types'
 import { shuffle } from '../../utils/random'
 
@@ -29,7 +30,7 @@ function createCards(difficulty: Difficulty): Card[] {
 
 export default function MemoryGame() {
   // [FIX Warning #3] Zustand selector
-  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const currentDifficulty = useGameDifficulty('memory')
   const addScore = useGameStore((s) => s.addScore)
   const [cards, setCards] = useState(() => createCards(currentDifficulty))
   const [flipped, setFlipped] = useState<number[]>([])

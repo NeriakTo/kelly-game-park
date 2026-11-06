@@ -5,6 +5,7 @@ import { LockIcon } from '../../components/art/icons'
 import { isParentUnlocked, lockParent, unlockParent } from '../../stores/parentGate'
 import ParentGate from './ParentGate'
 import GradeSection from './sections/GradeSection'
+import LevelsSection from './sections/LevelsSection'
 import AISection from './sections/AISection'
 import RecordsSection from './sections/RecordsSection'
 import ProfileSection from './sections/ProfileSection'
@@ -47,6 +48,7 @@ export default function ParentPage() {
         {unlocked ? (
           <>
             <GradeSection />
+            <LevelsSection />
             <AISection />
             <RecordsSection />
             <ProfileSection />

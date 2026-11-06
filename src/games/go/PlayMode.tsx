@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronLeft, RotateCcw, Flag, Undo2, Eye, EyeOff } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 import type { GoState, Position, GoProgress } from './types'
 import { GO_PROGRESS_KEY } from './types'
 import {
@@ -38,7 +39,7 @@ function saveProgress(progress: GoProgress): void {
 }
 
 export default function PlayMode({ onBack }: PlayModeProps) {
-  const difficulty = useGameStore((s) => s.currentDifficulty)
+  const difficulty = useGameDifficulty('go')
   const addScore = useGameStore((s) => s.addScore)
   const aiMode = useGameStore((s) => s.aiModes.go)
   const setAIMode = useGameStore((s) => s.setAIMode)

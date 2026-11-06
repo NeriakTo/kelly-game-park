@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { Difficulty, GameScore, GameType, PlayerProfile, AIConfig } from '../types'
+import { getActiveSession } from './activeSession'
 
 type AIToggleGame = 'math' | 'dino-shop' | 'chess' | 'go'
 export type GameAIModes = Record<AIToggleGame, 'ai' | 'local'>
@@ -10,10 +11,8 @@ interface GameState {
   scores: GameScore[]
   aiConfig: AIConfig | null
   aiModes: GameAIModes
-  currentDifficulty: Difficulty
 
   setProfile: (profile: PlayerProfile) => void
-  setDifficulty: (d: Difficulty) => void
   addScore: (score: { gameType: GameType; difficulty: Difficulty; score: number; durationSeconds: number }) => void
   setAIConfig: (config: AIConfig | null) => void
   setAIMode: (game: AIToggleGame, mode: 'ai' | 'local') => void
@@ -60,21 +59,24 @@ const DEFAULT_AI_MODES: GameAIModes = {
 export const useGameStore = create<GameState>()(
   persist(
     (set) => ({
-      profile: { nickname: 'Kelly', avatar: '🐱' },
+      profile: { nickname: '悅悅', avatar: '🐱' },
       scores: [],
       aiConfig: readAIConfigFromBrowser(),
       aiModes: DEFAULT_AI_MODES,
-      currentDifficulty: 1 as Difficulty,
 
       setProfile: (profile) => set({ profile }),
-      setDifficulty: (currentDifficulty) => set({ currentDifficulty }),
       addScore: (score) =>
-        set((state) => ({
-          scores: [
-            ...state.scores,
-            { ...score, id: crypto.randomUUID(), playedAt: new Date().toISOString() },
-          ],
-        })),
+        set((state) => {
+          // 補上正在玩的關卡（遊戲本身只知道內部難度），家長區才能顯示「數獨・簡單」
+          const session = getActiveSession()
+          const level = session && session.game === score.gameType ? session.level : undefined
+          return {
+            scores: [
+              ...state.scores,
+              { ...score, id: crypto.randomUUID(), playedAt: new Date().toISOString(), ...(level ? { level } : {}) },
+            ],
+          }
+        }),
       setAIConfig: (aiConfig) => {
         writeAIConfigToBrowser(aiConfig)
         set({ aiConfig })
@@ -88,11 +90,11 @@ export const useGameStore = create<GameState>()(
       partialize: (state) => ({
         profile: state.profile,
         scores: state.scores,
-        currentDifficulty: state.currentDifficulty,
         aiModes: state.aiModes,
       }),
       merge: (persisted, current) => {
-        const incoming = (persisted as Partial<GameState>) ?? {}
+        // 舊版存過全站難度 currentDifficulty，改版後不用了，讀進來時丟掉
+        const { currentDifficulty: _legacy, ...incoming } = (persisted as Partial<GameState> & { currentDifficulty?: unknown }) ?? {}
         return {
           ...current,
           ...incoming,

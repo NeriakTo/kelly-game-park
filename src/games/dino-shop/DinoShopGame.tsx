@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { RotateCcw } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 import type { StageId, CoinValue, ShopQuestion, DinoCollectionData, DinoFossil } from './types'
 import {
   COLLECTION_STORAGE_KEY,
@@ -64,7 +65,7 @@ type GamePhase = 'playing' | 'feedback' | 'result'
 type FeedbackType = 'correct' | 'wrong'
 
 export default function DinoShopGame() {
-  const difficulty = useGameStore((s) => s.currentDifficulty)
+  const difficulty = useGameDifficulty('dino-shop')
   const addScore = useGameStore((s) => s.addScore)
   const aiConfig = useGameStore((s) => s.aiConfig)
   const aiMode = useGameStore((s) => s.aiModes['dino-shop'])

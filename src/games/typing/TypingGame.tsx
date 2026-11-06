@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BookOpen, CheckCircle2, Keyboard, Languages, Lock, PenLine, RotateCcw, Timer } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 
 type LangMode = 'zh' | 'en'
 type TrainMode = 'lesson' | 'article'
@@ -90,7 +91,7 @@ function buildLessons(lang: LangMode): Lesson[] {
 }
 
 export default function TypingGame() {
-  const difficulty = useGameStore((s) => s.currentDifficulty)
+  const difficulty = useGameDifficulty('typing')
   const addScore = useGameStore((s) => s.addScore)
 
   const [lang, setLang] = useState<LangMode>('zh')

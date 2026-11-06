@@ -4,6 +4,7 @@ import Layout from './components/Layout/Layout'
 import Home from './pages/Home'
 
 // 遊戲頁依路由分開載入：首頁不必先下載全部遊戲，進到哪個遊戲才下載哪個。
+// 每個遊戲有兩層網址：/<遊戲> 是選關畫面，/<遊戲>/<關卡>（easy、normal、hard）是遊戲本身。
 // 載入中的畫面由 Layout 內包住頁面內容的 Suspense 負責。
 const SudokuPage = lazy(() => import('./pages/SudokuPage'))
 const ChessPage = lazy(() => import('./pages/ChessPage'))
@@ -20,14 +21,15 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="sudoku" element={<SudokuPage />} />
-        <Route path="chess" element={<ChessPage />} />
-        <Route path="memory" element={<MemoryPage />} />
-        <Route path="typing" element={<TypingPage />} />
-        <Route path="math" element={<MathPage />} />
-        <Route path="dino-shop" element={<DinoShopPage />} />
-        <Route path="go" element={<GoPage />} />
+        <Route path="sudoku/:level?" element={<SudokuPage />} />
+        <Route path="chess/:level?" element={<ChessPage />} />
+        <Route path="memory/:level?" element={<MemoryPage />} />
+        <Route path="typing/:level?" element={<TypingPage />} />
+        <Route path="math/:level?" element={<MathPage />} />
+        <Route path="dino-shop/:level?" element={<DinoShopPage />} />
+        <Route path="go/:level?" element={<GoPage />} />
         <Route path="parent" element={<ParentPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
         {/* 舊的設定頁網址導到家長區（一樣要先過家長驗證） */}
         <Route path="settings" element={<Navigate to="/parent" replace />} />
       </Route>

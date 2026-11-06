@@ -61,7 +61,7 @@ export default function GoGame() {
           <div>
             <h3 className="font-bold text-warm-text">🎮 與 AI 對弈</h3>
             <p className="text-xs text-warm-text-light mt-0.5">
-              9×9 小棋盤，難度跟著左邊選擇走，邊下邊學
+              9×9 小棋盤，邊下邊學
             </p>
           </div>
         </motion.button>
