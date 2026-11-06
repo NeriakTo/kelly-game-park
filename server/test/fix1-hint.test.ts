@@ -3,7 +3,7 @@ import { fixture, math, good } from './helpers.js'
 import { ClaudeModel } from '../src/model.js'
 const cases = [
  { label: '提示直接洩漏答案', answer: 92, text: '一共多少？', hint: '所以是 92', status: 502 },
- { label: '題目已有同一獨立數字', answer: 1, text: '先取 1 份，再想想。', hint: '先想這 1 份', status: 200 },
+ { label: '題目已有同一獨立數字（照抄題目，第 3 輪改為退回）', answer: 1, text: '先取 1 份，再想想。', hint: '先想這 1 份', status: 502 },
  { label: '較長整數不誤擋', answer: 24, text: '一共多少？', hint: '先看 124', status: 200 },
  { label: '小數答案洩漏', answer: 2.5, text: '一共多少？', hint: '結果是 2.5', status: 502 },
  { label: '小數內的整數不誤擋', answer: 24, text: '一共多少？', hint: '先想 24.5 和 1.24', status: 200 },

@@ -20,7 +20,9 @@ export type Kind = 'math' | 'shop'
 function checkHint(data: { answer: number; hint: string }, text: string) {
   const number = String(data.answer).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const standalone = new RegExp(`(?<![\\d.])${number}(?![\\d.])`)
-  if (standalone.test(data.hint) && !standalone.test(text)) throw new Error('invalid hint')
+  // 答案已經寫在題目裡等於照抄，孩子不用算；退回改用本機題目。
+  if (standalone.test(text)) throw new Error('trivial question')
+  if (standalone.test(data.hint)) throw new Error('invalid hint')
 }
 export function normalize(kind: Kind, output: unknown, input: Record<string, unknown>, randomInt: (max: number) => number = cryptoRandomInt) {
   if (kind === 'math') {
