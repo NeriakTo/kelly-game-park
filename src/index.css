@@ -1,6 +1,54 @@
 @import "tailwindcss";
+@import "./styles/paper.css";
+@import "./styles/home.css";
+@import "./styles/album.css";
 
+/* 站內字型：jf open 粉圓 2.1 的子集，依 OFL 改名為 YueyueRound（來源與授權見 assets/fonts/README.md） */
+@font-face {
+  font-family: 'YueyueRound';
+  src: url('./assets/fonts/YueyueRound-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * 色票分兩組：
+ * 1. 「紙雕小森林」新色票（家長選定的風格 2）：外框、首頁、家長區、共用元件用這組。
+ *    對比只在示意稿 README 列出的組合成立（主文字 ink 放 mist／paper、白字放 berry／lake／pine、
+ *    深字放 sun），其他組合要先算過對比再用。
+ * 2. 舊色票：7 個遊戲內部畫面還在用（第二階段逐個遊戲改版時再換掉），先保留。
+ */
 @theme {
+  /* ── 紙雕小森林 ── */
+  --color-mist: #E6F2EE;      /* 霧薄荷：底色 */
+  --color-ink: #1D3A33;       /* 森林墨：主文字 */
+  --color-moss: #45615A;      /* 苔灰：次要文字 */
+  --color-berry: #B23A5B;     /* 莓果紅：主要按鈕（白字 5.75） */
+  --color-berry-d: #8A2A45;
+  --color-berry-l: #FCE6EA;
+  --color-berry-s: #F2B8C5;
+  --color-lake: #1F6A85;      /* 湖水藍：資訊、標籤（白字 6.07） */
+  --color-lake-d: #164F63;
+  --color-lake-l: #DCEEF3;
+  --color-lake-s: #A9D3E0;
+  --color-pine: #2F7650;      /* 松葉綠：前進、分區標籤（白字 5.49） */
+  --color-pine-d: #22573B;
+  --color-pine-l: #DDF0DC;
+  --color-pine-s: #A9D6AE;
+  --color-sun: #FFC94A;       /* 向日黃：星星、強調（深字 8.04） */
+  --color-sun-d: #E0A21C;
+  --color-peach: #F4A97A;
+  --color-peach-d: #D9844F;
+  --color-paper: #FFFDF7;     /* 紙白：卡片 */
+  --color-kraft: #EBD3AE;
+  --color-kraft-d: #D9C39A;
+  --color-leaf: #D7EBE2;      /* 次要按鈕底 */
+  --color-leaf-d: #A9CBBB;
+
+  --font-park: 'YueyueRound', 'Yuanti TC', 'PingFang TC', 'Heiti TC', 'Noto Sans TC', system-ui, sans-serif;
+
+  /* ── 舊色票（遊戲內部仍在使用）── */
   --color-mint: #A8D8B9;
   --color-mint-light: #D0F0DC;
   --color-cream: #FFF3CD;
@@ -18,15 +66,25 @@
   --color-wood-light: #F0DCC0;
 }
 
-@font-face {
-  font-family: 'Rounded';
-  src: local('M PLUS Rounded 1c'), local('Noto Sans TC');
+html,
+body {
+  margin: 0;
 }
 
 body {
-  font-family: 'M PLUS Rounded 1c', 'Noto Sans TC', system-ui, sans-serif;
-  background-color: var(--color-warm-bg);
-  color: var(--color-warm-text);
+  font-family: var(--font-park);
+  font-size: 20px;
+  line-height: 1.4;
+  background-color: var(--color-mist);
+  color: var(--color-ink);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select {
+  font: inherit;
 }
 
 .no-scrollbar {

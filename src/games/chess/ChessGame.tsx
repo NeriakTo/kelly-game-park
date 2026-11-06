@@ -7,6 +7,7 @@ import {
   type ChessBoard, type Position,
 } from './engine'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 
 type CutePieceSkin = {
   icon: string
@@ -33,7 +34,7 @@ const CUTE_PIECES: Record<string, CutePieceSkin> = {
 }
 
 export default function ChessGame() {
-  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const currentDifficulty = useGameDifficulty('chess')
   const addScore = useGameStore((s) => s.addScore)
   const aiMode = useGameStore((s) => s.aiModes.chess)
   const setAIMode = useGameStore((s) => s.setAIMode)

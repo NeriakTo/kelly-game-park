@@ -1,0 +1,9 @@
+COMMAND: node server/test/smoke.mjs
+啟動：node server/dist/index.js；PORT=0；STATIC_DIR=dist；臨時 DATA_DIR；假通行碼雜湊；移除金鑰
+GET /healthz: HTTP 200; PASS; {"ok":true}
+GET /: HTTP 200; PASS; text/html
+GET /api/ai/status: HTTP 200; PASS; {"enabled":false,"remainingToday":300,"dailyLimit":300}
+POST /api/ai/math: HTTP 503; PASS; {"error":"disabled"}
+POST /api/ai/math: HTTP 413; PASS; {"error":"too_large"}
+通過 5，失敗 0；連線僅本機 loopback，未連模型。
+停止自己啟動的 PID 88150

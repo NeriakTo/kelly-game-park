@@ -1,0 +1,2 @@
+SDK 實例 name=APIConnectionTimeoutError
+instanceof=true

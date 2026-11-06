@@ -1,0 +1,35 @@
+MUTATION=3: server/src/schemas.ts
+[data.answer, ...new Set(data.options.filter(n => n !== data.answer))].slice(0, 6)
+=> [...new Set(data.options)].slice(0, 6)
+
+> test
+> vitest run test/group4.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group4.test.ts (3 tests | 1 failed) 14ms
+   × 數學欄位與字串清理；商店答案補入且保留 7ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:26:48
+   Duration  204ms (transform 27ms, setup 0ms, import 106ms, tests 14ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group4.test.ts > 數學欄位與字串清理；商店答案補入且保留
+AssertionError: expected [ 1, 2, 3, 4, 5, 6 ] to include 9
+ ❯ test/group4.test.ts:6:133
+      4|  expect((await fixture().request()).json).toEqual({ text: '題目', answer…
+      5|  const f = fixture({ deps: { model: { generate: async () => ({ ...good…
+      6|  const res = await f.request('/api/ai/shop', { stage: 'B', difficulty:…
+       |                                                                                                                                     ^
+      7| })
+      8| test('拒答、截斷、空輸出與不合格輸出回 502', async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+EXIT_CODE=1

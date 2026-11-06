@@ -1,0 +1,57 @@
+[
+  {
+    "command": "export TMPDIR=$PWD/.tmp-kelly-ai && mkdir -p \"$TMPDIR\"",
+    "exit": 0,
+    "file": "verify-01.txt"
+  },
+  {
+    "command": "test -z \"$(git diff --stat 2eafd42 HEAD -- src .github package.json package-lock.json)\"",
+    "exit": 0,
+    "file": "verify-02.txt"
+  },
+  {
+    "command": "(cd server && npm test)",
+    "exit": 0,
+    "file": "verify-03.txt"
+  },
+  {
+    "command": "(cd server && npm run typecheck)",
+    "exit": 0,
+    "file": "verify-04.txt"
+  },
+  {
+    "command": "(cd server && npm run build)",
+    "exit": 0,
+    "file": "verify-05.txt"
+  },
+  {
+    "command": "npm test",
+    "exit": 0,
+    "file": "verify-06.txt"
+  },
+  {
+    "command": "npx tsc -p tsconfig.app.json --noEmit",
+    "exit": 0,
+    "file": "verify-07.txt"
+  },
+  {
+    "command": "npm run build",
+    "exit": 0,
+    "file": "verify-08.txt"
+  },
+  {
+    "command": "VITE_BASE=/ npm run build",
+    "exit": 0,
+    "file": "verify-09.txt"
+  },
+  {
+    "command": "git diff --check 2eafd42 HEAD",
+    "exit": 0,
+    "file": "verify-10.txt"
+  },
+  {
+    "command": "node server/test/smoke.mjs",
+    "exit": 0,
+    "file": "smoke.txt"
+  }
+]

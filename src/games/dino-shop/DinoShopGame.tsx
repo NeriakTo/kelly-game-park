@@ -2,13 +2,10 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { RotateCcw } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 import type { StageId, CoinValue, ShopQuestion, DinoCollectionData, DinoFossil } from './types'
-import {
-  COLLECTION_STORAGE_KEY,
-  DINO_COLLECTION,
-  PIECES_PER_DINO,
-  CORRECT_PER_PIECE,
-} from './types'
+import { CORRECT_PER_PIECE } from './types'
+import { loadCollection, saveCollection } from './collection'
 import { generateQuestion, calculateScore } from './data'
 import { generateShopQuestionWithAI } from '../../services/ai'
 import Shopkeeper from './Shopkeeper'
@@ -18,30 +15,6 @@ import StageSelector from './StageSelector'
 import DinoCollection from './DinoCollection'
 
 const QUESTIONS_PER_ROUND = 8
-
-function loadCollection(): DinoCollectionData {
-  try {
-    const raw = localStorage.getItem(COLLECTION_STORAGE_KEY)
-    if (raw) return JSON.parse(raw)
-  } catch {}
-  return {
-    fossils: DINO_COLLECTION.map((d) => ({
-      dinoId: d.id,
-      dinoName: d.name,
-      dinoEmoji: d.emoji,
-      totalPieces: PIECES_PER_DINO,
-      collectedPieces: 0,
-    })),
-    totalCorrect: 0,
-    stageProgress: {},
-  }
-}
-
-function saveCollection(data: DinoCollectionData): void {
-  try {
-    localStorage.setItem(COLLECTION_STORAGE_KEY, JSON.stringify(data))
-  } catch {}
-}
 
 function addFossilPiece(data: DinoCollectionData): DinoCollectionData {
   // 找到第一個未完成的恐龍，加一片碎片
@@ -64,11 +37,10 @@ type GamePhase = 'playing' | 'feedback' | 'result'
 type FeedbackType = 'correct' | 'wrong'
 
 export default function DinoShopGame() {
-  const difficulty = useGameStore((s) => s.currentDifficulty)
+  const difficulty = useGameDifficulty('dino-shop')
   const addScore = useGameStore((s) => s.addScore)
   const aiConfig = useGameStore((s) => s.aiConfig)
   const aiMode = useGameStore((s) => s.aiModes['dino-shop'])
-  const setAIMode = useGameStore((s) => s.setAIMode)
 
   const [stage, setStage] = useState<StageId>('A')
   const [question, setQuestion] = useState<ShopQuestion>(() => generateQuestion('A', difficulty))
@@ -82,8 +54,6 @@ export default function DinoShopGame() {
   const [showCollection, setShowCollection] = useState(false)
   const [message, setMessage] = useState('歡迎來到達克比的恐龍商店！')
   const [mood, setMood] = useState<'idle' | 'thinking' | 'happy' | 'hint'>('idle')
-  const [questionSource, setQuestionSource] = useState<'local' | 'ai'>('local')
-  const [aiFallbackReason, setAiFallbackReason] = useState<string | null>(null)
 
   const startTimeRef = useRef(Date.now())
   const correctStreakRef = useRef(0)
@@ -99,32 +69,6 @@ export default function DinoShopGame() {
     reason: string | null
   } | null>(null)
   const prefetchSeqRef = useRef(0)
-
-  const mapAIReasonLabel = (reason: string | null): string => {
-    switch (reason) {
-      case 'missing_api_key':
-        return '本地題庫（未設定 API Key）'
-      case 'provider_auth_error':
-      case 'provider_permission_denied':
-        return '本地題庫（API Key 無效或權限不足）'
-      case 'provider_rate_limited':
-        return '本地題庫（AI 配額或速率限制）'
-      case 'provider_network_or_cors':
-        return '本地題庫（網路連線或 CORS 限制）'
-      case 'provider_timeout':
-        return '本地題庫（AI 回應逾時）'
-      case 'invalid_schema':
-        return '本地題庫（AI 回傳格式異常）'
-      case 'provider_bad_request':
-        return '本地題庫（請求參數異常）'
-      case 'provider_not_found':
-        return '本地題庫（AI 模型不存在，請確認 API 設定）'
-      case 'provider_server_error':
-        return '本地題庫（AI 伺服器錯誤）'
-      default:
-        return reason ? `本地題庫（AI 錯誤：${reason}）` : '本地題庫'
-    }
-  }
 
   const buildQuestionWithAI = useCallback(async (currentStage: StageId, easy: boolean): Promise<{
     question: ShopQuestion
@@ -146,13 +90,14 @@ export default function DinoShopGame() {
       fallbackQuestion.type === 'compare-prices' ||
       (fallbackQuestion.type === 'budget-check' && !isBinaryBudgetCheck)
 
-    if (aiMode !== 'ai' || !aiConfig || aiUnsafeQuestion) {
+    // 家長區關掉 AI 出題或沒有通行碼時不呼叫伺服器
+    if (aiMode !== 'ai' || !aiConfig?.passcode || aiUnsafeQuestion) {
       return { question: fallbackQuestion, source: 'local', reason: null }
     }
 
     const result = await generateShopQuestionWithAI(
       aiConfig,
-      { stage: currentStage, difficulty, weakPoints: easy ? ['easy-mode'] : [] },
+      { stage: currentStage, difficulty, weakPoints: easy ? ['剛剛連錯兩題，出簡單一點'] : undefined },
       () => ({
         description: fallbackQuestion.description,
         answer: fallbackQuestion.answer,
@@ -206,8 +151,6 @@ export default function DinoShopGame() {
 
     const q = generateQuestion(stage, difficulty, false)
     setQuestion(q)
-    setQuestionSource('local')
-    setAiFallbackReason(null)
     setQuestionIndex(0)
     setCorrect(0)
     setPhase('playing')
@@ -259,8 +202,6 @@ export default function DinoShopGame() {
       : generateQuestion(stage, difficulty, isEasy)
 
     setQuestion(shownQuestion)
-    setQuestionSource(canUseCached ? (cached as NonNullable<typeof cached>).source : 'local')
-    setAiFallbackReason(canUseCached ? (cached as NonNullable<typeof cached>).reason : null)
     setQuestionIndex((prev) => prev + 1)
     setPhase('playing')
     setSelectedOption(null)
@@ -365,32 +306,9 @@ export default function DinoShopGame() {
         </span>
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-xs">
-        <span className="text-warm-text-light">出題模式：</span>
-        <button
-          onClick={() => { setAIMode('dino-shop', 'local'); resetGame() }}
-          className={`px-2.5 py-1 rounded-full ${aiMode === 'local' ? 'bg-mint text-warm-text' : 'bg-white text-warm-text-light'}`}
-        >
-          本地題庫
-        </button>
-        <button
-          onClick={() => { setAIMode('dino-shop', 'ai'); resetGame() }}
-          className={`px-2.5 py-1 rounded-full ${aiMode === 'ai' ? 'bg-sky-light text-warm-text' : 'bg-white text-warm-text-light'}`}
-        >
-          AI 出題
-        </button>
-      </div>
-
       {/* 店長對話 */}
       <Shopkeeper message={message} mood={mood} />
-      <div className="text-xs text-warm-text-light text-center">
-        出題來源：
-        {questionSource === 'ai'
-          ? 'AI'
-          : aiMode === 'ai' && aiConfig
-            ? mapAIReasonLabel(aiFallbackReason)
-            : '本地題庫'}
-      </div>
+      {/* 出題來源與 AI 錯誤訊息不給小孩看；AI 連不上時照舊用內建題庫（AI 出題開關在家長區） */}
 
       {/* 結算畫面 */}
       {phase === 'result' && (

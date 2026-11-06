@@ -1,0 +1,28 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/assets/fonts/font.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/assets/fonts/font.test.ts [ src/assets/fonts/font.test.ts ]
+Error: ENOENT: no such file or directory, open '/Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park/src/assets/fonts/YueyueRound-subset.woff2'
+ ❯ tables scripts/font/woff2.mjs:28:15
+     26|
+     27| function tables(file) {
+     28|   const buf = readFileSync(file)
+       |               ^
+     29|   if (buf.toString('latin1', 0, 4) !== 'wOF2') throw new Error(`${file…
+     30|   const numTables = buf.readUInt16BE(12)
+ ❯ readFontInfo scripts/font/woff2.mjs:123:13
+ ❯ src/assets/fonts/font.test.ts:13:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:34:25
+   Duration  549ms (transform 21ms, setup 92ms, import 0ms, tests 0ms, environment 280ms)
+
+結束碼：1

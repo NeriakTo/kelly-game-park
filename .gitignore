@@ -1,5 +1,7 @@
 node_modules
 dist
-docs
+# docs/ 是舊的手動部署目錄，維持忽略；只開放 AI 工作流程文件進版控
+/docs/*
+!/docs/ai-workflow/
 .DS_Store
 *.local

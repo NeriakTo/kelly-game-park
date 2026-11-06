@@ -1,0 +1,46 @@
+
+> test
+> vitest run test/group3.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group3.test.ts (3 tests | 3 failed) 5ms
+   × 每分鐘第二十一次拒絕，來源隔離 3ms
+   × 每日計數落地、新實例延續、台北跨日歸零 1ms
+   × 上游失敗也計次；四個同時呼叫後 busy 不計次 1ms
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  14:24:39
+   Duration  355ms (transform 40ms, setup 0ms, import 264ms, tests 5ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group3.test.ts > 每分鐘第二十一次拒絕，來源隔離
+TypeError: createApp is not a function
+ ❯ fixture test/helpers.ts:18:14
+
+ ❯ test/group3.test.ts:5:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/group3.test.ts > 每日計數落地、新實例延續、台北跨日歸零
+TypeError: createApp is not a function
+ ❯ fixture test/helpers.ts:18:14
+
+ ❯ test/group3.test.ts:12:58
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/group3.test.ts > 上游失敗也計次；四個同時呼叫後 busy 不計次
+TypeError: createApp is not a function
+ ❯ fixture test/helpers.ts:18:14
+
+ ❯ test/group3.test.ts:20:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+EXIT_CODE=1

@@ -1,0 +1,27 @@
+改壞檢查四：設定升版不刪舊金鑰（每種改法跑完都用 git checkout 還原）
+
+== 4a：拿掉「每次讀回都刪獨立存放的舊金鑰」 ==
+ src/stores/gameStore.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+     × 舊主設定與獨立金鑰都有：讀回後沒有 provider、apiKey，本機儲存也搜不到舊金鑰；其他資料留著 4ms
+     × 只有獨立金鑰（主設定已經是新版）：讀回時一樣刪掉 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected 'kelly-game-park\n{"state":{"profile":…' not to contain 'AIza-old-secret-gemini-654321'
+AssertionError: expected 'kelly-game-park\n{"state":{"profile":…' not to contain 'sk-old-secret-openai-123456'
+      Tests  2 failed | 2 passed (4)
+結束碼：1
+
+== 4b：升版時保留舊的 aiConfig，讀回時也不過濾 ==
+ src/stores/gameStore.ts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+     × 舊主設定與獨立金鑰都有：讀回後沒有 provider、apiKey，本機儲存也搜不到舊金鑰；其他資料留著 3ms
+     × 讀回的通行碼只留 passcode 一個欄位；格式不對的通行碼當作沒有 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected { provider: 'openai', …(1) } to be null
+AssertionError: expected { passcode: 'family-2026-abc', …(1) } to deeply equal { passcode: 'family-2026-abc' }
+      Tests  2 failed | 2 passed (4)
+結束碼：1
+
+== 還原後 ==
+      Tests  4 passed (4)
+結束碼：0

@@ -1,0 +1,42 @@
+MUTATION=2: server/src/usage.ts
+renameSync(temp, this.file)
+=> // mutation: no persistent write
+
+> test
+> vitest run test/group3.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group3.test.ts (3 tests | 1 failed) 26ms
+   × 每日計數落地、新實例延續、台北跨日歸零 3ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:26:47
+   Duration  211ms (transform 25ms, setup 0ms, import 101ms, tests 26ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group3.test.ts > 每日計數落地、新實例延續、台北跨日歸零
+AssertionError: expected undefined to be 'daily_limit' // Object.is equality
+
+- Expected:
+"daily_limit"
+
++ Received:
+undefined
+
+ ❯ test/group3.test.ts:17:35
+     15|  const app = createApp(f.config, { now: () => now, log: () => {}, mode…
+     16|  const req = () => app.inject({ path: '/api/ai/math', method: 'POST', …
+     17|  expect((await req()).json.error).toBe('daily_limit'); now += 1000; ex…
+       |                                   ^
+     18| })
+     19| test('上游失敗也計次；四個同時呼叫後 busy 不計次', async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+EXIT_CODE=1

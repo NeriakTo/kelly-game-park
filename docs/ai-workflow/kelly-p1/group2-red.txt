@@ -1,0 +1,54 @@
+# 第 2 組（數學切年級換題）先寫測試的失敗輸出
+# commit: f71c61c  指令: npx vitest run src/games/math/MathChallengeGame.test.tsx
+
+
+ RUN  v3.2.7 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/games/math/MathChallengeGame.test.tsx (2 tests | 2 failed) 81ms
+   × 數學挑戰：切換年級 > 切年級後立即換成新年級第一個單元的題目 54ms
+     → expected 'N-2-2' to be 'N-5-4' // Object.is equality
+   × 數學挑戰：切換年級 > 答題後立刻切年級，原本排定的下一題不會蓋掉新年級的題目 26ms
+     → expected 'N-2-2' to be 'N-5-4' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/games/math/MathChallengeGame.test.tsx > 數學挑戰：切換年級 > 切年級後立即換成新年級第一個單元的題目
+AssertionError: expected 'N-2-2' to be 'N-5-4' // Object.is equality
+
+Expected: "N-5-4"
+Received: "N-2-2"
+
+ ❯ src/games/math/MathChallengeGame.test.tsx:44:36
+     42|     for (const g of [5, 3, 1, 6, 4] as Grade[]) {
+     43|       fireEvent.click(screen.getByRole('button', { name: `${g} 年級` }))
+     44|       expect(shownCurriculumTag()).toBe(firstUnitTag(g))
+       |                                    ^
+     45|       expect(optionButtons()).toHaveLength(4)
+     46|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/games/math/MathChallengeGame.test.tsx > 數學挑戰：切換年級 > 答題後立刻切年級，原本排定的下一題不會蓋掉新年級的題目
+AssertionError: expected 'N-2-2' to be 'N-5-4' // Object.is equality
+
+Expected: "N-5-4"
+Received: "N-2-2"
+
+ ❯ src/games/math/MathChallengeGame.test.tsx:59:34
+     57|     })
+     58|
+     59|     expect(shownCurriculumTag()).toBe(firstUnitTag(5))
+       |                                  ^
+     60|     expect(shownQuestionNo()).toBe('題號：1/10')
+     61|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  13:07:29
+   Duration  692ms (transform 50ms, setup 44ms, collect 242ms, tests 81ms, environment 127ms, prepare 26ms)
+
+
+exit code: 1

@@ -1,0 +1,112 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+stderr | src/stores/gameStore.migration.test.ts > 設定升版：刪掉舊的 AI 服務選擇與金鑰 > 只有獨立金鑰（主設定已經是新版）：讀回時一樣刪掉
+State loaded from storage couldn't be migrated since no migrate function was provided
+
+stderr | src/stores/gameStore.migration.test.ts > 設定升版：刪掉舊的 AI 服務選擇與金鑰 > 讀回的通行碼只留 passcode 一個欄位；格式不對的通行碼當作沒有
+State loaded from storage couldn't be migrated since no migrate function was provided
+
+ ❯ src/stores/gameStore.migration.test.ts (4 tests | 4 failed) 7ms
+     × 舊主設定與獨立金鑰都有：讀回後沒有 provider、apiKey，本機儲存也搜不到舊金鑰；其他資料留著 3ms
+     × 只有獨立金鑰（主設定已經是新版）：讀回時一樣刪掉 2ms
+     × 新版的通行碼：存起來，重新開網頁後還在 1ms
+     × 讀回的通行碼只留 passcode 一個欄位；格式不對的通行碼當作沒有 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/stores/gameStore.migration.test.ts > 設定升版：刪掉舊的 AI 服務選擇與金鑰 > 舊主設定與獨立金鑰都有：讀回後沒有 provider、apiKey，本機儲存也搜不到舊金鑰；其他資料留著
+AssertionError: expected { provider: 'openai', …(1) } to be null
+
+- Expected:
+null
+
++ Received:
+{
+  "apiKey": "sk-old-secret-openai-123456",
+  "provider": "openai",
+}
+
+ ❯ src/stores/gameStore.migration.test.ts:59:28
+     57|
+     58|     const state = useGameStore.getState() as unknown as Record<string,…
+     59|     expect(state.aiConfig).toBeNull()
+       |                            ^
+     60|     expect(state).not.toHaveProperty('provider')
+     61|     expect(state).not.toHaveProperty('apiKey')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/stores/gameStore.migration.test.ts > 設定升版：刪掉舊的 AI 服務選擇與金鑰 > 只有獨立金鑰（主設定已經是新版）：讀回時一樣刪掉
+AssertionError: expected 'kelly-game-park\n{"state":{"profile":…' not to contain 'sk-old-secret-openai-123456'
+
+- Expected
++ Received
+
+- sk-old-secret-openai-123456
++ kelly-game-park
++ {"state":{"profile":{"nickname":"悅悅","avatar":"🐱"},"scores":[]},"version":1}
++ kelly-game-park-ai
++ {"provider":"openai","apiKey":"sk-old-secret-openai-123456"}
++ kelly-game-park-ai
++ {"provider":"openai","apiKey":"sk-old-secret-openai-123456"}
+
+ ❯ src/stores/gameStore.migration.test.ts:84:33
+     82|     await useGameStore.persist.rehydrate()
+     83|
+     84|     expect(allStoredText()).not.toContain(OLD_OPENAI_KEY)
+       |                                 ^
+     85|     expect(useGameStore.getState().aiConfig).toBeNull()
+     86|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/stores/gameStore.migration.test.ts > 設定升版：刪掉舊的 AI 服務選擇與金鑰 > 新版的通行碼：存起來，重新開網頁後還在
+AssertionError: expected undefined to deeply equal { passcode: 'family-2026-abc' }
+
+- Expected:
+{
+  "passcode": "family-2026-abc",
+}
+
++ Received:
+undefined
+
+ ❯ src/stores/gameStore.migration.test.ts:90:40
+     88|   it('新版的通行碼：存起來，重新開網頁後還在', async () => {
+     89|     useGameStore.getState().setAIConfig({ passcode: 'family-2026-abc' …
+     90|     expect(savedMain().state.aiConfig).toEqual({ passcode: 'family-202…
+       |                                        ^
+     91|     expect(savedMain().version).toBe(1)
+     92|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/stores/gameStore.migration.test.ts > 設定升版：刪掉舊的 AI 服務選擇與金鑰 > 讀回的通行碼只留 passcode 一個欄位；格式不對的通行碼當作沒有
+AssertionError: expected null to deeply equal { passcode: 'family-2026-abc' }
+
+- Expected:
+{
+  "passcode": "family-2026-abc",
+}
+
++ Received:
+null
+
+ ❯ src/stores/gameStore.migration.test.ts:107:46
+    105|     )
+    106|     await useGameStore.persist.rehydrate()
+    107|     expect(useGameStore.getState().aiConfig).toEqual({ passcode: 'fami…
+       |                                              ^
+    108|
+    109|     localStorage.setItem(MAIN_KEY, JSON.stringify({ state: { aiConfig:…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  14:57:26
+   Duration  314ms (transform 23ms, setup 52ms, import 18ms, tests 7ms, environment 153ms)
+
+結束碼：1

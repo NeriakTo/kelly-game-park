@@ -1,0 +1,398 @@
+/*
+ * 首頁版面（照示意稿 B-home）。三種寬度：
+ * - 手機（< 768）：一欄由上往下。
+ * - iPad 直式（768 到 1023）：兩欄，繼續上次 → 下棋（松松在右）→ 動動腦＋算一算 → 打字＋收藏冊。
+ * - iPad 橫式與筆電（≥ 1024）：三欄，下棋區在左邊整欄，右邊上方繼續上次，中間兩個分區，下方打字與收藏冊。
+ */
+@layer components {
+  .home {
+    display: grid;
+    gap: 34px 16px;
+    padding: 34px 14px 32px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "cont" "chess" "brain" "math" "type" "album";
+  }
+  .home-cont { grid-area: cont; }
+  .home-chess { grid-area: chess; }
+  .home-brain { grid-area: brain; }
+  .home-math { grid-area: math; }
+  .home-type { grid-area: type; }
+  .home-album { grid-area: album; }
+
+  /* 繼續上次：向日黃便條 */
+  .home-cont {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    padding: 14px 16px;
+    background: var(--color-sun);
+    border-radius: 24px;
+    box-shadow: 7px 7px 0 var(--color-sun-d);
+  }
+  .home-cont .tape {
+    left: 40px;
+    margin-left: 0;
+  }
+  .home-cont .mini {
+    width: 72px;
+    height: 72px;
+    flex: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--color-paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-cont .mini svg {
+    width: 56px;
+    height: 56px;
+  }
+  /* 棋類畫一角棋盤，鋪滿整格（照示意稿） */
+  .home-cont .mini-board {
+    background: #F3E2C3;
+  }
+  .home-cont .mini-board svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .home-cont .mini { width: 84px; height: 84px; }
+  }
+  .home-cont .txt {
+    flex: 1;
+    min-width: 0;
+  }
+  .home-cont .kicker {
+    font-size: 18px;
+  }
+  .home-cont .what {
+    font-size: 26px;
+    line-height: 1.25;
+  }
+  .home-cont .big-btn {
+    min-height: 64px;
+    font-size: 26px;
+    flex: 1 0 100%;
+  }
+
+  /* 下棋區 */
+  .home-chess .pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+  }
+  .home-buddy {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .home-buddy > svg {
+    width: 96px;
+    height: 114px;
+    flex: none;
+  }
+  .home-buddy .bubble {
+    flex: 1;
+    margin-bottom: 34px;
+    box-shadow: 5px 5px 0 var(--color-berry-s);
+  }
+
+  /* 紙卡片（整張可點） */
+  .park-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 24px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    text-decoration: none;
+    min-width: 0;
+    position: relative;
+    transition: transform 0.08s;
+  }
+  .park-card:active {
+    transform: translateY(5px);
+  }
+  .park-card .art {
+    border-radius: 24px 24px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .park-card .label {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .park-card .name {
+    font-size: 25px;
+    line-height: 1.2;
+  }
+  .park-card .sub {
+    font-size: 18px;
+    color: var(--color-moss);
+  }
+  .sh-berry { box-shadow: 0 7px 0 var(--color-berry-s); }
+  .sh-lake { box-shadow: 0 7px 0 var(--color-lake-s); }
+  .sh-pine { box-shadow: 0 7px 0 var(--color-pine-s); }
+  .art-berry { background: var(--color-berry); }
+  .art-pine { background: var(--color-pine); }
+  .art-lake { background: #7FB8CC; }
+  .art-sun { background: var(--color-sun); }
+  .art-mint { background: #8CC7A1; }
+  .art-peach { background: var(--color-peach); }
+
+  .park-card.big .art {
+    height: 150px;
+  }
+  .park-card.big .art svg {
+    width: 100%;
+    height: 100%;
+  }
+  .park-card.big .name {
+    font-size: 28px;
+  }
+  .park-card.big .label {
+    flex: 1;
+    gap: 4px;
+  }
+  .go-btn {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 56px;
+    border-radius: 999px;
+    background: var(--color-sun);
+    box-shadow: 0 5px 0 var(--color-sun-d);
+    font-size: 20px;
+    white-space: nowrap;
+  }
+  .go-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* 小卡（動動腦、算一算） */
+  .zone-cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+    flex: 1;
+  }
+  .park-card.small .art {
+    height: 100px;
+  }
+  .park-card.small .art svg {
+    width: 82px;
+    height: 82px;
+  }
+
+  /* 打字、收藏冊 */
+  .mini-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 24px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    text-decoration: none;
+    min-height: 84px;
+    position: relative;
+  }
+  .mini-card > svg {
+    width: 62px;
+    height: 62px;
+    flex: none;
+  }
+  .mini-card .name {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .mini-card .sub {
+    font-size: 18px;
+    color: var(--color-moss);
+  }
+  .home-type {
+    background: var(--color-mist);
+    border: 3px dashed #7FA597;
+  }
+  .laptop-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+    padding: 2px 12px;
+    border-radius: 999px;
+    background: var(--color-lake);
+    color: #fff;
+    font-size: 17px;
+  }
+  .laptop-tag svg {
+    width: 20px;
+    height: 20px;
+  }
+  .home-album {
+    box-shadow: 0 7px 0 #F8C6A4;
+  }
+  .home-album .count {
+    margin-left: auto;
+    font-size: 30px;
+    line-height: 1;
+    text-align: center;
+  }
+  .home-album .count small {
+    display: block;
+    font-size: 16px;
+    color: var(--color-moss);
+  }
+
+  /* ── iPad 直式 ── */
+  @media (min-width: 768px) {
+    .home {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas: "cont cont" "chess chess" "brain math" "type album";
+      gap: 34px 24px;
+      padding: 36px 26px 30px;
+    }
+    .home-cont .big-btn {
+      flex: none;
+    }
+    .home-cont .mini {
+      width: 84px;
+      height: 84px;
+    }
+    .home-cont .mini svg {
+      width: 66px;
+      height: 66px;
+    }
+    .home-cont .what {
+      font-size: 28px;
+    }
+    .home-chess {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 186px;
+      grid-template-rows: auto 1fr;
+      column-gap: 18px;
+    }
+    .home-chess .ribbon {
+      grid-column: 1 / 3;
+      justify-self: start;
+    }
+    .home-chess .pair {
+      grid-column: 1 / 3;
+      grid-row: 2;
+      gap: 18px;
+    }
+    .home-buddy {
+      grid-column: 3;
+      grid-row: 1 / 3;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 0;
+      gap: 0;
+    }
+    .home-buddy > svg {
+      width: 130px;
+      height: 154px;
+    }
+    .home-buddy .bubble {
+      flex: none;
+      margin: 0 0 24px;
+      text-align: center;
+    }
+    .home-buddy .bubble::after {
+      left: 50%;
+      bottom: -20px;
+      margin-left: -12px;
+      width: 24px;
+      height: 22px;
+      clip-path: polygon(0 0, 100% 0, 40% 100%);
+    }
+    .park-card.big .art {
+      height: 180px;
+    }
+    .park-card.big .name {
+      font-size: 34px;
+    }
+    .park-card.small .art {
+      height: 104px;
+    }
+  }
+
+  /* ── iPad 橫式、筆電 ── */
+  @media (min-width: 1024px) {
+    .home {
+      grid-template-columns: minmax(0, 46fr) minmax(0, 27fr) minmax(0, 27fr);
+      grid-template-areas: "chess cont cont" "chess brain math" "chess type album";
+      grid-template-rows: auto 1fr auto;
+      gap: 22px 24px;
+      min-height: calc(100vh - 84px);
+      min-height: calc(100dvh - 84px);
+    }
+    .home-chess {
+      display: flex;
+      flex-direction: column;
+    }
+    .home-chess .pair {
+      gap: 18px;
+      flex: 1;
+      min-height: 0;
+    }
+    .home-buddy {
+      flex-direction: row;
+      align-items: flex-end;
+      margin-top: 16px;
+      gap: 8px;
+    }
+    .home-buddy > svg {
+      width: 110px;
+      height: 130px;
+    }
+    .home-buddy .bubble {
+      flex: 1;
+      margin: 0 0 46px;
+      text-align: left;
+    }
+    .home-buddy .bubble::after {
+      left: -18px;
+      bottom: 14px;
+      margin-left: 0;
+      width: 26px;
+      height: 24px;
+      clip-path: polygon(100% 0, 0 70%, 100% 100%);
+    }
+    .park-card.big .art {
+      height: clamp(170px, calc(100vh - 560px), 262px);
+    }
+    .zone-cards {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    .park-card.small {
+      flex-direction: row;
+    }
+    .park-card.small .art {
+      width: 112px;
+      height: auto;
+      flex: none;
+      border-radius: 24px 0 0 24px;
+    }
+    .park-card.small .label {
+      flex: 1;
+      justify-content: center;
+    }
+    .home-cont .big-btn {
+      flex: none;
+    }
+  }
+}

@@ -1,9 +1,26 @@
-import type { AIConfig, Difficulty } from '../types'
+import type { AIConfig } from '../types'
+
+// AI 出題：呼叫網站自己的伺服器（伺服器再呼叫 Claude，金鑰只放伺服器）。
+// 合約見 docs/ai-workflow/kelly-ai/00-task-spec.md 第三節：只送合約上的欄位、超過長度先截斷，
+// 帶標頭 X-Family-Passcode。任何非 200、逾時、網路錯誤、回傳格式不對，一律安靜改用本機題目，
+// 孩子畫面不顯示錯誤或來源（失敗原因只寫進主控台紀錄，給大人查）。
+
+export const AI_CLIENT_TIMEOUT_MS = 8000
+
+/** 家用通行碼：只收英數字與 -，8～64 字（要放進 HTTP 標頭） */
+export const PASSCODE_PATTERN = /^[A-Za-z0-9-]{8,64}$/
+
+export function isValidPasscode(value: string | null | undefined): value is string {
+  return typeof value === 'string' && PASSCODE_PATTERN.test(value)
+}
 
 export interface AIMathRequest {
   readonly gradeBand: string
   readonly unitId: string
-  readonly difficulty: Difficulty
+  readonly unitName: string
+  readonly unitDescription: string
+  readonly curriculumTag: string
+  readonly difficulty: number
   readonly weakPoints?: readonly string[]
 }
 
@@ -17,8 +34,7 @@ export interface AIMathProblem {
 
 export interface AIShopRequest {
   readonly stage: 'A' | 'B' | 'C'
-  readonly difficulty: Difficulty
-  readonly theme?: string
+  readonly difficulty: number
   readonly weakPoints?: readonly string[]
 }
 
@@ -29,248 +45,147 @@ export interface AIShopQuestion {
   readonly options?: readonly number[]
 }
 
+export type AIFallbackReason =
+  | 'no_passcode'
+  | 'local_unit'
+  | 'invalid_request'
+  | 'timeout'
+  | 'network'
+  | 'bad_response'
+  | `http_${number}`
+
 export type AIResult<T> =
-  | { source: 'ai'; data: T }
-  | { source: 'local'; data: T; reason: string }
+  | { readonly source: 'ai'; readonly data: T }
+  | { readonly source: 'local'; readonly data: T; readonly reason: AIFallbackReason }
 
-const AI_TIMEOUT_MS = 6000
-
-function isNonEmptyString(value: unknown): value is string {
-  return typeof value === 'string' && value.trim().length > 0
+function apiUrl(path: string): string {
+  return `${import.meta.env.BASE_URL}api/ai/${path}`
 }
 
-function toFiniteNumber(value: unknown): number | null {
-  if (typeof value === 'number' && Number.isFinite(value)) return value
-  if (typeof value === 'string' && value.trim() !== '') {
-    const n = Number(value)
-    if (Number.isFinite(n)) return n
+/** 截到最多 max 個 UTF-16 單位（伺服器用字串長度檢查），不切斷 emoji 這類由兩個單位組成的字 */
+function clip(text: string, max: number): string {
+  const trimmed = text.trim()
+  if (trimmed.length <= max) return trimmed
+  let out = ''
+  for (const ch of trimmed) {
+    if (out.length + ch.length > max) break
+    out += ch
   }
-  return null
+  return out
 }
 
-function safeJsonParse<T>(raw: string): T | null {
-  try {
-    return JSON.parse(raw) as T
-  } catch {
-    return null
-  }
+function clampDifficulty(value: number): number {
+  if (!Number.isFinite(value)) return 1
+  return Math.min(5, Math.max(1, Math.round(value)))
 }
 
-function extractJsonObjectString(raw: string): string {
-  const trimmed = raw.trim()
-
-  // ```json ... ```
-  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i)
-  if (fenced?.[1]) return fenced[1].trim()
-
-  // 抓第一個完整 JSON 物件
-  const first = trimmed.indexOf('{')
-  const last = trimmed.lastIndexOf('}')
-  if (first >= 0 && last > first) return trimmed.slice(first, last + 1)
-
-  return trimmed
+/** 弱點：選填，最多 5 個、每個 1～30 字；沒有就不送這個欄位 */
+function weakPointsField(points?: readonly string[]): { weakPoints?: string[] } {
+  const cleaned = (points ?? [])
+    .map((p) => clip(p, 30))
+    .filter((p) => p.length > 0)
+    .slice(0, 5)
+  return cleaned.length > 0 ? { weakPoints: cleaned } : {}
 }
 
-function parseAiJson<T>(raw: string): T | null {
-  const direct = safeJsonParse<T>(raw)
-  if (direct) return direct
+type Reply = { readonly status: number; readonly body: unknown } | { readonly failed: 'timeout' | 'network' }
 
-  const extracted = extractJsonObjectString(raw)
-  if (extracted !== raw) return safeJsonParse<T>(extracted)
-
-  return null
-}
-
-function normalizeOptions(options?: readonly unknown[]): number[] | undefined {
-  if (!options || options.length === 0) return undefined
-  const normalized = options
-    .map((n) => toFiniteNumber(n))
-    .filter((n): n is number => n !== null && n >= 0)
-  const deduped = Array.from(new Set(normalized))
-  return deduped.length > 0 ? deduped : undefined
-}
-
-function isMathProblem(value: unknown): value is AIMathProblem {
-  if (!value || typeof value !== 'object') return false
-  const v = value as Record<string, unknown>
-
-  const answer = toFiniteNumber(v.answer)
-
-  return (
-    isNonEmptyString(v.text) &&
-    answer !== null &&
-    Math.abs(answer) <= 1_000_000_000 &&
-    isNonEmptyString(v.hint) &&
-    isNonEmptyString(v.unitId) &&
-    isNonEmptyString(v.curriculumTag)
-  )
-}
-
-function sanitizeMathProblem(value: AIMathProblem, req: AIMathRequest): AIMathProblem {
-  return {
-    text: value.text.trim(),
-    answer: Number(value.answer),
-    hint: value.hint.trim(),
-    // 以請求中的 unitId 為主，避免 AI 回傳跨單元題目
-    unitId: req.unitId,
-    curriculumTag: value.curriculumTag.trim(),
-  }
-}
-
-function isShopQuestion(value: unknown): value is AIShopQuestion {
-  if (!value || typeof value !== 'object') return false
-  const v = value as Record<string, unknown>
-
-  const answer = toFiniteNumber(v.answer)
-  const optionsRaw = Array.isArray(v.options) ? v.options : undefined
-  const normalizedOptions = normalizeOptions(optionsRaw)
-  const optionsOk = optionsRaw === undefined || Boolean(normalizedOptions && normalizedOptions.length >= 2 && normalizedOptions.length <= 6)
-
-  return (
-    isNonEmptyString(v.description) &&
-    answer !== null &&
-    Math.abs(answer) <= 1_000_000_000 &&
-    isNonEmptyString(v.hint) &&
-    optionsOk
-  )
-}
-
-function sanitizeShopQuestion(value: AIShopQuestion): AIShopQuestion {
-  const cleanedOptions = normalizeOptions(value.options)
-  const answer = Number(value.answer)
-
-  if (!cleanedOptions) {
-    return {
-      description: value.description.trim(),
-      answer,
-      hint: value.hint.trim(),
-      options: undefined,
-    }
-  }
-
-  const optionsWithAnswer = cleanedOptions.includes(answer)
-    ? cleanedOptions
-    : [...cleanedOptions, answer]
-
-  return {
-    description: value.description.trim(),
-    answer,
-    hint: value.hint.trim(),
-    options: optionsWithAnswer.slice(0, 6),
-  }
-}
-
-async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number): Promise<Response> {
+/** 送出請求，最多等 8 秒；回應本文讀不成 JSON 時 body 是 undefined */
+async function request(path: string, passcode: string, init: { method: 'GET' | 'POST'; body?: unknown }): Promise<Reply> {
   const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  let timedOut = false
+  const timer = setTimeout(() => {
+    timedOut = true
+    controller.abort()
+  }, AI_CLIENT_TIMEOUT_MS)
 
   try {
-    return await fetch(url, { ...init, signal: controller.signal })
+    const headers: Record<string, string> = { 'X-Family-Passcode': passcode }
+    if (init.body !== undefined) headers['Content-Type'] = 'application/json'
+    const res = await fetch(apiUrl(path), {
+      method: init.method,
+      headers,
+      body: init.body === undefined ? undefined : JSON.stringify(init.body),
+      signal: controller.signal,
+    })
+    let body: unknown
+    try {
+      body = await res.json()
+    } catch {
+      if (timedOut) return { failed: 'timeout' }
+      body = undefined
+    }
+    return { status: res.status, body }
+  } catch {
+    return { failed: timedOut ? 'timeout' : 'network' }
   } finally {
     clearTimeout(timer)
   }
 }
 
-function normalizeProviderReason(error: unknown): string {
-  if (error instanceof DOMException && error.name === 'AbortError') return 'provider_timeout'
-  if (error instanceof Error) {
-    if (/AbortError|timed out|timeout/i.test(error.message)) return 'provider_timeout'
-    if (/Failed to fetch|NetworkError|Load failed|fetch failed|TypeError: Failed to fetch/i.test(error.message)) {
-      return 'provider_network_or_cors'
-    }
-    if (/HTTP 400/i.test(error.message)) return 'provider_bad_request'
-    if (/HTTP 401/i.test(error.message)) return 'provider_auth_error'
-    if (/HTTP 403/i.test(error.message)) return 'provider_permission_denied'
-    if (/HTTP 404/i.test(error.message)) return 'provider_not_found'
-    if (/HTTP 429/i.test(error.message)) return 'provider_rate_limited'
-    if (/HTTP 5\d\d/i.test(error.message)) return 'provider_server_error'
-  }
-  return 'provider_error'
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-async function callOpenAI(config: AIConfig, systemPrompt: string, userPrompt: string): Promise<string> {
-  const res = await fetchWithTimeout(
-    'https://api.openai.com/v1/chat/completions',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${config.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4.1-mini',
-        temperature: 0.8,
-        response_format: { type: 'json_object' },
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-      }),
-    },
-    AI_TIMEOUT_MS,
-  )
-
-  if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    throw new Error(`OpenAI HTTP ${res.status}${body ? ` ${body.slice(0, 120)}` : ''}`)
-  }
-
-  const json = await res.json() as { choices?: Array<{ message?: { content?: string } }> }
-  const content = json.choices?.[0]?.message?.content
-  if (!content) throw new Error('OpenAI empty response')
-  return content
+function nonEmptyText(value: unknown, max: number): string | null {
+  if (typeof value !== 'string') return null
+  const trimmed = value.trim()
+  return trimmed.length > 0 && trimmed.length <= max ? trimmed : null
 }
 
-async function callGemini(config: AIConfig, systemPrompt: string, userPrompt: string): Promise<string> {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(config.apiKey)}`
-  const res = await fetchWithTimeout(
-    url,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: {
-          temperature: 0.8,
-          responseMimeType: 'application/json',
-        },
-        contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-      }),
-    },
-    AI_TIMEOUT_MS,
-  )
-
-  if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    throw new Error(`Gemini HTTP ${res.status}${body ? ` ${body.slice(0, 120)}` : ''}`)
-  }
-
-  const json = await res.json() as {
-    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>
-  }
-
-  const parts = json.candidates?.[0]?.content?.parts ?? []
-  const content = parts.map((p) => p.text ?? '').join('').trim()
-  if (!content) throw new Error('Gemini empty response')
-  return content
+function validAnswer(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) && Math.abs(value) <= 1_000_000_000 ? value : null
 }
 
-async function callAI(config: AIConfig, systemPrompt: string, userPrompt: string): Promise<string> {
-  if (config.provider === 'openai') return callOpenAI(config, systemPrompt, userPrompt)
-  return callGemini(config, systemPrompt, userPrompt)
+/** 共用流程：沒通行碼不送；送出後只有 200 而且格式正確才採用，其他一律用本機題目 */
+async function ask<T>(
+  config: AIConfig | null,
+  path: 'math' | 'shop',
+  body: Record<string, unknown> | null,
+  parse: (raw: unknown) => T | null,
+  fallback: () => T,
+): Promise<AIResult<T>> {
+  const local = (reason: AIFallbackReason): AIResult<T> => {
+    if (reason !== 'no_passcode' && reason !== 'local_unit') console.warn(`[AI 出題] 改用本機題目：${reason}`)
+    return { source: 'local', data: fallback(), reason }
+  }
+
+  const passcode = config?.passcode
+  if (!isValidPasscode(passcode)) return local('no_passcode')
+  if (!body) return local('invalid_request')
+
+  const reply = await request(path, passcode, { method: 'POST', body })
+  if ('failed' in reply) return local(reply.failed)
+  if (reply.status !== 200) return local(`http_${reply.status}`)
+  const data = parse(reply.body)
+  return data ? { source: 'ai', data } : local('bad_response')
 }
 
-/** 測試 API Key 連線 */
-export async function testAIConnection(
-  config: AIConfig,
-): Promise<{ ok: boolean; message: string; raw?: string }> {
-  try {
-    const raw = await callAI(config, '回應 JSON：{"status":"ok"}', '請回應')
-    return { ok: true, message: `✅ 連線成功（${config.provider}）`, raw }
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error)
-    console.warn('[AI Test]', error)
-    return { ok: false, message: `❌ ${msg}` }
+const GRADE_BAND = /^grade-[1-6]$/
+const UNIT_ID = /^[a-z0-9-]{1,40}$/
+const CURRICULUM_TAG = /^[A-Za-z0-9-]{1,12}$/
+
+/**
+ * 分數類單元（編號含 frac：分數、分數乘法、分數除法）的答案常常不是單一整數，
+ * 用「一個數字當答案」的問法容易彆扭，直接用本機題目
+ */
+function isLocalOnlyUnit(unitId: string): boolean {
+  return unitId.includes('frac')
+}
+
+function mathBody(req: AIMathRequest): Record<string, unknown> | null {
+  const unitName = clip(req.unitName, 20)
+  if (!GRADE_BAND.test(req.gradeBand) || !UNIT_ID.test(req.unitId) || !CURRICULUM_TAG.test(req.curriculumTag) || !unitName) {
+    return null
+  }
+  return {
+    gradeBand: req.gradeBand,
+    unitId: req.unitId,
+    unitName,
+    unitDescription: clip(req.unitDescription, 60),
+    curriculumTag: req.curriculumTag,
+    difficulty: clampDifficulty(req.difficulty),
+    ...weakPointsField(req.weakPoints),
   }
 }
 
@@ -279,35 +194,31 @@ export async function generateMathProblemWithAI(
   req: AIMathRequest,
   fallback: () => AIMathProblem,
 ): Promise<AIResult<AIMathProblem>> {
-  if (!config?.apiKey?.trim()) {
-    return { source: 'local', data: fallback(), reason: 'missing_api_key' }
-  }
-
-  const systemPrompt =
-    '你是兒童數學出題助手。輸出必須是 JSON，且只輸出單一題。題目需正向鼓勵、繁體中文、不可超齡。'
-  const userPrompt = JSON.stringify({
-    task: 'generate_math_problem',
-    request: req,
-    schema: {
-      text: 'string',
-      answer: 'number',
-      hint: 'string',
-      unitId: 'string',
-      curriculumTag: 'string',
+  if (isLocalOnlyUnit(req.unitId)) return { source: 'local', data: fallback(), reason: 'local_unit' }
+  return ask(
+    config,
+    'math',
+    mathBody(req),
+    (raw) => {
+      if (!isRecord(raw)) return null
+      const text = nonEmptyText(raw.text, 300)
+      const hint = nonEmptyText(raw.hint, 200)
+      const answer = validAnswer(raw.answer)
+      if (text === null || hint === null || answer === null) return null
+      // 單元與課綱以請求為準，避免題目跑到別的單元
+      return { text, answer, hint, unitId: req.unitId, curriculumTag: req.curriculumTag }
     },
-  })
+    fallback,
+  )
+}
 
-  try {
-    const raw = await callAI(config, systemPrompt, userPrompt)
-    const parsed = parseAiJson<unknown>(raw)
-    if (!isMathProblem(parsed)) {
-      return { source: 'local', data: fallback(), reason: 'invalid_schema' }
-    }
-    return { source: 'ai', data: sanitizeMathProblem(parsed, req) }
-  } catch (error) {
-    console.warn('[AI Math]', error)
-    return { source: 'local', data: fallback(), reason: normalizeProviderReason(error) }
-  }
+function shopOptions(value: unknown, answer: number): number[] | undefined | null {
+  if (value === undefined) return undefined
+  if (!Array.isArray(value) || value.length < 2 || value.length > 6) return null
+  if (!value.every((n) => typeof n === 'number' && Number.isFinite(n) && n >= 0)) return null
+  const options = value as number[]
+  if (new Set(options).size !== options.length || !options.includes(answer)) return null
+  return options
 }
 
 export async function generateShopQuestionWithAI(
@@ -315,32 +226,56 @@ export async function generateShopQuestionWithAI(
   req: AIShopRequest,
   fallback: () => AIShopQuestion,
 ): Promise<AIResult<AIShopQuestion>> {
-  if (!config?.apiKey?.trim()) {
-    return { source: 'local', data: fallback(), reason: 'missing_api_key' }
-  }
-
-  const systemPrompt =
-    '你是兒童商店數學出題助手。輸出必須是 JSON，題目情境要可愛、清楚、可計算。'
-  const userPrompt = JSON.stringify({
-    task: 'generate_shop_question',
-    request: req,
-    schema: {
-      description: 'string',
-      answer: 'number',
-      hint: 'string',
-      options: 'number[] (optional)',
+  const body = ['A', 'B', 'C'].includes(req.stage)
+    ? { stage: req.stage, difficulty: clampDifficulty(req.difficulty), ...weakPointsField(req.weakPoints) }
+    : null
+  return ask(
+    config,
+    'shop',
+    body,
+    (raw) => {
+      if (!isRecord(raw)) return null
+      const description = nonEmptyText(raw.description, 300)
+      const hint = nonEmptyText(raw.hint, 200)
+      const answer = validAnswer(raw.answer)
+      if (description === null || hint === null || answer === null) return null
+      const options = shopOptions(raw.options, answer)
+      if (options === null) return null
+      return options ? { description, answer, hint, options } : { description, answer, hint }
     },
-  })
+    fallback,
+  )
+}
 
-  try {
-    const raw = await callAI(config, systemPrompt, userPrompt)
-    const parsed = parseAiJson<unknown>(raw)
-    if (!isShopQuestion(parsed)) {
-      return { source: 'local', data: fallback(), reason: 'invalid_schema' }
-    }
-    return { source: 'ai', data: sanitizeShopQuestion(parsed) }
-  } catch (error) {
-    console.warn('[AI Shop]', error)
-    return { source: 'local', data: fallback(), reason: normalizeProviderReason(error) }
+/** 家長區「檢查」的結果 */
+export type AIStatusResult =
+  | { readonly kind: 'ok'; readonly remainingToday: number; readonly dailyLimit: number }
+  | { readonly kind: 'disabled' }
+  | { readonly kind: 'wrong_passcode' }
+  | { readonly kind: 'locked' }
+  | { readonly kind: 'try_later' }
+  | { readonly kind: 'daily_limit' }
+  | { readonly kind: 'no_service' }
+
+/** 問伺服器通行碼對不對、今天還能出幾題（不會呼叫模型） */
+export async function checkAIStatus(passcode: string): Promise<AIStatusResult> {
+  if (!isValidPasscode(passcode)) return { kind: 'wrong_passcode' }
+  const reply = await request('status', passcode, { method: 'GET' })
+  if ('failed' in reply) return { kind: 'no_service' }
+  const body = isRecord(reply.body) ? reply.body : null
+  if (reply.status === 200 && body && typeof body.enabled === 'boolean') {
+    if (!body.enabled) return { kind: 'disabled' }
+    const remainingToday = typeof body.remainingToday === 'number' ? body.remainingToday : 0
+    const dailyLimit = typeof body.dailyLimit === 'number' ? body.dailyLimit : 0
+    return { kind: 'ok', remainingToday, dailyLimit }
   }
+  if (reply.status === 401) return { kind: 'wrong_passcode' }
+  if (reply.status === 429) {
+    if (body?.error === 'locked') return { kind: 'locked' }
+    // 每分鐘上限或伺服器同時處理太多題：稍等就好
+    if (body?.error === 'rate_limited' || body?.error === 'busy') return { kind: 'try_later' }
+    if (body?.error === 'daily_limit') return { kind: 'daily_limit' }
+  }
+  // 其他：404（例如 GitHub 舊站沒有 AI 服務）、回網頁不是 JSON、連不上、伺服器沒設定好
+  return { kind: 'no_service' }
 }

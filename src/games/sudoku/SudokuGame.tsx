@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { RotateCcw, Lightbulb, Check } from 'lucide-react'
 import { generateSudoku, checkBoard } from './generator'
 import { useGameStore } from '../../stores/gameStore'
+import { useGameDifficulty } from '../../components/GameShell/session'
 
 type Board = (number | null)[][]
 
@@ -62,7 +63,7 @@ function findDuplicateCells(board: Board): Set<string> {
 }
 
 export default function SudokuGame() {
-  const currentDifficulty = useGameStore((s) => s.currentDifficulty)
+  const currentDifficulty = useGameDifficulty('sudoku')
   const addScore = useGameStore((s) => s.addScore)
   const [{ puzzle, solution }, setGame] = useState(() => generateSudoku(currentDifficulty))
   const [board, setBoard] = useState<Board>(() => puzzle.map((r) => [...r]))

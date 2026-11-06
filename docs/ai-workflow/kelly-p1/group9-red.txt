@@ -1,0 +1,1874 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/components/GameShell/ResultSheet.test.tsx (7 tests | 6 failed) 119ms
+     × 回報 2 顆星：打開過關畫面，亮 2 顆星，有再玩一次、下一關、回首頁，播過關音效 54ms
+     × 再玩一次：關掉過關畫面，遊戲從頭開始 16ms
+     × 下一關：換到普通，遊戲重新開始，過關畫面關掉 12ms
+     × 挑戰已經是最後一關：沒有「下一關」，其他兩個照常 11ms
+     × 一般情況星星會一顆顆跳出來 10ms
+     × 設定「減少動態效果」時星星直接出現、不跳動 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/GameShell/ResultSheet.test.tsx > 過關畫面 > 回報 2 顆星：打開過關畫面，亮 2 顆星，有再玩一次、下一關、回首頁，播過關音效
+TestingLibraryElementError: Unable to find an accessible element with the role "dialog" and name `/過關了/`
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "換一關（現在是簡單）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+    [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "聲音：開（點一下變靜音）":
+  [36m<button[39m
+    [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"pill pill-sun"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "走一步":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "過關":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<header[39m
+      [33mclass[39m=[32m"topbar"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"回首頁"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M10 16 H27"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m回首頁[0m
+        [36m</span>[39m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+          [33mviewBox[39m=[32m"0 0 86 86"[39m
+        [36m>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"12"[39m
+              [33my[39m=[32m"20"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"9"[39m
+              [33my[39m=[32m"17"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+              [33mfill[39m=[32m"#7FB8CC"[39m
+            [36m/>[39m
+          [36m</g>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"46"[39m
+              [33my[39m=[32m"21"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#FFFDF7"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"43"[39m
+              [33my[39m=[32m"18"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+            [36m/>[39m
+          [36m</g>[39m
+        [36m</svg>[39m
+        [36m<h1[39m
+          [33mclass[39m=[32m"topbar-title"[39m
+        [36m>[39m
+          [0m記憶翻牌[0m
+        [36m</h1>[39m
+      [36m</div>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+        [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/memory"[39m
+      [36m>[39m
+        [0m簡單[0m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex-1"[39m
+      [36m/>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"pill pill-sun"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M4 12 H10 L17 6 V26 L10 20 H4 Z"[39m
+            [33mfill[39m=[32m"#1D3A33"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M21 11 Q25 16 21 21 M24.5 7.5 Q31 16 24.5 24.5"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m聲音[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"怎麼玩"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"17"[39m
+            [33mfill[39m=[32m"#164F63"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"15"[39m
+            [33mfill[39m=[32m"#1F6A85"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#fff"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3.2"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"22.6"[39m
+            [33mfill[39m=[32m"#fff"[39m
+            [33mr[39m=[32m"2.1"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m怎麼玩[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</header>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4"[39m
+        [33mdata-game-root[39m=[32m"memory"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p>[39m
+            [0m走了 [0m
+            [0m0[0m
+            [0m 步[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m走一步[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m過關[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/GameShell/ResultSheet.test.tsx:79:26
+     77|     fireEvent.click(screen.getByRole('button', { name: '過關' }))
+     78|
+     79|     const sheet = screen.getByRole('dialog', { name: /過關了/ })
+       |                          ^
+     80|     expect(within(sheet).getByLabelText('拿到 2 顆星')).toBeTruthy()
+     81|     expect(sheet.querySelectorAll('[data-star="filled"]')).toHaveLengt…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  src/components/GameShell/ResultSheet.test.tsx > 過關畫面 > 再玩一次：關掉過關畫面，遊戲從頭開始
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "再玩一次"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "換一關（現在是簡單）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+    [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "聲音：開（點一下變靜音）":
+  [36m<button[39m
+    [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"pill pill-sun"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "走一步":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "過關":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<header[39m
+      [33mclass[39m=[32m"topbar"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"回首頁"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M10 16 H27"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m回首頁[0m
+        [36m</span>[39m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+          [33mviewBox[39m=[32m"0 0 86 86"[39m
+        [36m>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"12"[39m
+              [33my[39m=[32m"20"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"9"[39m
+              [33my[39m=[32m"17"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+              [33mfill[39m=[32m"#7FB8CC"[39m
+            [36m/>[39m
+          [36m</g>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"46"[39m
+              [33my[39m=[32m"21"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#FFFDF7"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"43"[39m
+              [33my[39m=[32m"18"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+            [36m/>[39m
+          [36m</g>[39m
+        [36m</svg>[39m
+        [36m<h1[39m
+          [33mclass[39m=[32m"topbar-title"[39m
+        [36m>[39m
+          [0m記憶翻牌[0m
+        [36m</h1>[39m
+      [36m</div>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+        [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/memory"[39m
+      [36m>[39m
+        [0m簡單[0m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex-1"[39m
+      [36m/>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"pill pill-sun"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M4 12 H10 L17 6 V26 L10 20 H4 Z"[39m
+            [33mfill[39m=[32m"#1D3A33"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M21 11 Q25 16 21 21 M24.5 7.5 Q31 16 24.5 24.5"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m聲音[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"怎麼玩"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"17"[39m
+            [33mfill[39m=[32m"#164F63"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"15"[39m
+            [33mfill[39m=[32m"#1F6A85"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#fff"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3.2"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"22.6"[39m
+            [33mfill[39m=[32m"#fff"[39m
+            [33mr[39m=[32m"2.1"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m怎麼玩[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</header>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4"[39m
+        [33mdata-game-root[39m=[32m"memory"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p>[39m
+            [0m走了 [0m
+            [0m1[0m
+            [0m 步[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m走一步[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m過關[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/GameShell/ResultSheet.test.tsx:102:28
+    100|     expect(screen.getByText('走了 1 步')).toBeTruthy()
+    101|     fireEvent.click(screen.getByRole('button', { name: '過關' }))
+    102|     fireEvent.click(screen.getByRole('button', { name: '再玩一次' }))
+       |                            ^
+    103|
+    104|     expect(screen.queryByRole('dialog')).toBeNull()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  src/components/GameShell/ResultSheet.test.tsx > 過關畫面 > 下一關：換到普通，遊戲重新開始，過關畫面關掉
+TestingLibraryElementError: Unable to find an accessible element with the role "link" and name `/下一關/`
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "換一關（現在是簡單）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+    [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "聲音：開（點一下變靜音）":
+  [36m<button[39m
+    [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"pill pill-sun"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "走一步":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "過關":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<header[39m
+      [33mclass[39m=[32m"topbar"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"回首頁"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M10 16 H27"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m回首頁[0m
+        [36m</span>[39m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+          [33mviewBox[39m=[32m"0 0 86 86"[39m
+        [36m>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"12"[39m
+              [33my[39m=[32m"20"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"9"[39m
+              [33my[39m=[32m"17"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+              [33mfill[39m=[32m"#7FB8CC"[39m
+            [36m/>[39m
+          [36m</g>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"46"[39m
+              [33my[39m=[32m"21"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#FFFDF7"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"43"[39m
+              [33my[39m=[32m"18"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+            [36m/>[39m
+          [36m</g>[39m
+        [36m</svg>[39m
+        [36m<h1[39m
+          [33mclass[39m=[32m"topbar-title"[39m
+        [36m>[39m
+          [0m記憶翻牌[0m
+        [36m</h1>[39m
+      [36m</div>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+        [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/memory"[39m
+      [36m>[39m
+        [0m簡單[0m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex-1"[39m
+      [36m/>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"pill pill-sun"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M4 12 H10 L17 6 V26 L10 20 H4 Z"[39m
+            [33mfill[39m=[32m"#1D3A33"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M21 11 Q25 16 21 21 M24.5 7.5 Q31 16 24.5 24.5"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m聲音[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"怎麼玩"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"17"[39m
+            [33mfill[39m=[32m"#164F63"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"15"[39m
+            [33mfill[39m=[32m"#1F6A85"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#fff"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3.2"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"22.6"[39m
+            [33mfill[39m=[32m"#fff"[39m
+            [33mr[39m=[32m"2.1"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m怎麼玩[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</header>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4"[39m
+        [33mdata-game-root[39m=[32m"memory"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p>[39m
+            [0m走了 [0m
+            [0m0[0m
+            [0m 步[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m走一步[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m過關[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/GameShell/ResultSheet.test.tsx:112:28
+    110|     renderGame('/memory/easy', 1)
+    111|     fireEvent.click(screen.getByRole('button', { name: '過關' }))
+    112|     fireEvent.click(screen.getByRole('link', { name: /下一關/ }))
+       |                            ^
+    113|     expect(screen.queryByRole('dialog')).toBeNull()
+    114|     expect(screen.getByRole('link', { name: /換一關（現在是普通）/ })).toBeTruth…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  src/components/GameShell/ResultSheet.test.tsx > 過關畫面 > 挑戰已經是最後一關：沒有「下一關」，其他兩個照常
+TestingLibraryElementError: Unable to find an accessible element with the role "dialog" and name `/過關了/`
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "換一關（現在是挑戰）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"換一關（現在是挑戰）"[39m
+    [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "聲音：開（點一下變靜音）":
+  [36m<button[39m
+    [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"pill pill-sun"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "走一步":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "過關":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<header[39m
+      [33mclass[39m=[32m"topbar"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"回首頁"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M10 16 H27"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m回首頁[0m
+        [36m</span>[39m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+          [33mviewBox[39m=[32m"0 0 86 86"[39m
+        [36m>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"12"[39m
+              [33my[39m=[32m"20"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"9"[39m
+              [33my[39m=[32m"17"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+              [33mfill[39m=[32m"#7FB8CC"[39m
+            [36m/>[39m
+          [36m</g>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"46"[39m
+              [33my[39m=[32m"21"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#FFFDF7"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"43"[39m
+              [33my[39m=[32m"18"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+            [36m/>[39m
+          [36m</g>[39m
+        [36m</svg>[39m
+        [36m<h1[39m
+          [33mclass[39m=[32m"topbar-title"[39m
+        [36m>[39m
+          [0m記憶翻牌[0m
+        [36m</h1>[39m
+      [36m</div>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"換一關（現在是挑戰）"[39m
+        [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/memory"[39m
+      [36m>[39m
+        [0m挑戰[0m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex-1"[39m
+      [36m/>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"pill pill-sun"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M4 12 H10 L17 6 V26 L10 20 H4 Z"[39m
+            [33mfill[39m=[32m"#1D3A33"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M21 11 Q25 16 21 21 M24.5 7.5 Q31 16 24.5 24.5"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m聲音[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"怎麼玩"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"17"[39m
+            [33mfill[39m=[32m"#164F63"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"15"[39m
+            [33mfill[39m=[32m"#1F6A85"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#fff"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3.2"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"22.6"[39m
+            [33mfill[39m=[32m"#fff"[39m
+            [33mr[39m=[32m"2.1"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m怎麼玩[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</header>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4"[39m
+        [33mdata-game-root[39m=[32m"memory"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p>[39m
+            [0m走了 [0m
+            [0m0[0m
+            [0m 步[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m走一步[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m過關[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/GameShell/ResultSheet.test.tsx:120:26
+    118|     renderGame('/memory/hard', 3)
+    119|     fireEvent.click(screen.getByRole('button', { name: '過關' }))
+    120|     const sheet = screen.getByRole('dialog', { name: /過關了/ })
+       |                          ^
+    121|     expect(within(sheet).queryByRole('link', { name: /下一關/ })).toBeNul…
+    122|     expect(within(sheet).getByRole('button', { name: '再玩一次' })).toBeTr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  src/components/GameShell/ResultSheet.test.tsx > 過關畫面 > 一般情況星星會一顆顆跳出來
+TestingLibraryElementError: Unable to find an accessible element with the role "dialog"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "換一關（現在是簡單）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+    [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "聲音：開（點一下變靜音）":
+  [36m<button[39m
+    [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"pill pill-sun"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "走一步":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "過關":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<header[39m
+      [33mclass[39m=[32m"topbar"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"回首頁"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M10 16 H27"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m回首頁[0m
+        [36m</span>[39m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+          [33mviewBox[39m=[32m"0 0 86 86"[39m
+        [36m>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"12"[39m
+              [33my[39m=[32m"20"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"9"[39m
+              [33my[39m=[32m"17"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+              [33mfill[39m=[32m"#7FB8CC"[39m
+            [36m/>[39m
+          [36m</g>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"46"[39m
+              [33my[39m=[32m"21"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#FFFDF7"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"43"[39m
+              [33my[39m=[32m"18"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+            [36m/>[39m
+          [36m</g>[39m
+        [36m</svg>[39m
+        [36m<h1[39m
+          [33mclass[39m=[32m"topbar-title"[39m
+        [36m>[39m
+          [0m記憶翻牌[0m
+        [36m</h1>[39m
+      [36m</div>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+        [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/memory"[39m
+      [36m>[39m
+        [0m簡單[0m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex-1"[39m
+      [36m/>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"pill pill-sun"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M4 12 H10 L17 6 V26 L10 20 H4 Z"[39m
+            [33mfill[39m=[32m"#1D3A33"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M21 11 Q25 16 21 21 M24.5 7.5 Q31 16 24.5 24.5"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m聲音[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"怎麼玩"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"17"[39m
+            [33mfill[39m=[32m"#164F63"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"15"[39m
+            [33mfill[39m=[32m"#1F6A85"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#fff"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3.2"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"22.6"[39m
+            [33mfill[39m=[32m"#fff"[39m
+            [33mr[39m=[32m"2.1"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m怎麼玩[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</header>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4"[39m
+        [33mdata-game-root[39m=[32m"memory"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p>[39m
+            [0m走了 [0m
+            [0m0[0m
+            [0m 步[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m走一步[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m過關[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/GameShell/ResultSheet.test.tsx:129:19
+    127|     renderGame('/memory/easy', 3)
+    128|     fireEvent.click(screen.getByRole('button', { name: '過關' }))
+    129|     expect(screen.getByRole('dialog').querySelectorAll('.star-pop').le…
+       |                   ^
+    130|   })
+    131|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  src/components/GameShell/ResultSheet.test.tsx > 過關畫面 > 設定「減少動態效果」時星星直接出現、不跳動
+TestingLibraryElementError: Unable to find an accessible element with the role "dialog"
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "換一關（現在是簡單）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+    [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "聲音：開（點一下變靜音）":
+  [36m<button[39m
+    [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"pill pill-sun"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "走一步":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "過關":
+  [36m<button[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<header[39m
+      [33mclass[39m=[32m"topbar"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"回首頁"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M10 16 H27"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"4.5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m回首頁[0m
+        [36m</span>[39m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+          [33mviewBox[39m=[32m"0 0 86 86"[39m
+        [36m>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"12"[39m
+              [33my[39m=[32m"20"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"9"[39m
+              [33my[39m=[32m"17"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+              [33mfill[39m=[32m"#7FB8CC"[39m
+            [36m/>[39m
+          [36m</g>[39m
+          [36m<g[39m
+            [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+          [36m>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"46"[39m
+              [33my[39m=[32m"21"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#FFFDF7"[39m
+              [33mheight[39m=[32m"46"[39m
+              [33mrx[39m=[32m"8"[39m
+              [33mwidth[39m=[32m"32"[39m
+              [33mx[39m=[32m"43"[39m
+              [33my[39m=[32m"18"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+            [36m/>[39m
+          [36m</g>[39m
+        [36m</svg>[39m
+        [36m<h1[39m
+          [33mclass[39m=[32m"topbar-title"[39m
+        [36m>[39m
+          [0m記憶翻牌[0m
+        [36m</h1>[39m
+      [36m</div>[39m
+      [36m<a[39m
+        [33maria-label[39m=[32m"換一關（現在是簡單）"[39m
+        [33mclass[39m=[32m"pill hidden md:inline-flex"[39m
+        [33mdata-discover[39m=[32m"true"[39m
+        [33mhref[39m=[32m"/memory"[39m
+      [36m>[39m
+        [0m簡單[0m
+      [36m</a>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex-1"[39m
+      [36m/>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"聲音：開（點一下變靜音）"[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"pill pill-sun"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M4 12 H10 L17 6 V26 L10 20 H4 Z"[39m
+            [33mfill[39m=[32m"#1D3A33"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M21 11 Q25 16 21 21 M24.5 7.5 Q31 16 24.5 24.5"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#1D3A33"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m聲音[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"怎麼玩"[39m
+        [33mclass[39m=[32m"pill"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mviewBox[39m=[32m"0 0 32 32"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"17"[39m
+            [33mfill[39m=[32m"#164F63"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"15"[39m
+            [33mfill[39m=[32m"#1F6A85"[39m
+            [33mr[39m=[32m"13"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mstroke[39m=[32m"#fff"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"3.2"[39m
+          [36m/>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"16"[39m
+            [33mcy[39m=[32m"22.6"[39m
+            [33mfill[39m=[32m"#fff"[39m
+            [33mr[39m=[32m"2.1"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"pill-label"[39m
+        [36m>[39m
+          [0m怎麼玩[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</header>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4"[39m
+        [33mdata-game-root[39m=[32m"memory"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p>[39m
+            [0m走了 [0m
+            [0m0[0m
+            [0m 步[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m走一步[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m過關[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/GameShell/ResultSheet.test.tsx:136:26
+    134|     renderGame('/memory/easy', 3)
+    135|     fireEvent.click(screen.getByRole('button', { name: '過關' }))
+    136|     const sheet = screen.getByRole('dialog')
+       |                          ^
+    137|     expect(sheet.querySelectorAll('[data-star="filled"]')).toHaveLengt…
+    138|     expect(sheet.querySelectorAll('.star-pop')).toHaveLength(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 1 passed (7)
+   Start at  14:22:48
+   Duration  478ms (transform 72ms, setup 45ms, import 86ms, tests 119ms, environment 139ms)
+
+結束碼：1

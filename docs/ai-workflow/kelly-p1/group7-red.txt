@@ -1,0 +1,3876 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/games/math/levels.test.tsx (3 tests | 3 failed) 35ms
+     × 簡單：每一題都是簡單題 23ms
+     × 普通：一開始是正常題，連錯 2 題後改出簡單題 6ms
+     × 挑戰：連錯也不會變簡單 5ms
+ ❯ src/games/math/MathChallengeGame.test.tsx (2 tests | 2 failed) 67ms
+     × 切年級後立即換成新年級第一個單元的題目 23ms
+     × 答題後立刻切年級，原本排定的下一題不會蓋掉新年級的題目 43ms
+ ❯ src/games/kidScreens.test.tsx (3 tests | 3 failed) 1103ms
+     × 數學：AI 連不上時改用內建題庫繼續出題，畫面沒有來源、錯誤訊息或課綱代碼 1053ms
+     × 數學：沒有年級按鈕（年級改由家長區設定），也沒有「AI 出題／本地題庫」切換 23ms
+     × 恐龍商店：開了 AI 出題也看不到出題來源、AI 錯誤訊息與切換按鈕 26ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/games/kidScreens.test.tsx > 小孩畫面不出現大人的訊息 > 數學：AI 連不上時改用內建題庫繼續出題，畫面沒有來源、錯誤訊息或課綱代碼
+AssertionError: expected "vi.fn()" to be called at least once
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+        [36m>[39m
+          [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-warm-text-light"[39m
+          [36m>[39m
+            [0m出題模式：[0m
+          [36m</span>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m本地題庫[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-warm-text"[39m
+          [36m>[39m
+            [0mAI 出題[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m1[0m
+            [0m 年級[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+          [36m>[39m
+            [0m2[0m
+            [0m 年級[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m3[0m
+            [0m 年級[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m4[0m
+            [0m 年級[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m5[0m
+            [0m 年級[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m6[0m
+            [0m 年級[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+          [36m>[39m
+            [0m三位數加減[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m乘法九九[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m錢幣應用[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m兩步驟問題[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+          [36m>[39m
+            [0m分裝平分[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"24"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"2"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"24"[39m
+              [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M12 7v14"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0m 單元練習[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light opacity-50 cursor-not-allowed"[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"24"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"2"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"24"[39m
+              [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+            [36m>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"12"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m"10"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"12"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m"6"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"12"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m"2"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0m 錯題回練（[0m
+            [0m0[0m
+            [0m）[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+        [36m>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+          [36m>[39m
+            [0m📍 學習地圖（[0m
+            [0m2[0m
+            [0m 年級）[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"font-semibold"[39m
+                [36m>[39m
+                  [0m三位數加減[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+                [36m>[39m
+                  [0m未開始[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+              [36m>[39m
+                [0m課綱標籤：[0m
+                [0mN-2-2[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mt-1"[39m
+              [36m>[39m
+                [0m作答 [0m
+                [0m0[0m
+                [0m 次｜正確率 [0m
+                [0m0[0m
+                [0m%[0m
+              [36m</div>[39m
+              [36m<div>[39m
+                [0m錯題 [0m
+                [0m0[0m
+                [0m 題[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"font-semibold"[39m
+                [36m>[39m
+                  [0m乘法九九[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+                [36m>[39m
+                  [0m未開始[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+              [36m>[39m
+                [0m課綱標籤：[0m
+                [0mN-2-7[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mt-1"[39m
+              [36m>[39m
+                [0m作答 [0m
+                [0m0[0m
+                [0m 次｜正確率 [0m
+                [0m0[0m
+                [0m%[0m
+              [36m</div>[39m
+              [36m<div>[39m
+                [0m錯題 [0m
+                [0m0[0m
+                [0m 題[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"font-semibold"[39m
+                [36m>[39m
+                  [0m錢幣應用[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+                [36m>[39m
+                  [0m未開始[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+              [36m>[39m
+                [0m課綱標籤：[0m
+                [0mN-2-5[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mt-1"[39m
+              [36m>[39m
+                [0m作答 [0m
+                [0m0[0m
+                [0m 次｜正確率 [0m
+                [0m0[0m
+                [0m%[0m
+              [36m</div>[39m
+              [36m<div>[39m
+                [0m錯題 [0m
+                [0m0[0m
+                [0m 題[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"font-semibold"[39m
+                [36m>[39m
+                  [0m兩步驟問題[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+                [36m>[39m
+                  [0m未開始[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+              [36m>[39m
+                [0m課綱標籤：[0m
+                [0mN-2-8[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mt-1"[39m
+              [36m>[39m
+                [0m作答 [0m
+                [0m0[0m
+                [0m 次｜正確率 [0m
+                [0m0[0m
+                [0m%[0m
+              [36m</div>[39m
+              [36m<div>[39m
+                [0m錯題 [0m
+                [0m0[0m
+                [0m 題[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"font-semibold"[39m
+                [36m>[39m
+                  [0m分裝平分[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+                [36m>[39m
+                  [0m未開始[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+              [36m>[39m
+                [0m課綱標籤：[0m
+                [0mN-2-9[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mt-1"[39m
+              [36m>[39m
+                [0m作答 [0m
+                [0m0[0m
+                [0m 次｜正確率 [0m
+                [0m0[0m
+                [0m%[0m
+              [36m</div>[39m
+              [36m<div>[39m
+                [0m錯題 [0m
+                [0m0[0m
+                [0m 題[0m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+          [36m>[39m
+            [0m題號：[0m
+            [36m<b>[39m
+              [0m1[0m
+              [0m/[0m
+              [0m10[0m
+            [36m</b>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+          [36m>[39m
+            [0m答對：[0m
+            [36m<b>[39m
+              [0m0[0m
+            [36m</b>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+          [36m>[39m
+            [0m答錯：[0m
+            [36m<b>[39m
+              [0m0[0m
+            [36m</b>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+          [36m>[39m
+            [0m正確率：[0m
+            [36m<b>[39m
+              [0m100[0m
+              [0m%[0m
+            [36m</b>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+        [36m>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+          [36m>[39m
+            [0m單元練習模式[0m
+            [0m｜課綱：[0m
+            [0mN-2-2[0m
+            [0m｜來源：[0m
+            [0m本地題庫[0m
+          [36m</p>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+          [36m>[39m
+            [0m129 - 87 = ?[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+          [36m>[39m
+            [0m42[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+          [36m>[39m
+            [0m39[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+          [36m>[39m
+            [0m41[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+          [36m>[39m
+            [0m52[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+          [36m>[39m
+            [0m看提示[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"24"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"2"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"24"[39m
+              [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M3 3v5h5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0m 重來[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ❯ src/games/kidScreens.test.tsx:44:39
+     42|
+     43|     // 等 AI 預先出題失敗（fetch 被呼叫過＝真的試過 AI），再答一題，讓失敗的那一題換上來
+     44|     await waitFor(() => expect(fetch).toHaveBeenCalled())
+       |                                       ^
+     45|     await act(async () => {})
+     46|     vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  src/games/kidScreens.test.tsx > 小孩畫面不出現大人的訊息 > 數學：沒有年級按鈕（年級改由家長區設定），也沒有「AI 出題／本地題庫」切換
+TestingLibraryElementError: Found multiple elements with the role "button" and name `/年級/`
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+[36m>[39m
+  [0m1[0m
+  [0m 年級[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+[36m>[39m
+  [0m2[0m
+  [0m 年級[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+[36m>[39m
+  [0m3[0m
+  [0m 年級[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+[36m>[39m
+  [0m4[0m
+  [0m 年級[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+[36m>[39m
+  [0m5[0m
+  [0m 年級[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+[36m>[39m
+  [0m6[0m
+  [0m 年級[0m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+      [36m>[39m
+        [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m2[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m3[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m4[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m5[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m6[0m
+          [0m 年級[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m三位數加減[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m乘法九九[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m錢幣應用[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m兩步驟問題[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m分裝平分[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M12 7v14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 單元練習[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light opacity-50 cursor-not-allowed"[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"10"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 錯題回練（[0m
+          [0m0[0m
+          [0m）[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+        [36m>[39m
+          [0m📍 學習地圖（[0m
+          [0m2[0m
+          [0m 年級）[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m三位數加減[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m乘法九九[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-7[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m錢幣應用[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-5[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m兩步驟問題[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-8[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m分裝平分[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-9[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m題號：[0m
+          [36m<b>[39m
+            [0m1[0m
+            [0m/[0m
+            [0m10[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答對：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答錯：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m正確率：[0m
+          [36m<b>[39m
+            [0m100[0m
+            [0m%[0m
+          [36m</b>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+        [36m>[39m
+          [0m單元練習模式[0m
+          [0m｜課綱：[0m
+          [0mN-2-2[0m
+          [0m｜來源：[0m
+          [0m本地題庫[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+        [36m>[39m
+          [0m籃子有 32 個蘋果，又放入 128 個蘋果，共有幾個？[0m
+        [36m</p>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m170[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m155[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m165[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m160[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+        [36m>[39m
+          [0m看提示[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 3v5h5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 重來[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/games/kidScreens.test.tsx:59:19
+     57|   it('數學：沒有年級按鈕（年級改由家長區設定），也沒有「AI 出題／本地題庫」切換', () => {
+     58|     render(<MathChallengeGame />)
+     59|     expect(screen.queryByRole('button', { name: /年級/ })).toBeNull()
+       |                   ^
+     60|     expect(screen.queryByRole('button', { name: /AI 出題|本地題庫/ })).toBeN…
+     61|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  src/games/kidScreens.test.tsx > 小孩畫面不出現大人的訊息 > 恐龍商店：開了 AI 出題也看不到出題來源、AI 錯誤訊息與切換按鈕
+TestingLibraryElementError: Found multiple elements with the role "button" and name `/AI 出題|本地題庫/`
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-2.5 py-1 rounded-full bg-white text-warm-text-light"[39m
+[36m>[39m
+  [0m本地題庫[0m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"px-2.5 py-1 rounded-full bg-sky-light text-warm-text"[39m
+[36m>[39m
+  [0mAI 出題[0m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-2xl mx-auto space-y-3"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center gap-2"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex-1 h-2 rounded-full bg-fossil-light/40 overflow-hidden"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"h-full rounded-full bg-fossil"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-xs text-warm-text-light shrink-0"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m/[0m
+          [0m8[0m
+        [36m</span>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-xs"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-2.5 py-1 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-2.5 py-1 rounded-full bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-start gap-3 p-3"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"relative shrink-0"[39m
+          [33mstyle[39m=[32m"transform: none;"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-4xl"[39m
+          [36m>[39m
+            [0m🦆[0m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"absolute -top-2 -right-1 text-lg"[39m
+            [33mstyle[39m=[32m"transform: rotate(15deg);"[39m
+          [36m>[39m
+            [0m🎩[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"relative bg-white rounded-2xl px-4 py-3 shadow-sm border border-fossil-light/50 flex-1"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: scale(0.9);"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"absolute left-[-8px] top-4 w-0 h-0 border-t-[6px] border-t-transparent border-r-[8px] border-r-white border-b-[6px] border-b-transparent"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex items-center gap-2"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-lg"[39m
+            [36m>[39m
+              [0m😊[0m
+            [36m</span>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-sm text-warm-text leading-relaxed"[39m
+            [36m>[39m
+              [0m歡迎來到達克比的恐龍商店！[0m
+            [36m</p>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"text-xs text-warm-text-light text-center"[39m
+      [36m>[39m
+        [0m出題來源：[0m
+        [0m本地題庫[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-3 gap-2 p-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all border-fossil-light/30 bg-white/60 cursor-pointer hover:border-fossil hover:shadow-sm active:scale-95"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(10px);"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-2xl"[39m
+          [36m>[39m
+            [0m🍪[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-xs font-medium text-warm-text"[39m
+          [36m>[39m
+            [0m恐龍餅乾[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-sm font-bold text-fossil"[39m
+          [36m>[39m
+            [0m3[0m
+            [0m 元[0m
+          [36m</span>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all border-fossil-light/30 bg-white/60 cursor-pointer hover:border-fossil hover:shadow-sm active:scale-95"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(10px);"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-2xl"[39m
+          [36m>[39m
+            [0m🍫[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-xs font-medium text-warm-text"[39m
+          [36m>[39m
+            [0m化石巧克力[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-sm font-bold text-fossil"[39m
+          [36m>[39m
+            [0m12[0m
+            [0m 元[0m
+          [36m</span>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all border-fossil-light/30 bg-white/60 cursor-pointer hover:border-fossil hover:shadow-sm active:scale-95"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(10px);"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-2xl"[39m
+          [36m>[39m
+            [0m🔨[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-xs font-medium text-warm-text"[39m
+          [36m>[39m
+            [0m挖掘錘[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-sm font-bold text-fossil"[39m
+          [36m>[39m
+            [0m15[0m
+            [0m 元[0m
+          [36m</span>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all border-fossil-light/30 bg-white/60 cursor-pointer hover:border-fossil hover:shadow-sm active:scale-95"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(10px);"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-2xl"[39m
+          [36m>[39m
+            [0m🥚[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-xs font-medium text-warm-text"[39m
+          [36m>[39m
+            [0m大恐龍蛋[0m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-sm font-bold text-fossil"[39m
+          [36m>[39m
+            [0m35[0m
+            [0m 元[0m
+          [36m</span>[39m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex justify-center"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-lg text-xs text-warm-text-light hover:text-warm-text transition-colors"[39m
+        [36m>[39m
+          [0m💡 需要提示嗎？[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center gap-2 flex-wrap justify-center"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all bg-fossil text-white shadow-md"[39m
+          [33mtabindex[39m=[32m"0"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m🪙[0m
+          [36m</span>[39m
+          [36m<span>[39m
+            [0mA[0m
+            [0m [0m
+            [0m認識硬幣[0m
+          [36m</span>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all bg-white/60 text-warm-text border border-fossil-light/40 hover:bg-fossil-light/30"[39m
+          [33mtabindex[39m=[32m"0"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m💰[0m
+          [36m</span>[39m
+          [36m<span>[39m
+            [0mB[0m
+            [0m [0m
+            [0m付款練習[0m
+          [36m</span>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all bg-white/60 text-warm-text border border-fossil-light/40 hover:bg-fossil-light/30"[39m
+          [33mtabindex[39m=[32m"0"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m🧮[0m
+          [36m</span>[39m
+          [36m<span>[39m
+            [0mC[0m
+            [0m [0m
+            [0m找零計算[0m
+          [36m</span>[39m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium bg-cream text-warm-text border border-cream/60 hover:bg-cream/80 transition-all"[39m
+          [33mtabindex[39m=[32m"0"[39m
+        [36m>[39m
+          [0m🏆 收藏[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/games/kidScreens.test.tsx:66:19
+     64|     render(<DinoShopGame />)
+     65|     await act(async () => {})
+     66|     expect(screen.queryByRole('button', { name: /AI 出題|本地題庫/ })).toBeN…
+       |                   ^
+     67|     expect(kidText()).not.toMatch(ADULT_TEXT)
+     68|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  src/games/math/MathChallengeGame.test.tsx > 數學挑戰：切換年級 > 切年級後立即換成新年級第一個單元的題目
+TestingLibraryElementError: Unable to find an element by: [data-testid="math-problem"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+      [36m>[39m
+        [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m2[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m3[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m4[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m5[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m6[0m
+          [0m 年級[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m三位數加減[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m乘法九九[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m錢幣應用[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m兩步驟問題[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m分裝平分[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M12 7v14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 單元練習[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light opacity-50 cursor-not-allowed"[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"10"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 錯題回練（[0m
+          [0m0[0m
+          [0m）[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+        [36m>[39m
+          [0m📍 學習地圖（[0m
+          [0m2[0m
+          [0m 年級）[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m三位數加減[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m乘法九九[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-7[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m錢幣應用[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-5[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m兩步驟問題[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-8[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m分裝平分[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-9[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m題號：[0m
+          [36m<b>[39m
+            [0m1[0m
+            [0m/[0m
+            [0m10[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答對：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答錯：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m正確率：[0m
+          [36m<b>[39m
+            [0m100[0m
+            [0m%[0m
+          [36m</b>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+        [36m>[39m
+          [0m單元練習模式[0m
+          [0m｜課綱：[0m
+          [0mN-2-2[0m
+          [0m｜來源：[0m
+          [0m本地題庫[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+        [36m>[39m
+          [0m400 - 83 = ?[0m
+        [36m</p>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m322[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m307[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m317[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m320[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+        [36m>[39m
+          [0m看提示[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 3v5h5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 重來[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ shownCurriculumTag src/games/math/MathChallengeGame.test.tsx:11:17
+      9| // 改版後課綱代碼不再顯示給小孩看（移到家長區），題目卡片只在 data-curriculum-tag 屬性留著給測試讀。
+     10| function shownCurriculumTag(): string {
+     11|   return screen.getByTestId('math-problem').getAttribute('data-curricu…
+       |                 ^
+     12| }
+     13|
+ ❯ src/games/math/MathChallengeGame.test.tsx:49:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  src/games/math/MathChallengeGame.test.tsx > 數學挑戰：切換年級 > 答題後立刻切年級，原本排定的下一題不會蓋掉新年級的題目
+TestingLibraryElementError: Unable to find an element by: [data-testid="math-problem"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+      [36m>[39m
+        [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m2[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m3[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m4[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m5[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m6[0m
+          [0m 年級[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m三位數加減[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m乘法九九[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m錢幣應用[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m兩步驟問題[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m分裝平分[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M12 7v14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 單元練習[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light "[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"10"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 錯題回練（[0m
+          [0m1[0m
+          [0m）[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+        [36m>[39m
+          [0m📍 學習地圖（[0m
+          [0m2[0m
+          [0m 年級）[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m三位數加減[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m待加強[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m1[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m1[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m乘法九九[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-7[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m錢幣應用[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-5[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m兩步驟問題[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-8[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m分裝平分[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-9[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m題號：[0m
+          [36m<b>[39m
+            [0m2[0m
+            [0m/[0m
+            [0m10[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答對：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答錯：[0m
+          [36m<b>[39m
+            [0m1[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m正確率：[0m
+          [36m<b>[39m
+            [0m0[0m
+            [0m%[0m
+          [36m</b>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+        [36m>[39m
+          [0m單元練習模式[0m
+          [0m｜課綱：[0m
+          [0mN-2-2[0m
+          [0m｜來源：[0m
+          [0m本地題庫[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+        [36m>[39m
+          [0m籃子有 114 張貼紙，又放入 76 張貼紙，共有幾張？[0m
+        [36m</p>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m189[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m192[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m190[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m193[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+        [36m>[39m
+          [0m看提示[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 3v5h5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 重來[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ shownCurriculumTag src/games/math/MathChallengeGame.test.tsx:11:17
+      9| // 改版後課綱代碼不再顯示給小孩看（移到家長區），題目卡片只在 data-curriculum-tag 屬性留著給測試讀。
+     10| function shownCurriculumTag(): string {
+     11|   return screen.getByTestId('math-problem').getAttribute('data-curricu…
+       |                 ^
+     12| }
+     13|
+ ❯ src/games/math/MathChallengeGame.test.tsx:68:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  src/games/math/levels.test.tsx > 數學挑戰的三段 > 簡單：每一題都是簡單題
+TestingLibraryElementError: Unable to find an element by: [data-testid="math-problem"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+      [36m>[39m
+        [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m2[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m3[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m4[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m5[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m6[0m
+          [0m 年級[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m三位數加減[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m乘法九九[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m錢幣應用[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m兩步驟問題[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m分裝平分[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M12 7v14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 單元練習[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light opacity-50 cursor-not-allowed"[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"10"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 錯題回練（[0m
+          [0m0[0m
+          [0m）[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+        [36m>[39m
+          [0m📍 學習地圖（[0m
+          [0m2[0m
+          [0m 年級）[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m三位數加減[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m乘法九九[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-7[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m錢幣應用[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-5[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m兩步驟問題[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-8[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m分裝平分[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-9[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m題號：[0m
+          [36m<b>[39m
+            [0m1[0m
+            [0m/[0m
+            [0m10[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答對：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答錯：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m正確率：[0m
+          [36m<b>[39m
+            [0m100[0m
+            [0m%[0m
+          [36m</b>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+        [36m>[39m
+          [0m單元練習模式[0m
+          [0m｜課綱：[0m
+          [0mN-2-2[0m
+          [0m｜來源：[0m
+          [0m本地題庫[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+        [36m>[39m
+          [0m828 - 159 = ?[0m
+        [36m</p>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m659[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m671[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m667[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m669[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+        [36m>[39m
+          [0m看提示[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 3v5h5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 重來[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ currentAnswer src/games/math/levels.test.tsx:36:22
+     34|
+     35| function currentAnswer(): number {
+     36|   const tag = screen.getByTestId('math-problem')
+       |                      ^
+     37|   const text = tag.querySelector('[data-problem-text]')?.textContent
+     38|   const shown = [...calls.problems].reverse().find((p) => p.text === t…
+ ❯ answerWrong src/games/math/levels.test.tsx:44:18
+ ❯ src/games/math/levels.test.tsx:70:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  src/games/math/levels.test.tsx > 數學挑戰的三段 > 普通：一開始是正常題，連錯 2 題後改出簡單題
+TestingLibraryElementError: Unable to find an element by: [data-testid="math-problem"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+      [36m>[39m
+        [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m2[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m3[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m4[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m5[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m6[0m
+          [0m 年級[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m三位數加減[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m乘法九九[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m錢幣應用[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m兩步驟問題[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m分裝平分[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M12 7v14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 單元練習[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light opacity-50 cursor-not-allowed"[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"10"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 錯題回練（[0m
+          [0m0[0m
+          [0m）[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+        [36m>[39m
+          [0m📍 學習地圖（[0m
+          [0m2[0m
+          [0m 年級）[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m三位數加減[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m乘法九九[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-7[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m錢幣應用[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-5[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m兩步驟問題[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-8[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m分裝平分[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-9[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m題號：[0m
+          [36m<b>[39m
+            [0m1[0m
+            [0m/[0m
+            [0m10[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答對：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答錯：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m正確率：[0m
+          [36m<b>[39m
+            [0m100[0m
+            [0m%[0m
+          [36m</b>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+        [36m>[39m
+          [0m單元練習模式[0m
+          [0m｜課綱：[0m
+          [0mN-2-2[0m
+          [0m｜來源：[0m
+          [0m本地題庫[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+        [36m>[39m
+          [0m720 - 486 = ?[0m
+        [36m</p>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m236[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m234[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m235[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m239[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+        [36m>[39m
+          [0m看提示[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 3v5h5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 重來[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ currentAnswer src/games/math/levels.test.tsx:36:22
+     34|
+     35| function currentAnswer(): number {
+     36|   const tag = screen.getByTestId('math-problem')
+       |                      ^
+     37|   const text = tag.querySelector('[data-problem-text]')?.textContent
+     38|   const shown = [...calls.problems].reverse().find((p) => p.text === t…
+ ❯ answerWrong src/games/math/levels.test.tsx:44:18
+ ❯ src/games/math/levels.test.tsx:79:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  src/games/math/levels.test.tsx > 數學挑戰的三段 > 挑戰：連錯也不會變簡單
+TestingLibraryElementError: Unable to find an element by: [data-testid="math-problem"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"w-full max-w-4xl bg-white/60 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-cream-light p-3 text-sm text-warm-text-light"[39m
+      [36m>[39m
+        [0m108課綱國小 2 年級數學：三位數加減、乘法九九、錢幣應用、兩步驟問題、分裝平分[0m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex items-center justify-center gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"text-warm-text-light"[39m
+        [36m>[39m
+          [0m出題模式：[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m本地題庫[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m1[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m2[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m3[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m4[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m5[0m
+          [0m 年級[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m6[0m
+          [0m 年級[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-mint text-warm-text"[39m
+        [36m>[39m
+          [0m三位數加減[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m乘法九九[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m錢幣應用[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m兩步驟問題[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light"[39m
+        [36m>[39m
+          [0m分裝平分[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-sky-light text-warm-text"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-book-open inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M12 7v14"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 單元練習[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full text-sm bg-white text-warm-text-light opacity-50 cursor-not-allowed"[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-target inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"10"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"6"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"12"[39m
+              [33mcy[39m=[32m"12"[39m
+              [33mr[39m=[32m"2"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 錯題回練（[0m
+          [0m0[0m
+          [0m）[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-xl bg-white/80 p-3"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm font-semibold mb-2"[39m
+        [36m>[39m
+          [0m📍 學習地圖（[0m
+          [0m2[0m
+          [0m 年級）[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint bg-mint/20"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m三位數加減[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-2[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m乘法九九[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-7[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m錢幣應用[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-5[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m兩步驟問題[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-8[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-lg border p-2 border-mint/20 bg-white"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex items-center justify-between gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"font-semibold"[39m
+              [36m>[39m
+                [0m分裝平分[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"px-2 py-0.5 rounded-full bg-cream-light"[39m
+              [36m>[39m
+                [0m未開始[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-warm-text-light mt-1"[39m
+            [36m>[39m
+              [0m課綱標籤：[0m
+              [0mN-2-9[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"mt-1"[39m
+            [36m>[39m
+              [0m作答 [0m
+              [0m0[0m
+              [0m 次｜正確率 [0m
+              [0m0[0m
+              [0m%[0m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m錯題 [0m
+              [0m0[0m
+              [0m 題[0m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m題號：[0m
+          [36m<b>[39m
+            [0m1[0m
+            [0m/[0m
+            [0m10[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答對：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m答錯：[0m
+          [36m<b>[39m
+            [0m0[0m
+          [36m</b>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"bg-white rounded-lg p-2"[39m
+        [36m>[39m
+          [0m正確率：[0m
+          [36m<b>[39m
+            [0m100[0m
+            [0m%[0m
+          [36m</b>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl bg-white p-6 text-center shadow-sm"[39m
+      [36m>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-sm text-warm-text-light mb-2"[39m
+        [36m>[39m
+          [0m單元練習模式[0m
+          [0m｜課綱：[0m
+          [0mN-2-2[0m
+          [0m｜來源：[0m
+          [0m本地題庫[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"text-2xl sm:text-3xl font-bold leading-relaxed"[39m
+        [36m>[39m
+          [0m53 + 736 = ?[0m
+        [36m</p>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 gap-3"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m788[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m779[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m799[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"rounded-xl bg-white hover:bg-mint/40 border border-mint/30 py-4 text-xl font-bold transition-all disabled:opacity-80"[39m
+        [36m>[39m
+          [0m789[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex gap-2"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-sky-light text-sm hover:bg-sky/50"[39m
+        [36m>[39m
+          [0m看提示[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"px-3 py-1.5 rounded-full bg-cream text-sm hover:bg-cream/80"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33mclass[39m=[32m"lucide lucide-rotate-ccw inline w-4 h-4 mr-1"[39m
+            [33mfill[39m=[32m"none"[39m
+            [33mheight[39m=[32m"24"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-linecap[39m=[32m"round"[39m
+            [33mstroke-linejoin[39m=[32m"round"[39m
+            [33mstroke-width[39m=[32m"2"[39m
+            [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [33mwidth[39m=[32m"24"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M3 3v5h5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0m 重來[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ currentAnswer src/games/math/levels.test.tsx:36:22
+     34|
+     35| function currentAnswer(): number {
+     36|   const tag = screen.getByTestId('math-problem')
+       |                      ^
+     37|   const text = tag.querySelector('[data-problem-text]')?.textContent
+     38|   const shown = [...calls.problems].reverse().find((p) => p.text === t…
+ ❯ answerWrong src/games/math/levels.test.tsx:44:18
+ ❯ src/games/math/levels.test.tsx:86:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  3 failed (3)
+      Tests  8 failed (8)
+   Start at  14:19:26
+   Duration  1.77s (transform 202ms, setup 161ms, import 950ms, tests 1.20s, environment 517ms)
+
+結束碼：1

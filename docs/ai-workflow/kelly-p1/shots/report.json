@@ -1,0 +1,346 @@
+[
+  {
+    "viewport": "390x844",
+    "page": "home",
+    "file": "home-390x844.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "390x844",
+    "page": "parent-gate",
+    "file": "parent-gate-390x844.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "390x844",
+    "page": "parent",
+    "file": "parent-390x844.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "390x844",
+    "page": "level-picker",
+    "file": "level-picker-390x844.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "390x844",
+    "page": "game-chess",
+    "file": "game-chess-390x844.png",
+    "problems": [],
+    "smallInGame": [
+      {
+        "label": "👫 雙人",
+        "w": 63,
+        "h": 24
+      },
+      {
+        "label": "🤖 對戰 AI",
+        "w": 78,
+        "h": 24
+      },
+      {
+        "label": "切換：可愛插畫棋子",
+        "w": 204,
+        "h": 40
+      },
+      {
+        "label": "新局",
+        "w": 84,
+        "h": 40
+      }
+    ],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "390x844",
+    "page": "album",
+    "file": "album-390x844.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "home",
+    "file": "home-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "home-first-visit",
+    "file": "home-first-visit-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "parent-gate",
+    "file": "parent-gate-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "parent",
+    "file": "parent-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "parent-ai",
+    "file": "parent-ai-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "level-picker",
+    "file": "level-picker-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "game-chess",
+    "file": "game-chess-820x1180.png",
+    "problems": [],
+    "smallInGame": [
+      {
+        "label": "👫 雙人",
+        "w": 63,
+        "h": 24
+      },
+      {
+        "label": "🤖 對戰 AI",
+        "w": 78,
+        "h": 24
+      },
+      {
+        "label": "切換：可愛插畫棋子",
+        "w": 204,
+        "h": 40
+      },
+      {
+        "label": "新局",
+        "w": 84,
+        "h": 40
+      }
+    ],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "820x1180",
+    "page": "album",
+    "file": "album-820x1180.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1180x820",
+    "page": "home",
+    "file": "home-1180x820.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1180x820",
+    "page": "parent-gate",
+    "file": "parent-gate-1180x820.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1180x820",
+    "page": "parent",
+    "file": "parent-1180x820.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1180x820",
+    "page": "level-picker",
+    "file": "level-picker-1180x820.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1180x820",
+    "page": "game-chess",
+    "file": "game-chess-1180x820.png",
+    "problems": [],
+    "smallInGame": [
+      {
+        "label": "👫 雙人",
+        "w": 63,
+        "h": 24
+      },
+      {
+        "label": "🤖 對戰 AI",
+        "w": 78,
+        "h": 24
+      },
+      {
+        "label": "切換：可愛插畫棋子",
+        "w": 204,
+        "h": 40
+      },
+      {
+        "label": "新局",
+        "w": 84,
+        "h": 40
+      }
+    ],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1180x820",
+    "page": "album",
+    "file": "album-1180x820.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1280x800",
+    "page": "home",
+    "file": "home-1280x800.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1280x800",
+    "page": "parent-gate",
+    "file": "parent-gate-1280x800.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1280x800",
+    "page": "parent",
+    "file": "parent-1280x800.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1280x800",
+    "page": "level-picker",
+    "file": "level-picker-1280x800.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1280x800",
+    "page": "game-chess",
+    "file": "game-chess-1280x800.png",
+    "problems": [],
+    "smallInGame": [
+      {
+        "label": "👫 雙人",
+        "w": 63,
+        "h": 24
+      },
+      {
+        "label": "🤖 對戰 AI",
+        "w": 78,
+        "h": 24
+      },
+      {
+        "label": "切換：可愛插畫棋子",
+        "w": 204,
+        "h": 40
+      },
+      {
+        "label": "新局",
+        "w": 84,
+        "h": 40
+      }
+    ],
+    "fonts": [
+      "YueyueRound"
+    ]
+  },
+  {
+    "viewport": "1280x800",
+    "page": "album",
+    "file": "album-1280x800.png",
+    "problems": [],
+    "smallInGame": [],
+    "fonts": [
+      "YueyueRound"
+    ]
+  }
+]

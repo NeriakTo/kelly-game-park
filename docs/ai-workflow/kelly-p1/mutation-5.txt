@@ -1,0 +1,51 @@
+改壞檢查五：失敗時把錯誤顯示給孩子看（跑完用 git checkout 還原）
+改法：出題失敗改用本機題目時，在題目文字前面加上「伺服器錯誤（原因）：」
+
+ src/services/ai.ts | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+     × 伺服器回 400：安靜改用本機題目 4ms
+     × 伺服器回 401：安靜改用本機題目 1ms
+     × 伺服器回 429：安靜改用本機題目 1ms
+     × 伺服器回 502：安靜改用本機題目 0ms
+     × 伺服器回 503：安靜改用本機題目 1ms
+     × 伺服器回 504：安靜改用本機題目 1ms
+     × 網路錯誤：改用本機題目 0ms
+     × 回傳格式不對（回的是網頁不是 JSON）：改用本機題目 0ms
+     × 回傳格式不對（題目是空字串）：改用本機題目 1ms
+     × 回傳格式不對（答案不是數字）：改用本機題目 0ms
+     × 回傳格式不對（少了提示）：改用本機題目 0ms
+     × 超過 8 秒沒回應：中斷請求、改用本機題目 1ms
+     × 選項沒有包含答案：當成格式不對，改用本機題目 0ms
+     × 伺服器回 429：安靜改用本機題目 0ms
+     × 伺服器回 502：安靜改用本機題目 0ms
+     × 伺服器回 503：安靜改用本機題目 0ms
+     × 伺服器502：照舊出下一題，畫面沒有錯誤字樣 750ms
+     × 伺服器503：照舊出下一題，畫面沒有錯誤字樣 744ms
+     × 伺服器429：照舊出下一題，畫面沒有錯誤字樣 741ms
+     × 伺服器連不上：照舊出下一題，畫面沒有錯誤字樣 739ms
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  20 failed | 21 passed (41)
+結束碼：1
+
+== 還原後 ==
+      Tests  41 passed (41)
+結束碼：0
+
+== 第二輪：補上恐龍商店整段測試（DinoShopGame.aiServer.test.tsx）後，同樣的改法再跑一次 ==
+ src/services/ai.ts | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+     × 伺服器502：第 2 題照舊用本機題目，畫面沒有錯誤字樣 689ms
+     × 伺服器503：第 2 題照舊用本機題目，畫面沒有錯誤字樣 674ms
+     × 伺服器429：第 2 題照舊用本機題目，畫面沒有錯誤字樣 676ms
+     × 伺服器連不上：第 2 題照舊用本機題目，畫面沒有錯誤字樣 671ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected '2/8🦆🎩😊伺服器錯誤（http_502）：🍪 恐龍餅乾每個 3 …' not to match /AI|API|CORS|HTTP|[Ee]rror|本地題庫|出題來源|來…/
+AssertionError: expected '2/8🦆🎩😊伺服器錯誤（http_503）：🍪 恐龍餅乾每個 3 …' not to match /AI|API|CORS|HTTP|[Ee]rror|本地題庫|出題來源|來…/
+AssertionError: expected '2/8🦆🎩😊伺服器錯誤（http_429）：🍪 恐龍餅乾每個 3 …' not to match /AI|API|CORS|HTTP|[Ee]rror|本地題庫|出題來源|來…/
+AssertionError: expected '2/8🦆🎩😊伺服器錯誤（network）：🍪 恐龍餅乾每個 3 元…' not to match /AI|API|CORS|HTTP|[Ee]rror|本地題庫|出題來源|來…/
+      Tests  4 failed | 1 passed (5)
+結束碼：1
+
+== 第二輪還原後 ==
+      Tests  5 passed (5)
+結束碼：0

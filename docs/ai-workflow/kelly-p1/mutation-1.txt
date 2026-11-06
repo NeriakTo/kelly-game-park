@@ -1,0 +1,91 @@
+# 改壞檢查 1：把第二份 Outlet 加回外框（用 CSS 藏起來，等同修正前的做法），第 1 組測試應該失敗
+# 基準 commit: a1fd853  指令: npx vitest run src/components/Layout
+# 暫時改動：
+diff --git a/src/components/Layout/Layout.tsx b/src/components/Layout/Layout.tsx
+index d835656..dbe711b 100644
+--- a/src/components/Layout/Layout.tsx
++++ b/src/components/Layout/Layout.tsx
+@@ -93,6 +93,7 @@ export default function Layout() {
+           <Outlet />
+         </Suspense>
+       </main>
++      <div className="hidden"><Suspense fallback={null}><Outlet /></Suspense></div>
+
+       {/* Mobile: 底部導覽 */}
+       <nav className="sm:hidden fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur-sm border-t border-mint/30 z-50 overflow-x-auto no-scrollbar">
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/components/Layout/Layout.test.tsx (3 tests | 3 failed) 397ms
+     × 路由頁面只掛載一份 29ms
+     × 掛載時記成績的頁面只記一筆 9ms
+     × 記憶翻牌難度 1（4 對）畫面上只有 8 張卡片 358ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/Layout/Layout.test.tsx > 外框 Layout：頁面內容只渲染一次 > 路由頁面只掛載一份
+AssertionError: expected [ <div …(1)></div>, <div …(1)></div> ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/components/Layout/Layout.test.tsx:44:49
+     42|   it('路由頁面只掛載一份', () => {
+     43|     renderInLayout(<PageProbe />)
+     44|     expect(screen.getAllByTestId('page-probe')).toHaveLength(1)
+       |                                                 ^
+     45|   })
+     46|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/components/Layout/Layout.test.tsx > 外框 Layout：頁面內容只渲染一次 > 掛載時記成績的頁面只記一筆
+AssertionError: expected [ { gameType: 'typing', …(5) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/components/Layout/Layout.test.tsx:49:44
+     47|   it('掛載時記成績的頁面只記一筆', () => {
+     48|     renderInLayout(<ScoreOnMount />)
+     49|     expect(useGameStore.getState().scores).toHaveLength(1)
+       |                                            ^
+     50|   })
+     51|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/components/Layout/Layout.test.tsx > 外框 Layout：頁面內容只渲染一次 > 記憶翻牌難度 1（4 對）畫面上只有 8 張卡片
+AssertionError: expected [ <button …(3)></button>, …(15) ] to have a length of 8 but got 16
+
+- Expected
++ Received
+
+- 8
++ 16
+
+ ❯ src/components/Layout/Layout.test.tsx:59:19
+     57|     )
+     58|     const cards = await screen.findAllByRole('button', { name: /^翻牌 第\…
+     59|     expect(cards).toHaveLength(4 * 2)
+       |                   ^
+     60|   })
+     61| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  13:13:46
+   Duration  925ms (transform 61ms, setup 47ms, import 255ms, tests 397ms, environment 142ms)
+
+
+exit code: 1

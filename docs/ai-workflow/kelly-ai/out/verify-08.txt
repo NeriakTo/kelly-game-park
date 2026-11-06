@@ -1,0 +1,27 @@
+$ npm run build
+
+> kelly-game-park@0.1.0 build
+> vite build
+
+vite v6.4.1 building for production...
+transforming...
+✓ 2039 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         0.52 kB │ gzip:   0.33 kB
+dist/assets/index-B3kVNoIu.css         51.46 kB │ gzip:   8.69 kB
+dist/assets/random-Direv13U.js          0.15 kB │ gzip:   0.14 kB
+dist/assets/rotate-ccw-CfML_uIc.js      0.37 kB │ gzip:   0.29 kB
+dist/assets/circle-check-Bc_jRcYQ.js    0.75 kB │ gzip:   0.38 kB
+dist/assets/MemoryPage-Btj_792E.js      3.26 kB │ gzip:   1.60 kB
+dist/assets/index-BJ34eBe7.js           3.86 kB │ gzip:   1.81 kB
+dist/assets/SudokuPage-aQImDxpx.js      7.51 kB │ gzip:   3.05 kB
+dist/assets/ChessPage-CsP5Ho4q.js      11.61 kB │ gzip:   4.55 kB
+dist/assets/TypingPage-DlYgTFh7.js     13.76 kB │ gzip:   5.29 kB
+dist/assets/DinoShopPage-DgoTcHvm.js   25.47 kB │ gzip:   8.76 kB
+dist/assets/GoPage-CKkks7rL.js         29.04 kB │ gzip:   9.46 kB
+dist/assets/MathPage-Bhwa8Pww.js       30.91 kB │ gzip:  10.04 kB
+dist/assets/index-dmHfFbRB.js         381.77 kB │ gzip: 123.81 kB
+✓ built in 1.06s
+
+EXIT_CODE=0

@@ -1,0 +1,113 @@
+=== 第一次：判斷模組還不存在 ===
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/pages/TypingGate.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/TypingGate.test.tsx [ src/pages/TypingGate.test.tsx ]
+Error: Failed to resolve import "../utils/device" from "src/pages/TypingGate.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park/src/pages/TypingGate.test.tsx:5:34
+  4  |  import { MemoryRouter } from "react-router-dom";
+  5  |  import App from "../App";
+  6  |  import { isTouchOnlyDevice } from "../utils/device";
+     |                                     ^
+  7  |  function fakeDevice({ touchPoints, coarse, hover }) {
+  8  |    Object.defineProperty(window.navigator, "maxTouchPoints", { value: touchPoints, configurable: true });
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42528:41
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42525:16
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40504:23
+ ❯ node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40623:37
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40550:7
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42323:18
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35739:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:21:08
+   Duration  318ms (transform 10ms, setup 47ms, import 0ms, tests 0ms, environment 149ms)
+
+結束碼：1
+
+=== 第二次：暫時放一個永遠回答「不是觸控裝置」的 device.ts 空殼（未 commit，跑完即刪），看行為層的失敗 ===
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/pages/TypingGate.test.tsx (5 tests | 4 failed) 15110ms
+     × 判斷：沒接鍵盤的 iPad 算觸控裝置；筆電、接了觸控板的 iPad 不算 3ms
+     × iPad 進打字：顯示「這個遊戲要用筆電玩喔」與回首頁，不顯示選關 5024ms
+     × iPad 從「繼續玩」直接進打字某一關，一樣先看到提示 5008ms
+     × 在提示畫面按下實體鍵盤的鍵，就當作有鍵盤，進到選關 5008ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/TypingGate.test.tsx > 打字：觸控裝置沒有鍵盤時的提示 > 判斷：沒接鍵盤的 iPad 算觸控裝置；筆電、接了觸控板的 iPad 不算
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/pages/TypingGate.test.tsx:48:33
+     46|   it('判斷：沒接鍵盤的 iPad 算觸控裝置；筆電、接了觸控板的 iPad 不算', () => {
+     47|     fakeDevice(IPAD)
+     48|     expect(isTouchOnlyDevice()).toBe(true)
+       |                                 ^
+     49|     fakeDevice(LAPTOP)
+     50|     expect(isTouchOnlyDevice()).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/pages/TypingGate.test.tsx > 打字：觸控裝置沒有鍵盤時的提示 > iPad 進打字：顯示「這個遊戲要用筆電玩喔」與回首頁，不顯示選關
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/TypingGate.test.tsx:55:3
+     53|   })
+     54|
+     55|   it('iPad 進打字：顯示「這個遊戲要用筆電玩喔」與回首頁，不顯示選關', async () => {
+       |   ^
+     56|     fakeDevice(IPAD)
+     57|     renderAt('/typing')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/pages/TypingGate.test.tsx > 打字：觸控裝置沒有鍵盤時的提示 > iPad 從「繼續玩」直接進打字某一關，一樣先看到提示
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/TypingGate.test.tsx:63:3
+     61|   })
+     62|
+     63|   it('iPad 從「繼續玩」直接進打字某一關，一樣先看到提示', async () => {
+       |   ^
+     64|     fakeDevice(IPAD)
+     65|     renderAt('/typing/easy')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/pages/TypingGate.test.tsx > 打字：觸控裝置沒有鍵盤時的提示 > 在提示畫面按下實體鍵盤的鍵，就當作有鍵盤，進到選關
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/TypingGate.test.tsx:70:3
+     68|   })
+     69|
+     70|   it('在提示畫面按下實體鍵盤的鍵，就當作有鍵盤，進到選關', async () => {
+       |   ^
+     71|     fakeDevice(IPAD)
+     72|     renderAt('/typing')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 1 passed (5)
+   Start at  14:21:15
+   Duration  15.47s (transform 93ms, setup 45ms, import 86ms, tests 15.11s, environment 141ms)
+
+結束碼：1

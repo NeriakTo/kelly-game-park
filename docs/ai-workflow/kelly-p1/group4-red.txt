@@ -1,0 +1,178 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/data/levelMap.test.ts (0 test)
+stderr | src/components/Layout/Layout.test.tsx > 外框 Layout：頁面內容只渲染一次 > 記憶翻牌難度 1（4 對）畫面上只有 8 張卡片
+No routes matched location "/memory/easy"
+
+ ❯ src/components/Layout/Layout.test.tsx (3 tests | 1 failed) 5028ms
+     × 記憶翻牌難度 1（4 對）畫面上只有 8 張卡片 5009ms
+stderr | src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 遊戲頁不再出現全站難度選擇
+No routes matched location "/memory/easy"
+
+stderr | src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 簡單、普通、挑戰分別是 4、6、8 對牌
+No routes matched location "/memory/easy"
+
+stderr | src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 在選關畫面點「普通」就進到普通的遊戲
+No routes matched location "/memory/normal"
+
+stderr | src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 網址裡的關卡看不懂時，回到選關畫面
+No routes matched location "/memory/super"
+
+ ❯ src/pages/GamePage.test.tsx (6 tests | 6 failed) 30046ms
+     × 進遊戲先看到選關畫面：簡單、普通、挑戰三個大按鈕，還沒開始玩 5018ms
+     × 遊戲頁不再出現全站難度選擇 5004ms
+     × 簡單、普通、挑戰分別是 4、6、8 對牌 5003ms
+     × 在選關畫面點「普通」就進到普通的遊戲 5008ms
+     × 網址裡的關卡看不懂時，回到選關畫面 5005ms
+     × 家長在家長區設定的推薦關卡，選關畫面會標「爸媽推薦」 5007ms
+ ❯ src/App.test.tsx (8 tests | 7 failed) 35074ms
+     × /sudoku：先顯示載入中，載入完成後只出現一份遊戲頁 5007ms
+     × /chess：先顯示載入中，載入完成後只出現一份遊戲頁 5006ms
+     × /memory：先顯示載入中，載入完成後只出現一份遊戲頁 5003ms
+     × /typing：先顯示載入中，載入完成後只出現一份遊戲頁 5006ms
+     × /math：先顯示載入中，載入完成後只出現一份遊戲頁 5007ms
+     × /dino-shop：先顯示載入中，載入完成後只出現一份遊戲頁 5004ms
+     × /go：先顯示載入中，載入完成後只出現一份遊戲頁 5005ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/data/levelMap.test.ts [ src/data/levelMap.test.ts ]
+Error: Failed to resolve import "./levelMap" from "src/data/levelMap.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park/src/data/levelMap.test.ts:2:71
+  1  |  import { describe, it, expect } from "vitest";
+  2  |  import { LEVEL_DIFFICULTY, MATH_LEVEL_EASING, levelToDifficulty } from "./levelMap";
+     |                                                                          ^
+  3  |  import { LEVELS } from "./levels";
+  4  |  describe("選關三段對照表", () => {
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42528:41
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42525:16
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40504:23
+ ❯ node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40623:37
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40550:7
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42323:18
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35739:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /sudoku：先顯示載入中，載入完成後只出現一份遊戲頁
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /chess：先顯示載入中，載入完成後只出現一份遊戲頁
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /memory：先顯示載入中，載入完成後只出現一份遊戲頁
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /typing：先顯示載入中，載入完成後只出現一份遊戲頁
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /math：先顯示載入中，載入完成後只出現一份遊戲頁
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /dino-shop：先顯示載入中，載入完成後只出現一份遊戲頁
+ FAIL  src/App.test.tsx > App 路由：遊戲頁依路由分開載入 > /go：先顯示載入中，載入完成後只出現一份遊戲頁
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/App.test.tsx:50:5
+     48|
+     49|   for (const { path, title } of GAME_ROUTES) {
+     50|     it(`${path}：先顯示載入中，載入完成後只出現一份遊戲頁`, async () => {
+       |     ^
+     51|       renderAt(path)
+     52|       expect(screen.getByText('載入中…')).toBeTruthy()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL  src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 進遊戲先看到選關畫面：簡單、普通、挑戰三個大按鈕，還沒開始玩
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/GamePage.test.tsx:33:3
+     31|   })
+     32|
+     33|   it('進遊戲先看到選關畫面：簡單、普通、挑戰三個大按鈕，還沒開始玩', async () => {
+       |   ^
+     34|     renderAt('/memory')
+     35|     const picker = await screen.findByRole('navigation', { name: '選關卡'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL  src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 遊戲頁不再出現全站難度選擇
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/GamePage.test.tsx:41:3
+     39|   })
+     40|
+     41|   it('遊戲頁不再出現全站難度選擇', async () => {
+       |   ^
+     42|     renderAt('/memory/easy')
+     43|     await cards()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL  src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 簡單、普通、挑戰分別是 4、6、8 對牌
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/GamePage.test.tsx:49:3
+     47|   })
+     48|
+     49|   it('簡單、普通、挑戰分別是 4、6、8 對牌', async () => {
+       |   ^
+     50|     const expected = { easy: 8, normal: 12, hard: 16 }
+     51|     for (const [level, count] of Object.entries(expected)) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL  src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 在選關畫面點「普通」就進到普通的遊戲
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/GamePage.test.tsx:58:3
+     56|   })
+     57|
+     58|   it('在選關畫面點「普通」就進到普通的遊戲', async () => {
+       |   ^
+     59|     renderAt('/memory')
+     60|     const picker = await screen.findByRole('navigation', { name: '選關卡'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL  src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 網址裡的關卡看不懂時，回到選關畫面
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/GamePage.test.tsx:65:3
+     63|   })
+     64|
+     65|   it('網址裡的關卡看不懂時，回到選關畫面', async () => {
+       |   ^
+     66|     renderAt('/memory/super')
+     67|     expect(await screen.findByRole('navigation', { name: '選關卡' }, { ti…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL  src/pages/GamePage.test.tsx > 選關畫面與三段難度 > 家長在家長區設定的推薦關卡，選關畫面會標「爸媽推薦」
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/pages/GamePage.test.tsx:70:3
+     68|   })
+     69|
+     70|   it('家長在家長區設定的推薦關卡，選關畫面會標「爸媽推薦」', async () => {
+       |   ^
+     71|     useSettingsStore.setState((s) => ({ recommendedLevels: { ...s.reco…
+     72|     renderAt('/memory')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL  src/components/Layout/Layout.test.tsx > 外框 Layout：頁面內容只渲染一次 > 記憶翻牌難度 1（4 對）畫面上只有 8 張卡片
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/components/Layout/Layout.test.tsx:53:3
+     51|   })
+     52|
+     53|   it('記憶翻牌難度 1（4 對）畫面上只有 8 張卡片', async () => {
+       |   ^
+     54|     // 改版後 /memory 是選關畫面，遊戲本身在 /memory/<關卡>；簡單對到原本的難度 1（4 對）
+     55|     render(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  14 failed | 3 passed (17)
+   Start at  14:08:42
+   Duration  35.57s (transform 417ms, setup 221ms, import 439ms, tests 70.15s, environment 737ms)
+
+結束碼：1

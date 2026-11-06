@@ -1,0 +1,46 @@
+
+> test
+> vitest run test/group4.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group4.test.ts (3 tests | 3 failed) 5ms
+   × 數學欄位與字串清理；商店答案補入且保留 3ms
+   × 拒答、截斷、空輸出與不合格輸出回 502 1ms
+   × 逾時與錯誤不洩漏 1ms
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  14:24:40
+   Duration  354ms (transform 38ms, setup 0ms, import 261ms, tests 5ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group4.test.ts > 數學欄位與字串清理；商店答案補入且保留
+TypeError: createApp is not a function
+ ❯ fixture test/helpers.ts:18:14
+
+ ❯ test/group4.test.ts:4:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/group4.test.ts > 拒答、截斷、空輸出與不合格輸出回 502
+TypeError: createApp is not a function
+ ❯ fixture test/helpers.ts:18:14
+
+ ❯ test/group4.test.ts:9:301
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/group4.test.ts > 逾時與錯誤不洩漏
+TypeError: createApp is not a function
+ ❯ fixture test/helpers.ts:18:14
+
+ ❯ test/group4.test.ts:12:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+EXIT_CODE=1

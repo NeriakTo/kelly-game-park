@@ -1,35 +1,10 @@
+import type { Level } from '../data/levels'
+
+// 遊戲內部的難度參數（1 到 5）。孩子看到的是選關的簡單、普通、挑戰，對照見 data/levelMap.ts。
 export type Difficulty = 1 | 2 | 3 | 4 | 5
 
 // [FIX Warning #5] 收斂 gameType 為 union
-export type GameType = 'sudoku' | 'chess' | 'memory' | 'typing' | 'math' | '2048' | 'dino-shop' | 'go'
-
-export const AVAILABLE_DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5]
-
-export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
-  1: '國小低年級',
-  2: '國小中年級',
-  3: '國小高年級',
-  4: '國中',
-  5: '高中',
-}
-
-export const DIFFICULTY_STARS: Record<Difficulty, string> = {
-  1: '⭐',
-  2: '⭐⭐',
-  3: '⭐⭐⭐',
-  4: '⭐⭐⭐⭐',
-  5: '⭐⭐⭐⭐⭐',
-}
-
-export interface GameInfo {
-  id: string
-  name: string
-  description: string
-  icon: string
-  color: string
-  path: string
-  available: boolean
-}
+export type GameType = 'sudoku' | 'chess' | 'memory' | 'typing' | 'math' | 'dino-shop' | 'go'
 
 export interface GameScore {
   id: string
@@ -38,6 +13,8 @@ export interface GameScore {
   score: number
   durationSeconds: number
   playedAt: string
+  /** 在哪一關玩的；改版前的舊紀錄沒有這一欄 */
+  level?: Level
 }
 
 export interface PlayerProfile {
@@ -45,7 +22,10 @@ export interface PlayerProfile {
   avatar: string
 }
 
+/**
+ * AI 出題改由網站伺服器呼叫 Claude，金鑰只放伺服器；瀏覽器只存家長輸入的家用通行碼
+ * （只收英數字與 -，8～64 字，因為要放在 HTTP 標頭裡）。
+ */
 export interface AIConfig {
-  provider: 'openai' | 'gemini'
-  apiKey: string
+  passcode: string
 }

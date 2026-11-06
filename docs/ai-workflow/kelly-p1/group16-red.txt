@@ -1,0 +1,98 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/services/ai.test.ts (30 tests | 2 failed) 13ms
+     × 分數類單元（g5-fracmul）不呼叫伺服器 2ms
+     × 分數類單元（g6-fracdiv）不呼叫伺服器 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/services/ai.test.ts > 數學出題改接伺服器 > 分數類單元（g5-fracmul）不呼叫伺服器
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array [
+      "/api/ai/math",
+      Object {
+        "body": "{"gradeBand":"grade-3","unitId":"g5-fracmul","unitName":"多位數乘法","unitDescription":"二三位數乘以一位數","curriculumTag":"N-3-3","difficulty":3}",
+        "headers": Object {
+          "Content-Type": "application/json",
+          "X-Family-Passcode": "family-test-2026",
+        },
+        "method": "POST",
+        "signal": AbortSignal {
+          Symbol(kEvents): Map {},
+          Symbol(events.maxEventTargetListeners): 0,
+          Symbol(events.maxEventTargetListenersWarned): false,
+          Symbol(kHandlers): Map {},
+          Symbol(kAborted): false,
+          Symbol(kReason): undefined,
+          Symbol(kComposite): false,
+        },
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ src/services/ai.test.ts:172:24
+    170|       const mock = stubFetch(async () => json(200, AI_MATH_BODY))
+    171|       const result = await generateMathProblemWithAI(FAMILY, { ...MATH…
+    172|       expect(mock).not.toHaveBeenCalled()
+       |                        ^
+    173|       expect(result.source).toBe('local')
+    174|     },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/services/ai.test.ts > 數學出題改接伺服器 > 分數類單元（g6-fracdiv）不呼叫伺服器
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array [
+      "/api/ai/math",
+      Object {
+        "body": "{"gradeBand":"grade-3","unitId":"g6-fracdiv","unitName":"多位數乘法","unitDescription":"二三位數乘以一位數","curriculumTag":"N-3-3","difficulty":3}",
+        "headers": Object {
+          "Content-Type": "application/json",
+          "X-Family-Passcode": "family-test-2026",
+        },
+        "method": "POST",
+        "signal": AbortSignal {
+          Symbol(kEvents): Map {},
+          Symbol(events.maxEventTargetListeners): 0,
+          Symbol(events.maxEventTargetListenersWarned): false,
+          Symbol(kHandlers): Map {},
+          Symbol(kAborted): false,
+          Symbol(kReason): undefined,
+          Symbol(kComposite): false,
+        },
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ src/services/ai.test.ts:172:24
+    170|       const mock = stubFetch(async () => json(200, AI_MATH_BODY))
+    171|       const result = await generateMathProblemWithAI(FAMILY, { ...MATH…
+    172|       expect(mock).not.toHaveBeenCalled()
+       |                        ^
+    173|       expect(result.source).toBe('local')
+    174|     },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 28 passed (30)
+   Start at  15:14:32
+   Duration  340ms (transform 37ms, setup 52ms, import 31ms, tests 13ms, environment 153ms)
+
+結束碼：1

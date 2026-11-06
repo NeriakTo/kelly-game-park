@@ -1,0 +1,49 @@
+
+> test
+> vitest run test/fix1-hint.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/fix1-hint.test.ts (13 tests | 6 failed) 18ms
+   × math：'提示直接洩漏答案' 6ms
+   × math：'小數答案洩漏' 1ms
+   × math：'題目較長整數不能豁免洩漏' 1ms
+   × shop：'提示直接洩漏答案' 1ms
+   × shop：'小數答案洩漏' 1ms
+   × shop：'題目較長整數不能豁免洩漏' 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/fix1-hint.test.ts > math：'提示直接洩漏答案'
+ FAIL  test/fix1-hint.test.ts > math：'小數答案洩漏'
+ FAIL  test/fix1-hint.test.ts > math：'題目較長整數不能豁免洩漏'
+ FAIL  test/fix1-hint.test.ts > shop：'提示直接洩漏答案'
+ FAIL  test/fix1-hint.test.ts > shop：'小數答案洩漏'
+ FAIL  test/fix1-hint.test.ts > shop：'題目較長整數不能豁免洩漏'
+AssertionError: expected 200 to be 502 // Object.is equality
+
+- Expected
++ Received
+
+- 502
++ 200
+
+ ❯ test/fix1-hint.test.ts:17:20
+     15|   const f = fixture({ deps: { model: { generate: async () => ({ ...goo…
+     16|   const r = await f.request(`/api/ai/${kind}`, kind === 'math' ? math …
+     17|   expect(r.status).toBe(status)
+       |                    ^
+     18|   if (status === 502) expect(r.json).toEqual({ error: 'upstream' })
+     19|   else expect(r.json).toMatchObject(parsed_output)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 7 passed (13)
+   Start at  14:35:49
+   Duration  212ms (transform 26ms, setup 0ms, import 105ms, tests 18ms, environment 0ms)
+
+
+EXIT_CODE=1
