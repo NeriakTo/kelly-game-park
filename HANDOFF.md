@@ -151,4 +151,4 @@ aiConfig: AIConfig | null     // { provider, apiKey }
 3. **Tailwind 4 用 CSS-first config**（不是 tailwind.config.js）
 4. **自訂色系**在 `src/index.css`（mint, cream, wood, pink-light, sky-light 等）
 5. **AI Key 不進 git**，只存瀏覽器 localStorage
-6. **GitHub PAT** 在 remote URL 中，2026-05-26 到期
+6. **遠端網址不含權杖**：remote URL 是一般的 `https://github.com/NeriakTo/kelly-game-park.git`，不放 GitHub PAT（2026-11-06 確認；舊紀錄「PAT 放在 remote URL、2026-05-26 到期」已不適用）
