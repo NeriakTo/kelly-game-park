@@ -1,0 +1,7 @@
+$ (cd server && npm run typecheck)
+
+> typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+EXIT_CODE=0

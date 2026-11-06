@@ -1,0 +1,62 @@
+MUTATION=1: server/src/guard.ts
+return expected.length === actual.length && timingSafeEqual(actual, expected)
+=> return true
+
+> test
+> vitest run test/group1.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group1.test.ts (2 tests | 2 failed) 8ms
+   × 通行碼缺少、錯誤、正確及停用 6ms
+   × 錯十次鎖十五分鐘，十分鐘視窗會過期 1ms
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  14:26:47
+   Duration  192ms (transform 25ms, setup 0ms, import 101ms, tests 8ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group1.test.ts > 通行碼缺少、錯誤、正確及停用
+AssertionError: expected 200 to be 401 // Object.is equality
+
+- Expected
++ Received
+
+- 401
++ 200
+
+ ❯ test/group1.test.ts:5:117
+      3| test('通行碼缺少、錯誤、正確及停用', async () => {
+      4|  const f = fixture()
+      5|  for (const value of ['', 'bad']) expect((await f.request(undefined, m…
+       |                                                                                                                     ^
+      6|  expect((await f.request()).status).toBe(200)
+      7|  expect((await fixture({ passcodeHash: '' }).request()).status).toBe(5…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/group1.test.ts > 錯十次鎖十五分鐘，十分鐘視窗會過期
+AssertionError: expected 200 to be 401 // Object.is equality
+
+- Expected
++ Received
+
+- 401
++ 200
+
+ ❯ test/group1.test.ts:13:113
+     11| test('錯十次鎖十五分鐘，十分鐘視窗會過期', async () => {
+     12|  let now = 0; const f = fixture({ deps: { now: () => now } })
+     13|  for (let i = 0; i < 10; i++) expect((await f.request(undefined, math,…
+       |                                                                                                                 ^
+     14|  expect((await f.request()).json.error).toBe('locked')
+     15|  now += 15 * 60000; expect((await f.request()).status).toBe(200)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+EXIT_CODE=1

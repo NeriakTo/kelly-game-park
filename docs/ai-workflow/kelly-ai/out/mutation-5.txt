@@ -1,0 +1,37 @@
+MUTATION=5: server/src/app.ts
+if (!safePath(path)) return error(400, 'bad_request')
+=> // mutation: traversal guard removed
+
+> test
+> vitest run test/group6.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group6.test.ts (2 tests | 1 failed) 6ms
+   × 原始與編碼路徑穿越皆擋，API 與方法正確 3ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  14:26:49
+   Duration  190ms (transform 25ms, setup 0ms, import 101ms, tests 6ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group6.test.ts > 原始與編碼路徑穿越皆擋，API 與方法正確
+AssertionError: expected 200 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 200
+
+ ❯ test/group6.test.ts:11:182
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+EXIT_CODE=1
