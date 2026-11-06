@@ -1,0 +1,41 @@
+MUTATION=4: server/src/app.ts
+return error(502, 'upstream')
+    } finally
+=> return error(502, e instanceof Error ? e.message : 'upstream')
+    } finally
+
+> test
+> vitest run test/group4.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+ ❯ test/group4.test.ts (3 tests | 1 failed) 13ms
+   × 逾時與錯誤不洩漏 3ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:26:48
+   Duration  199ms (transform 25ms, setup 0ms, import 101ms, tests 13ms, environment 0ms)
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/group4.test.ts > 逾時與錯誤不洩漏
+AssertionError: expected '{"error":"upstream-private-secret"}' not to contain 'upstream-private-secret'
+
+Expected: "upstream-private-secret"
+Received: "{"error":"upstream-private-secret"}"
+
+ ❯ test/group4.test.ts:13:100
+     11| test('逾時與錯誤不洩漏', async () => {
+     12|  const f = fixture({ deps: { model: { generate: async () => { throw ne…
+     13|  const res = await f.request(); expect(res.status).toBe(502); expect(J…
+       |                                                                                                    ^
+     14|  const g = fixture({ deps: { model: { generate: async () => { const e …
+     15| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+EXIT_CODE=1

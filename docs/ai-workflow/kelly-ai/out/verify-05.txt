@@ -1,0 +1,7 @@
+$ (cd server && npm run build)
+
+> build
+> tsc -p tsconfig.json
+
+
+EXIT_CODE=0

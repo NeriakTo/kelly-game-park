@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/kelly-game-park/',
+  base: process.env.VITE_BASE ?? '/kelly-game-park/',
   plugins: [react(), tailwindcss()],
 })

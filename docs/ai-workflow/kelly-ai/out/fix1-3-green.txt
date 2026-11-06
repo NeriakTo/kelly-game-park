@@ -1,0 +1,12 @@
+
+> test
+> vitest run test/fix1-hint.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  14:35:48
+   Duration  271ms (transform 30ms, setup 0ms, import 163ms, tests 16ms, environment 0ms)

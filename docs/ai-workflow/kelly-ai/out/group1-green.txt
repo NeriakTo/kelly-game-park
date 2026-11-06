@@ -1,0 +1,15 @@
+
+> test
+> vitest run test/group1.test.ts
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-ai/kelly-game-park/server
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  14:26:44
+   Duration  204ms (transform 27ms, setup 0ms, import 108ms, tests 9ms, environment 0ms)
+
+
+EXIT_CODE=0

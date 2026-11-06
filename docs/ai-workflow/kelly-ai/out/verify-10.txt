@@ -1,0 +1,3 @@
+$ git diff --check 2eafd42 HEAD
+
+EXIT_CODE=0

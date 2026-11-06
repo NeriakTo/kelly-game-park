@@ -1,0 +1,6 @@
+docs/ai-workflow/kelly-ai/out/fix1-1-green.txt:13: new blank line at EOF.
+docs/ai-workflow/kelly-ai/out/fix1-1-red.txt:44: new blank line at EOF.
+docs/ai-workflow/kelly-ai/out/fix1-2-green.txt:13: new blank line at EOF.
+docs/ai-workflow/kelly-ai/out/fix1-2-red.txt:80: new blank line at EOF.
+docs/ai-workflow/kelly-ai/out/fix1-3-green.txt:13: new blank line at EOF.
+docs/ai-workflow/kelly-ai/out/fix1-3-red.txt:64: new blank line at EOF.
