@@ -13,7 +13,8 @@ import type { Level } from '../data/levels'
 // fetch 一律是假的，不會連外。
 
 const FAMILY = { passcode: 'family-test-2026' }
-const ADULT_TEXT = /AI|API|CORS|本地題庫|出題來源|來源：|出題模式|課綱|[NRSD]-\d-\d|錯誤|失敗|伺服器|逾時|通行碼|金鑰|502|503|429/
+// 不比對 502、503 這類數字：畫面上的選項數字串在一起時（例如 358、350）會誤判
+const ADULT_TEXT = /AI|API|CORS|HTTP|[Ee]rror|本地題庫|出題來源|來源：|出題模式|課綱|[NRSD]-\d-\d|錯誤|失敗|伺服器|逾時|通行碼|金鑰/
 
 const AI_MATH = { text: '小熊有 23 盒餅乾，每盒 3 塊，一共幾塊？', answer: 69, hint: '先算 20 × 3', unitId: 'g3-multiply', curriculumTag: 'N-3-3' }
 

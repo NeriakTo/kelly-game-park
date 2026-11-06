@@ -1,34 +1,10 @@
 
  RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
 
- ❯ src/games/aiServer.test.tsx (12 tests | 1 failed) 3773ms
-     × 伺服器503：照舊出下一題，畫面沒有錯誤字樣 746ms
 
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  3 passed (3)
+      Tests  41 passed (41)
+   Start at  14:56:51
+   Duration  4.45s (transform 228ms, setup 157ms, import 694ms, tests 3.91s, environment 502ms)
 
- FAIL  src/games/aiServer.test.tsx > 數學挑戰接上伺服器出題 > 伺服器503：照舊出下一題，畫面沒有錯誤字樣
-AssertionError: expected '多位數乘法除法分數入門一位小數兩步驟問題 單元練習 錯題回練（1）題號：2…' not to match /AI|API|CORS|本地題庫|出題來源|來源：|出題模式|課綱|[NR…/
-
-- Expected:
-/AI|API|CORS|本地題庫|出題來源|來源：|出題模式|課綱|[NRSD]-\d-\d|錯誤|失敗|伺服器|逾時|通行碼|金鑰|502|503|429/
-
-+ Received:
-"多位數乘法除法分數入門一位小數兩步驟問題 單元練習 錯題回練（1）題號：2/10答對：0答錯：1正確率：0%單元練習每本 72 元，買 5 本，要付多少元？358350366360看提示 重來"
-
- ❯ src/games/aiServer.test.tsx:127:43
-    125|     expect(first).not.toBe('')
-    126|     expect(optionButtons()).toHaveLength(4)
-    127|     expect(document.body.textContent).not.toMatch(ADULT_TEXT)
-       |                                           ^
-    128|   })
-    129| })
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
-
-
- Test Files  1 failed | 2 passed (3)
-      Tests  1 failed | 40 passed (41)
-   Start at  14:56:03
-   Duration  4.44s (transform 222ms, setup 200ms, import 709ms, tests 3.87s, environment 511ms)
-
-結束碼：1
+結束碼：0
