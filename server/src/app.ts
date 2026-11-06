@@ -1,3 +1,4 @@
+import { APIConnectionTimeoutError } from '@anthropic-ai/sdk'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { ClaudeModel, type Model, type ModelConfig } from './model.js'
 import { mathRequest, shopRequest, normalize, type Kind } from './schemas.js'
@@ -50,7 +51,7 @@ export function createApp(config: Config, deps: Deps = {}) {
       if (result.stop_reason === 'refusal' || result.stop_reason === 'max_tokens' || result.parsed_output == null) return error(502, 'upstream')
       return json(200, normalize(kind!, result.parsed_output, input))
     } catch (e) {
-      if (e instanceof Error && ['APIConnectionTimeoutError', 'TimeoutError', 'AbortError'].includes(e.name)) return error(504, 'timeout')
+      if (e instanceof APIConnectionTimeoutError) return error(504, 'timeout')
       return error(502, 'upstream')
     } finally { active-- }
   }
