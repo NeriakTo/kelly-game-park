@@ -41,7 +41,8 @@ def main() -> int:
     with open(args.chars, encoding="utf-8") as f:
         text = f.read()
 
-    font = TTFont(args.src)
+    # 不更新修改時間：同樣的字表每次產出同一個檔
+    font = TTFont(args.src, recalcTimestamp=False)
     cmap = font.getBestCmap()
     wanted = sorted({ord(c) for c in text})
     missing = [cp for cp in wanted if cp not in cmap]

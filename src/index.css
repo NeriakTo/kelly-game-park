@@ -2,6 +2,15 @@
 @import "./styles/paper.css";
 @import "./styles/home.css";
 
+/* 站內字型：jf open 粉圓 2.1 的子集，依 OFL 改名為 YueyueRound（來源與授權見 assets/fonts/README.md） */
+@font-face {
+  font-family: 'YueyueRound';
+  src: url('./assets/fonts/YueyueRound-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
  * 色票分兩組：
  * 1. 「紙雕小森林」新色票（家長選定的風格 2）：外框、首頁、家長區、共用元件用這組。
