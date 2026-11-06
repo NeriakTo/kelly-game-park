@@ -3,12 +3,19 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import MathChallengeGame from './MathChallengeGame'
 import { GRADE_UNITS, type Grade } from './generators'
 import { useGameStore } from '../../stores/gameStore'
+import { useSettingsStore } from '../../stores/settingsStore'
 
-// 題目上方那行「…｜課綱：N-2-2｜來源：…」顯示的是目前這題的課綱標籤，
-// 每個單元的標籤不同，用它判斷畫面上的題目屬於哪個年級、哪個單元。
+// 每個單元的課綱標籤不同，用它判斷畫面上的題目屬於哪個年級、哪個單元。
+// 改版後課綱代碼不再顯示給小孩看（移到家長區），題目卡片只在 data-curriculum-tag 屬性留著給測試讀。
 function shownCurriculumTag(): string {
-  const meta = screen.getByText(/｜課綱：/)
-  return meta.textContent?.match(/課綱：([A-Z]-\d-\d+)/)?.[1] ?? ''
+  return screen.getByTestId('math-problem').getAttribute('data-curriculum-tag') ?? ''
+}
+
+// 改版後年級由家長區設定（數學畫面上的年級按鈕拿掉了），這裡直接改設定裡的年級
+function switchGrade(g: Grade) {
+  act(() => {
+    useSettingsStore.getState().setGrade(g)
+  })
 }
 
 function shownQuestionNo(): string {
@@ -29,6 +36,8 @@ describe('數學挑戰：切換年級', () => {
   beforeEach(() => {
     // 固定用本地題庫、沒有 AI 金鑰，確保測試不會連外
     useGameStore.setState((s) => ({ aiConfig: null, aiModes: { ...s.aiModes, math: 'local' } }))
+    // 家長區預設是 3 年級；這兩條測試沿用改版前數學頁的起始年級（2 年級）
+    useSettingsStore.setState({ grade: 2 })
   })
 
   afterEach(() => {
@@ -40,7 +49,7 @@ describe('數學挑戰：切換年級', () => {
     expect(shownCurriculumTag()).toBe(firstUnitTag(2))
 
     for (const g of [5, 3, 1, 6, 4] as Grade[]) {
-      fireEvent.click(screen.getByRole('button', { name: `${g} 年級` }))
+      switchGrade(g)
       expect(shownCurriculumTag()).toBe(firstUnitTag(g))
       expect(optionButtons()).toHaveLength(4)
     }
@@ -51,7 +60,7 @@ describe('數學挑戰：切換年級', () => {
     render(<MathChallengeGame />)
 
     fireEvent.click(optionButtons()[0])
-    fireEvent.click(screen.getByRole('button', { name: '5 年級' }))
+    switchGrade(5)
     act(() => {
       vi.advanceTimersByTime(1000)
     })
