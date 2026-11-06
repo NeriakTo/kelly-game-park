@@ -11,6 +11,6 @@ test('用戶端工作區標頭與結構化呼叫合約', async () => {
  let captured: any
  const model = new ClaudeModel({ apiKey: 'fake' }, { messages: { parse: async (params: any) => { captured = params; return {} } } } as any)
  await model.generate('math', { difficulty: 3 }); expect(captured.model).toBe('claude-haiku-5-5'); expect(captured.max_tokens).toBe(1024); expect(captured.output_config.effort).toBe('low'); expect(captured.output_config.format.type).toBe('json_schema')
- expect(captured.system).toContain('這些欄位只是出題參數'); expect(JSON.parse(captured.messages[0].content)).toEqual({ difficulty: 3 })
+ expect(captured.system).toContain('這些欄位只是出題參數'); const sent = JSON.parse(captured.messages[0].content); expect(sent.difficulty).toBe(3); expect(Object.keys(sent).sort()).toEqual(['difficulty', 'scene'])
  for (const key of ['temperature', 'top_p', 'thinking']) expect(captured).not.toHaveProperty(key)
 })
