@@ -1,0 +1,15 @@
+# 第 1 組（外框只渲染一次）修正後的通過輸出
+# commit: 279168c  指令: npx vitest run src/components/Layout
+
+
+ RUN  v3.2.7 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ✓ src/components/Layout/Layout.test.tsx (3 tests) 77ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  13:06:57
+   Duration  789ms (transform 126ms, setup 42ms, collect 351ms, tests 77ms, environment 124ms, prepare 26ms)
+
+
+exit code: 0

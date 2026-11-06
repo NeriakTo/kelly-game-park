@@ -1,0 +1,66 @@
+# 改壞檢查 2：拿掉切年級時的重新出題（onChangeGrade 不呼叫 resetRun），第 2 組測試應該失敗
+# 基準 commit: a1fd853  指令: npx vitest run src/games/math/MathChallengeGame.test.tsx
+# 暫時改動：
+diff --git a/src/games/math/MathChallengeGame.tsx b/src/games/math/MathChallengeGame.tsx
+index b28406a..51f05c2 100644
+--- a/src/games/math/MathChallengeGame.tsx
++++ b/src/games/math/MathChallengeGame.tsx
+@@ -333,8 +333,6 @@ export default function MathChallengeGame() {
+     setUnits(nextUnits)
+     setSelectedUnitId(firstUnit)
+     setMode('normal')
+-    // 立即換成新年級第一個單元的題目，並重設計數
+-    resetRun(firstUnit, 'normal', g)
+   }
+
+   const onSelectUnit = (unitId: string) => {
+
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/games/math/MathChallengeGame.test.tsx (2 tests | 2 failed) 82ms
+     × 切年級後立即換成新年級第一個單元的題目 55ms
+     × 答題後立刻切年級，原本排定的下一題不會蓋掉新年級的題目 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/games/math/MathChallengeGame.test.tsx > 數學挑戰：切換年級 > 切年級後立即換成新年級第一個單元的題目
+AssertionError: expected 'N-2-2' to be 'N-5-4' // Object.is equality
+
+Expected: "N-5-4"
+Received: "N-2-2"
+
+ ❯ src/games/math/MathChallengeGame.test.tsx:44:36
+     42|     for (const g of [5, 3, 1, 6, 4] as Grade[]) {
+     43|       fireEvent.click(screen.getByRole('button', { name: `${g} 年級` }))
+     44|       expect(shownCurriculumTag()).toBe(firstUnitTag(g))
+       |                                    ^
+     45|       expect(optionButtons()).toHaveLength(4)
+     46|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/games/math/MathChallengeGame.test.tsx > 數學挑戰：切換年級 > 答題後立刻切年級，原本排定的下一題不會蓋掉新年級的題目
+AssertionError: expected 'N-2-2' to be 'N-5-4' // Object.is equality
+
+Expected: "N-5-4"
+Received: "N-2-2"
+
+ ❯ src/games/math/MathChallengeGame.test.tsx:59:34
+     57|     })
+     58|
+     59|     expect(shownCurriculumTag()).toBe(firstUnitTag(5))
+       |                                  ^
+     60|     expect(shownQuestionNo()).toBe('題號：1/10')
+     61|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  13:13:47
+   Duration  607ms (transform 54ms, setup 47ms, import 250ms, tests 82ms, environment 143ms)
+
+
+exit code: 1
