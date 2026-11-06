@@ -4,12 +4,8 @@ import { RotateCcw } from 'lucide-react'
 import { useGameStore } from '../../stores/gameStore'
 import { useGameDifficulty } from '../../components/GameShell/session'
 import type { StageId, CoinValue, ShopQuestion, DinoCollectionData, DinoFossil } from './types'
-import {
-  COLLECTION_STORAGE_KEY,
-  DINO_COLLECTION,
-  PIECES_PER_DINO,
-  CORRECT_PER_PIECE,
-} from './types'
+import { CORRECT_PER_PIECE } from './types'
+import { loadCollection, saveCollection } from './collection'
 import { generateQuestion, calculateScore } from './data'
 import { generateShopQuestionWithAI } from '../../services/ai'
 import Shopkeeper from './Shopkeeper'
@@ -19,30 +15,6 @@ import StageSelector from './StageSelector'
 import DinoCollection from './DinoCollection'
 
 const QUESTIONS_PER_ROUND = 8
-
-function loadCollection(): DinoCollectionData {
-  try {
-    const raw = localStorage.getItem(COLLECTION_STORAGE_KEY)
-    if (raw) return JSON.parse(raw)
-  } catch {}
-  return {
-    fossils: DINO_COLLECTION.map((d) => ({
-      dinoId: d.id,
-      dinoName: d.name,
-      dinoEmoji: d.emoji,
-      totalPieces: PIECES_PER_DINO,
-      collectedPieces: 0,
-    })),
-    totalCorrect: 0,
-    stageProgress: {},
-  }
-}
-
-function saveCollection(data: DinoCollectionData): void {
-  try {
-    localStorage.setItem(COLLECTION_STORAGE_KEY, JSON.stringify(data))
-  } catch {}
-}
 
 function addFossilPiece(data: DinoCollectionData): DinoCollectionData {
   // 找到第一個未完成的恐龍，加一片碎片
