@@ -2,7 +2,7 @@ import { expect, test } from 'vitest'
 import { fixture } from './helpers.js'
 test('靜態檔、快取、SPA 與安全標頭', async () => {
  const f = fixture()
- for (const path of ['/', '/missing']) { const r = await f.request(path); expect(r.status).toBe(200); expect(r.body).toContain('<html>'); expect(r.headers['cache-control']).toBe('no-store') }
+ for (const path of ['/', '/missing']) { const r = await f.request(path); expect(r.status).toBe(200); expect(r.body.toString()).toContain('<html>'); expect(r.headers['cache-control']).toBe('no-store') }
  const js = await f.request('/assets/x.js'); expect(js.headers['content-type']).toContain('javascript'); expect(js.headers['cache-control']).toContain('immutable')
  for (const [key, value] of Object.entries({ 'x-content-type-options': 'nosniff', 'referrer-policy': 'no-referrer', 'x-frame-options': 'DENY' })) expect(js.headers[key]).toBe(value)
 })
