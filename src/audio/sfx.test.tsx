@@ -109,8 +109,11 @@ describe('聲音設定', () => {
     useSettingsStore.getState().setSoundOn(false)
     expect(savedSettings()).toMatchObject({ volume: 0.6, soundOn: false })
 
-    // 模擬重新開網頁：記憶體裡的值先改掉，再從本機儲存讀回來
+    // 模擬重新開網頁：記憶體裡的值先改掉，再從本機儲存讀回來。
+    // setState 也會順手寫進本機儲存，所以改完要把「重新開網頁前」存的內容放回去再讀
+    const before = localStorage.getItem(SETTINGS_KEY) ?? ''
     useSettingsStore.setState({ soundOn: true, volume: 0.35 })
+    localStorage.setItem(SETTINGS_KEY, before)
     await useSettingsStore.persist.rehydrate()
     expect(useSettingsStore.getState()).toMatchObject({ volume: 0.6, soundOn: false })
   })

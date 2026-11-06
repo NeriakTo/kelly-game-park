@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { TopBar, Spacer } from '../components/UI/TopBar'
 import { BrandMark } from '../components/art/scenery'
 import { LockIcon } from '../components/art/icons'
+import SoundToggle from '../components/UI/SoundToggle'
 import ContinueBanner from './home/ContinueBanner'
 import { AlbumCard, BrainZone, ChessZone, MathZone, TypingCard } from './home/HomeZones'
 
@@ -17,6 +18,7 @@ export default function Home() {
           <h1 className="topbar-title">悅悅的遊戲公園</h1>
         </div>
         <Spacer />
+        <SoundToggle />
         <Link to="/parent" className="lock-btn" aria-label="家長區（請爸爸媽媽來開）">
           <LockIcon />
         </Link>

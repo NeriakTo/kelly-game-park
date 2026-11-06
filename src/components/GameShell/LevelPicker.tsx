@@ -6,6 +6,7 @@ import { useProgressStore, starsFor } from '../../stores/progressStore'
 import { useSettingsStore } from '../../stores/settingsStore'
 import Stars, { starsText } from '../UI/Stars'
 import { Songsong } from '../art/scenery'
+import { playSfx } from '../../audio/sfx'
 
 // 選關畫面：簡單、普通、挑戰三個大按鈕，各自顯示已經拿到的星星。
 // 家長在家長區設了推薦關卡的話，那一關貼上「爸媽推薦」紙膠帶。
@@ -40,6 +41,7 @@ export default function LevelPicker({ game, extraHint }: { game: GameType; extra
               key={level}
               to={`/${game}/${level}`}
               aria-label={label}
+              onClick={() => playSfx('tap')}
               className={`relative flex min-h-[148px] flex-col items-center justify-center gap-2 rounded-[28px] px-4 py-5 text-white no-underline transition-transform active:translate-y-1 ${LEVEL_STYLE[level]}`}
             >
               {isRecommended && (

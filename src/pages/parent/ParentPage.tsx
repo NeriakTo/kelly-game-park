@@ -6,6 +6,7 @@ import { isParentUnlocked, lockParent, unlockParent } from '../../stores/parentG
 import ParentGate from './ParentGate'
 import GradeSection from './sections/GradeSection'
 import LevelsSection from './sections/LevelsSection'
+import SoundSection from './sections/SoundSection'
 import AISection from './sections/AISection'
 import RecordsSection from './sections/RecordsSection'
 import ProfileSection from './sections/ProfileSection'
@@ -49,6 +50,7 @@ export default function ParentPage() {
           <>
             <GradeSection />
             <LevelsSection />
+            <SoundSection />
             <AISection />
             <RecordsSection />
             <ProfileSection />

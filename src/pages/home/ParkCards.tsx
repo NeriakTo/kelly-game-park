@@ -5,6 +5,7 @@ import { GAMES } from '../../data/games'
 import { useProgressStore, bestOfGame } from '../../stores/progressStore'
 import Stars, { starsText } from '../../components/UI/Stars'
 import { PlayIcon } from '../../components/art/icons'
+import { playSfx } from '../../audio/sfx'
 
 // 首頁的遊戲卡片：整張可點，進到該遊戲的選關畫面。星星是各關裡最好的一關。
 
@@ -24,7 +25,7 @@ export function BigGameCard({ game, art, artTone, shadow, tagline, tapeTilt = -4
   const best = useBest(game)
   const entry = GAMES[game]
   return (
-    <Link to={`/${game}`} className={`park-card big sh-${shadow}`} aria-label={`${entry.name}，${starsText(best)}`}>
+    <Link to={`/${game}`} className={`park-card big sh-${shadow}`} aria-label={`${entry.name}，${starsText(best)}`} onClick={() => playSfx('tap')}>
       <span className="tape" aria-hidden="true" style={{ transform: `rotate(${tapeTilt}deg)` }} />
       <div className={`art ${artTone}`}>{art}</div>
       <div className="label">
@@ -44,7 +45,7 @@ export function SmallGameCard({ game, art, artTone, shadow, tagline }: CardProps
   const best = useBest(game)
   const entry = GAMES[game]
   return (
-    <Link to={`/${game}`} className={`park-card small sh-${shadow}`} aria-label={`${entry.name}，${starsText(best)}`}>
+    <Link to={`/${game}`} className={`park-card small sh-${shadow}`} aria-label={`${entry.name}，${starsText(best)}`} onClick={() => playSfx('tap')}>
       <div className={`art ${artTone}`}>{art}</div>
       <div className="label">
         <span className="name">{entry.name}</span>

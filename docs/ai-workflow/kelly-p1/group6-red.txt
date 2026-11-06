@@ -1,0 +1,806 @@
+=== 第一次：模組還不存在 ===
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/audio/sfx.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/audio/sfx.test.tsx [ src/audio/sfx.test.tsx ]
+Error: Failed to resolve import "./sfx" from "src/audio/sfx.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park/src/audio/sfx.test.tsx:6:64
+  5  |  import App from "../App";
+  6  |  import { useSettingsStore } from "../stores/settingsStore";
+  7  |  import { installAudioUnlock, playSfx, resetAudioForTests } from "./sfx";
+     |                                                                   ^
+  8  |  const SETTINGS_KEY = "kelly-game-park-settings";
+  9  |  const audio = { contexts: 0, oscillators: 0, resumed: 0, masterGain: [] };
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42528:41
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42525:16
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40504:23
+ ❯ node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40623:37
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:40550:7
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42323:18
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:35739:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:16:19
+   Duration  325ms (transform 11ms, setup 50ms, import 0ms, tests 0ms, environment 150ms)
+
+結束碼：1
+
+=== 第二次：暫時放一個什麼都不做的 sfx.ts 空殼（未 commit，跑完即刪），看行為層的失敗 ===
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/audio/sfx.test.tsx (10 tests | 9 failed) 456ms
+     × 預設是開著的，音量小（不超過 0.4） 3ms
+     × 首頁右上角一鍵靜音，再按一次打開；開關存進設定 110ms
+     × 遊戲頁頂列也有同一個聲音開關 339ms
+     × 音量與開關重新開網頁後還在 0ms
+     × 音量只收 0 到 1 0ms
+     × 第一次點擊之前不建立音訊（iPad Safari 的規定），點了之後才建立並啟動 1ms
+     × 四種音效都能播：點擊、答對、答錯、過關 0ms
+     × 靜音時完全不出聲 0ms
+     × 主音量跟著設定的音量走（音量 0.6 是 0.2 的三倍） 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/audio/sfx.test.tsx > 聲音設定 > 預設是開著的，音量小（不超過 0.4）
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected:
+true
+
++ Received:
+undefined
+
+ ❯ src/audio/sfx.test.tsx:80:27
+     78|     useSettingsStore.persist.clearStorage()
+     79|     const fresh = useSettingsStore.getInitialState()
+     80|     expect(fresh.soundOn).toBe(true)
+       |                           ^
+     81|     expect(fresh.volume).toBeGreaterThan(0)
+     82|     expect(fresh.volume).toBeLessThanOrEqual(0.4)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 聲音設定 > 首頁右上角一鍵靜音，再按一次打開；開關存進設定
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/^聲音：開/`
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "悅悅的遊戲公園":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "家長區（請爸爸媽媽來開）":
+  [36m<a[39m
+    [33maria-label[39m=[32m"家長區（請爸爸媽媽來開）"[39m
+    [33mclass[39m=[32m"lock-btn"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/parent"[39m
+  [36m/>[39m
+
+  Name "去下棋":
+  [36m<a[39m
+    [33mclass[39m=[32m"big-btn big-btn--primary"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+  [36m/>[39m
+
+  Name "象棋，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"象棋，還沒有星星"[39m
+    [33mclass[39m=[32m"park-card big sh-berry"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+  [36m/>[39m
+
+  Name "圍棋，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"圍棋，還沒有星星"[39m
+    [33mclass[39m=[32m"park-card big sh-berry"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+  [36m/>[39m
+
+  Name "數獨，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"數獨，還沒有星星"[39m
+    [33mclass[39m=[32m"park-card small sh-lake"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"記憶翻牌，還沒有星星"[39m
+    [33mclass[39m=[32m"park-card small sh-lake"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+  [36m/>[39m
+
+  Name "數學挑戰，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"數學挑戰，還沒有星星"[39m
+    [33mclass[39m=[32m"park-card small sh-pine"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+  [36m/>[39m
+
+  Name "恐龍商店，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"恐龍商店，還沒有星星"[39m
+    [33mclass[39m=[32m"park-card small sh-pine"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+  [36m/>[39m
+
+  Name "練打字，要用筆電玩":
+  [36m<a[39m
+    [33maria-label[39m=[32m"練打字，要用筆電玩"[39m
+    [33mclass[39m=[32m"mini-card home-type"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+  [36m/>[39m
+
+  Name "我的收藏冊，收集到 0 片化石":
+  [36m<a[39m
+    [33maria-label[39m=[32m"我的收藏冊，收集到 0 片化石"[39m
+    [33mclass[39m=[32m"mini-card home-album"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/album"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"home"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "繼續上次的遊戲":
+  [36m<section[39m
+    [33maria-label[39m=[32m"繼續上次的遊戲"[39m
+    [33mclass[39m=[32m"home-cont"[39m
+  [36m/>[39m
+
+  Name "下棋":
+  [36m<section[39m
+    [33maria-label[39m=[32m"下棋"[39m
+    [33mclass[39m=[32m"sheet sheet-berry home-chess"[39m
+  [36m/>[39m
+
+  Name "動動腦":
+  [36m<section[39m
+    [33maria-label[39m=[32m"動動腦"[39m
+    [33mclass[39m=[32m"sheet sheet-lake home-brain"[39m
+  [36m/>[39m
+
+  Name "算一算":
+  [36m<section[39m
+    [33maria-label[39m=[32m"算一算"[39m
+    [33mclass[39m=[32m"sheet sheet-pine home-math"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  img:
+
+  Name "陪玩角色松松":
+  [36m<svg[39m
+    [33maria-label[39m=[32m"陪玩角色松松"[39m
+    [33mrole[39m=[32m"img"[39m
+    [33mviewBox[39m=[32m"0 0 160 190"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex min-w-0 items-center gap-2 sm:gap-3"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"h-11 w-12 flex-none sm:h-[58px] sm:w-[62px]"[39m
+            [33mviewBox[39m=[32m"0 0 62 58"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"44"[39m
+              [33mcy[39m=[32m"16"[39m
+              [33mfill[39m=[32m"#E0A21C"[39m
+              [33mr[39m=[32m"11"[39m
+              [33mtransform[39m=[32m"translate(2 2)"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"44"[39m
+              [33mcy[39m=[32m"16"[39m
+              [33mfill[39m=[32m"#FFC94A"[39m
+              [33mr[39m=[32m"11"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M2 54 Q20 34 38 46 Q50 38 60 54Z"[39m
+              [33mfill[39m=[32m"#22573B"[39m
+              [33mtransform[39m=[32m"translate(0 2)"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M2 54 Q20 34 38 46 Q50 38 60 54Z"[39m
+              [33mfill[39m=[32m"#5FA77A"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M16 6 L28 30 H4Z"[39m
+              [33mfill[39m=[32m"#22573B"[39m
+              [33mtransform[39m=[32m"translate(2 2)"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M16 6 L28 30 H4Z"[39m
+              [33mfill[39m=[32m"#2F7650"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M16 20 L26 40 H6Z"[39m
+              [33mfill[39m=[32m"#22573B"[39m
+              [33mtransform[39m=[32m"translate(2 2)"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M16 20 L26 40 H6Z"[39m
+              [33mfill[39m=[32m"#2F7650"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#8E5426"[39m
+              [33mheight[39m=[32m"8"[39m
+              [33mrx[39m=[32m"1.5"[39m
+              [33mwidth[39m=[32m"5"[39m
+              [33mx[39m=[32m"14"[39m
+              [33my[39m=[32m"40"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"40"[39m
+              [33mcy[39m=[32m"44"[39m
+              [33mfill[39m=[32m"#B23A5B"[39m
+              [33mr[39m=[32m"4"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"48"[39m
+              [33mcy[39m=[32m"46"[39m
+              [33mfill[39m=[32m"#F4A97A"[39m
+              [33mr[39m=[32m"3"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"topbar-title"[39m
+          [36m>[39m
+            [0m悅悅的遊戲公園[0m
+          [36m</h1>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex-1"[39m
+        [36m/>[39m
+        [36m<a[39m
+          [33maria-label[39m=[32m"家長區（請爸爸媽媽來開）"[39m
+          [33mclass[39m=[32m"lock-btn"[39m
+          [33mdata-discover[39m=[32m"true"[39m
+          [33mhref[39m=[32m"/parent"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mviewBox[39m=[32m"0 0 32 32"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M10 14 V10 Q10 4 16 4 Q22 4 22 10 V14"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mstroke[39m=[32m"#45615A"[39m
+              [33mstroke-width[39m=[32m"3.2"[39m
+            [36m/>[39m
+            [36m<rect[39m
+              [33mfill[39m=[32m"#45615A"[39m
+              [33mheight[39m=[32m"15"[39m
+              [33mrx[39m=[32m"5"[39m
+              [33mwidth[39m=[32m"20"[39m
+              [33mx[39m=[32m"6"[39m
+              [33my[39m=[32m"14"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"16"[39m
+              [33mcy[39m=[32m"20.5"[39m
+              [33mfill[39m=[32m"#E6F2EE"[39m
+              [33mr[39m=[32m"2.4"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M16 21 V25"[39m
+              [33mstroke[39m=[32m"#E6F2EE"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"2.4"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+        [36m</a>[39m
+      [36m</header>[39m
+      [36m<main[39m
+        [33mclass[39m=[32m"home"[39m
+      [36m>[39m
+        [36m<section[39m
+          [33maria-label[39m=[32m"繼續上次的遊戲"[39m
+          [33mclass[39m=[32m"home-cont"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"tape tape-peach"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"mini"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mviewBox[39m=[32m"0 0 30 30"[39m
+            [36m>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"16"[39m
+                [33mcy[39m=[32m"17"[39m
+                [33mfill[39m=[32m"#8A2A45"...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/audio/sfx.test.tsx:87:24
+     85|   it('首頁右上角一鍵靜音，再按一次打開；開關存進設定', () => {
+     86|     renderAt('/')
+     87|     const btn = screen.getByRole('button', { name: /^聲音：開/ })
+       |                        ^
+     88|     expect(btn.getAttribute('aria-pressed')).toBe('true')
+     89|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 聲音設定 > 遊戲頁頂列也有同一個聲音開關
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/^聲音：開/`
+
+Here are the accessible roles:
+
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "回首頁":
+  [36m<a[39m
+    [33maria-label[39m=[32m"回首頁"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/"[39m
+  [36m/>[39m
+
+  Name "簡單，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"簡單，還沒有星星"[39m
+    [33mclass[39m=[32m"relative flex min-h-[148px] flex-col items-center justify-center gap-2 rounded-[28px] px-4 py-5 text-white no-underline transition-transform active:translate-y-1 bg-pine shadow-[0_8px_0_var(--color-pine-d)]"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory/easy"[39m
+  [36m/>[39m
+
+  Name "普通，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"普通，還沒有星星"[39m
+    [33mclass[39m=[32m"relative flex min-h-[148px] flex-col items-center justify-center gap-2 rounded-[28px] px-4 py-5 text-white no-underline transition-transform active:translate-y-1 bg-lake shadow-[0_8px_0_var(--color-lake-d)]"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory/normal"[39m
+  [36m/>[39m
+
+  Name "挑戰，還沒有星星":
+  [36m<a[39m
+    [33maria-label[39m=[32m"挑戰，還沒有星星"[39m
+    [33mclass[39m=[32m"relative flex min-h-[148px] flex-col items-center justify-center gap-2 rounded-[28px] px-4 py-5 text-white no-underline transition-transform active:translate-y-1 bg-berry shadow-[0_8px_0_var(--color-berry-d)]"[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory/hard"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "記憶翻牌":
+  [36m<h1[39m
+    [33mclass[39m=[32m"topbar-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "怎麼玩":
+  [36m<button[39m
+    [33maria-label[39m=[32m"怎麼玩"[39m
+    [33mclass[39m=[32m"pill"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto w-full max-w-5xl px-4 pb-16 pt-10 sm:px-6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  img:
+
+  Name "陪玩角色松松":
+  [36m<svg[39m
+    [33maria-label[39m=[32m"陪玩角色松松"[39m
+    [33mclass[39m=[32m"h-[118px] w-[100px] flex-none"[39m
+    [33mrole[39m=[32m"img"[39m
+    [33mviewBox[39m=[32m"0 0 160 190"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  navigation:
+
+  Name "選關卡":
+  [36m<nav[39m
+    [33maria-label[39m=[32m"選關卡"[39m
+    [33mclass[39m=[32m"mt-6 grid gap-6 md:grid-cols-3"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"topbar"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33maria-label[39m=[32m"回首頁"[39m
+          [33mclass[39m=[32m"pill"[39m
+          [33mdata-discover[39m=[32m"true"[39m
+          [33mhref[39m=[32m"/"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mviewBox[39m=[32m"0 0 32 32"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M19 6 L9 16 L19 26"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mstroke[39m=[32m"#1D3A33"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"4.5"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M10 16 H27"[39m
+              [33mstroke[39m=[32m"#1D3A33"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"4.5"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"pill-label"[39m
+          [36m>[39m
+            [0m回首頁[0m
+          [36m</span>[39m
+        [36m</a>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex min-w-0 items-center gap-2"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"hidden h-11 w-11 flex-none sm:block"[39m
+            [33mviewBox[39m=[32m"0 0 86 86"[39m
+          [36m>[39m
+            [36m<g[39m
+              [33mtransform[39m=[32m"rotate(-10 26 42)"[39m
+            [36m>[39m
+              [36m<rect[39m
+                [33mfill[39m=[32m"#164F63"[39m
+                [33mheight[39m=[32m"46"[39m
+                [33mrx[39m=[32m"8"[39m
+                [33mwidth[39m=[32m"32"[39m
+                [33mx[39m=[32m"12"[39m
+                [33my[39m=[32m"20"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mfill[39m=[32m"#1F6A85"[39m
+                [33mheight[39m=[32m"46"[39m
+                [33mrx[39m=[32m"8"[39m
+                [33mwidth[39m=[32m"32"[39m
+                [33mx[39m=[32m"9"[39m
+                [33my[39m=[32m"17"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M25 26 Q34 34 25 42 Q16 34 25 26Z M25 40 Q34 48 25 56 Q16 48 25 40Z"[39m
+                [33mfill[39m=[32m"#7FB8CC"[39m
+              [36m/>[39m
+            [36m</g>[39m
+            [36m<g[39m
+              [33mtransform[39m=[32m"rotate(8 58 42)"[39m
+            [36m>[39m
+              [36m<rect[39m
+                [33mfill[39m=[32m"#E0A21C"[39m
+                [33mheight[39m=[32m"46"[39m
+                [33mrx[39m=[32m"8"[39m
+                [33mwidth[39m=[32m"32"[39m
+                [33mx[39m=[32m"46"[39m
+                [33my[39m=[32m"21"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mfill[39m=[32m"#FFFDF7"[39m
+                [33mheight[39m=[32m"46"[39m
+                [33mrx[39m=[32m"8"[39m
+                [33mwidth[39m=[32m"32"[39m
+                [33mx[39m=[32m"43"[39m
+                [33my[39m=[32m"18"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M59 32 Q59 28 63 28 Q67 28 67 33 Q67 38 59 45 Q51 38 51 33 Q51 28 55 28 Q59 28 59 32Z"[39m
+                [33mfill[39m=[32m"#B23A5B"[39m
+              [36m/>[39m
+            [36m</g>[39m
+          [36m</svg>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"topbar-title"[39m
+          [36m>[39m
+            [0m記憶翻牌[0m
+          [36m</h1>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex-1"[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33maria-label[39m=[32m"怎麼玩"[39m
+          [33mclass[39m=[32m"pill"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mviewBox[39m=[32m"0 0 32 32"[39m
+          [36m>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"16"[39m
+              [33mcy[39m=[32m"17"[39m
+              [33mfill[39m=[32m"#164F63"[39m
+              [33mr[39m=[32m"13"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"16"[39m
+              [33mcy[39m=[32m"15"[39m
+              [33mfill[39m=[32m"#1F6A85"[39m
+              [33mr[39m=[32m"13"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M11.5 11.5 Q11.5 7 16 7 Q20.5 7 20.5 11 Q20.5 13.5 17.5 15 Q16 15.8 16 18"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mstroke[39m=[32m"#fff"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"3.2"[39m
+            [36m/>[39m
+            [36m<circle[39m
+              [33mcx[39m=[32m"16"[39m
+              [33mcy[39m=[32m"22.6"[39m
+              [33mfill[39m=[32m"#fff"[39m
+              [33mr[39m=[32m"2.1"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"pill-label"[39m
+          [36m>[39m
+            [0m怎麼玩[0m
+          [36m</span>[39m
+        [36m</button>[39m
+      [36m</heade...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/audio/sfx.test.tsx:103:28
+    101|     renderAt('/memory')
+    102|     await screen.findByRole('navigation', { name: '選關卡' }, { timeout: …
+    103|     fireEvent.click(screen.getByRole('button', { name: /^聲音：開/ }))
+       |                            ^
+    104|     expect(useSettingsStore.getState().soundOn).toBe(false)
+    105|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 聲音設定 > 音量與開關重新開網頁後還在
+TypeError: useSettingsStore.getState(...).setVolume is not a function
+ ❯ src/audio/sfx.test.tsx:108:33
+    106|
+    107|   it('音量與開關重新開網頁後還在', async () => {
+    108|     useSettingsStore.getState().setVolume(0.6)
+       |                                 ^
+    109|     useSettingsStore.getState().setSoundOn(false)
+    110|     expect(savedSettings()).toMatchObject({ volume: 0.6, soundOn: fals…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 聲音設定 > 音量只收 0 到 1
+TypeError: useSettingsStore.getState(...).setVolume is not a function
+ ❯ src/audio/sfx.test.tsx:119:33
+    117|
+    118|   it('音量只收 0 到 1', () => {
+    119|     useSettingsStore.getState().setVolume(3)
+       |                                 ^
+    120|     expect(useSettingsStore.getState().volume).toBe(1)
+    121|     useSettingsStore.getState().setVolume(-1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 音效 API（Web Audio 即時合成） > 第一次點擊之前不建立音訊（iPad Safari 的規定），點了之後才建立並啟動
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ src/audio/sfx.test.tsx:152:28
+    150|
+    151|     fireEvent.pointerDown(document.body)
+    152|     expect(audio.contexts).toBe(1)
+       |                            ^
+    153|     expect(audio.resumed).toBeGreaterThanOrEqual(1)
+    154|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 音效 API（Web Audio 即時合成） > 四種音效都能播：點擊、答對、答錯、過關
+AssertionError: tap: expected 0 to be greater than 0
+ ❯ src/audio/sfx.test.tsx:164:39
+    162|       const before = audio.oscillators
+    163|       playSfx(name)
+    164|       expect(audio.oscillators, name).toBeGreaterThan(before)
+       |                                       ^
+    165|     }
+    166|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 音效 API（Web Audio 即時合成） > 靜音時完全不出聲
+TypeError: useSettingsStore.getState(...).setSoundOn is not a function
+ ❯ src/audio/sfx.test.tsx:170:33
+    168|   it('靜音時完全不出聲', () => {
+    169|     fireEvent.pointerDown(document.body)
+    170|     useSettingsStore.getState().setSoundOn(false)
+       |                                 ^
+    171|     playSfx('win')
+    172|     expect(audio.oscillators).toBe(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  src/audio/sfx.test.tsx > 音效 API（Web Audio 即時合成） > 主音量跟著設定的音量走（音量 0.6 是 0.2 的三倍）
+TypeError: useSettingsStore.getState(...).setVolume is not a function
+ ❯ src/audio/sfx.test.tsx:177:33
+    175|   it('主音量跟著設定的音量走（音量 0.6 是 0.2 的三倍）', () => {
+    176|     fireEvent.pointerDown(document.body)
+    177|     useSettingsStore.getState().setVolume(0.2)
+       |                                 ^
+    178|     playSfx('tap')
+    179|     const low = audio.masterGain[audio.masterGain.length - 1]
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 1 passed (10)
+   Start at  14:16:30
+   Duration  819ms (transform 95ms, setup 46ms, import 88ms, tests 456ms, environment 144ms)
+
+結束碼：1
