@@ -5,48 +5,10 @@ import { useGameStore } from '../../stores/gameStore'
 import type { Grade, Unit, Problem } from './generators'
 import { GRADE_UNITS, generateProblem, buildOptions, gradeToDifficulty } from './generators'
 import { generateMathProblemWithAI } from '../../services/ai'
-
-type UnitStat = {
-  attempts: number
-  correct: number
-  lastAt?: string
-}
-
-const WRONG_BOOK_KEY = 'kelly-math-wrong-book-v2'
-const UNIT_STATS_KEY = 'kelly-math-unit-stats-v1'
+import { type UnitStat, loadWrongBook, saveWrongBook, loadUnitStats, saveUnitStats } from './records'
 
 function rand(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-function loadWrongBook(): Record<string, Problem[]> {
-  try {
-    const raw = localStorage.getItem(WRONG_BOOK_KEY)
-    return raw ? JSON.parse(raw) : {}
-  } catch {
-    return {}
-  }
-}
-
-function saveWrongBook(book: Record<string, Problem[]>) {
-  try {
-    localStorage.setItem(WRONG_BOOK_KEY, JSON.stringify(book))
-  } catch {}
-}
-
-function loadUnitStats(): Record<string, UnitStat> {
-  try {
-    const raw = localStorage.getItem(UNIT_STATS_KEY)
-    return raw ? JSON.parse(raw) : {}
-  } catch {
-    return {}
-  }
-}
-
-function saveUnitStats(stats: Record<string, UnitStat>) {
-  try {
-    localStorage.setItem(UNIT_STATS_KEY, JSON.stringify(stats))
-  } catch {}
 }
 
 export default function MathChallengeGame() {
