@@ -1,14 +1,18 @@
+import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import Home from './pages/Home'
-import SudokuPage from './pages/SudokuPage'
-import ChessPage from './pages/ChessPage'
-import MemoryPage from './pages/MemoryPage'
-import TypingPage from './pages/TypingPage'
-import MathPage from './pages/MathPage'
 import SettingsPage from './pages/SettingsPage'
-import DinoShopPage from './pages/DinoShopPage'
-import GoPage from './pages/GoPage'
+
+// 遊戲頁依路由分開載入：首頁不必先下載全部遊戲，進到哪個遊戲才下載哪個。
+// 載入中的畫面由 Layout 內包住頁面內容的 Suspense 負責。
+const SudokuPage = lazy(() => import('./pages/SudokuPage'))
+const ChessPage = lazy(() => import('./pages/ChessPage'))
+const MemoryPage = lazy(() => import('./pages/MemoryPage'))
+const TypingPage = lazy(() => import('./pages/TypingPage'))
+const MathPage = lazy(() => import('./pages/MathPage'))
+const DinoShopPage = lazy(() => import('./pages/DinoShopPage'))
+const GoPage = lazy(() => import('./pages/GoPage'))
 
 export default function App() {
   return (

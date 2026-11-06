@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { Home, Grid3X3, Swords, Brain, Keyboard, Calculator, Store, Circle, Settings } from 'lucide-react'
 import DifficultySelector from '../UI/DifficultySelector'
@@ -87,7 +88,10 @@ export default function Layout() {
 
       {/* 唯一的頁面內容區：手機在上方導覽下方，桌機在右側欄 */}
       <main className="flex-1 w-full p-4 lg:h-screen lg:overflow-auto xl:p-5">
-        <Outlet />
+        {/* 遊戲頁是分開載入的，下載完成前先顯示簡單的載入文字 */}
+        <Suspense fallback={<p className="py-8 text-center text-warm-text-light">載入中…</p>}>
+          <Outlet />
+        </Suspense>
       </main>
 
       {/* Mobile: 底部導覽 */}
