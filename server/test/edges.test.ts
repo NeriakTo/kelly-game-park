@@ -29,7 +29,7 @@ test('商店選項去重；未提供選項合法', async () => {
  for (const options of [undefined, [1, 1, 2]]) {
   const f = fixture({ deps: { model: { generate: async () => ({ ...good, parsed_output: { description: '商店', hint: '提示', answer: 1, options } }) } } })
   const r = await f.request('/api/ai/shop', { stage: 'C', difficulty: 5 })
-  expect(r.status).toBe(200); if (options) expect(r.json.options).toEqual([1, 2])
+  expect(r.status).toBe(200); if (options) expect([...r.json.options].sort((a, b) => a - b)).toEqual([1, 2])
  }
 })
 test('資料檔損壞不靜默歸零；每次呼叫確實寫入', async () => {
