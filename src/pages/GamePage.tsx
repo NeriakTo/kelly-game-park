@@ -15,12 +15,15 @@ export default function GamePage({ game, children }: { game: GameType; children:
   const params = useParams()
   const level = isLevel(params.level) ? params.level : null
   const reportStars = useProgressStore((s) => s.reportStars)
+  const recordPlay = useProgressStore((s) => s.recordPlay)
 
+  // 真的開始玩（網址有關卡）才記成「最後玩的遊戲」；只看選關畫面不算
   useEffect(() => {
     if (!level) return
+    recordPlay(game, level)
     setActiveSession({ game, level })
     return () => setActiveSession(null)
-  }, [game, level])
+  }, [game, level, recordPlay])
 
   const session = useMemo<GameSession | null>(
     () => (level ? { game, level, reportResult: (stars) => reportStars(game, level, stars) } : null),

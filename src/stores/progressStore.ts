@@ -3,16 +3,25 @@ import { persist } from 'zustand/middleware'
 import type { GameType } from '../types'
 import type { Level } from '../data/levels'
 
-// 進度資料：每個遊戲每一關拿到的最佳星星數（0 到 3）。
-// 遊戲還沒回報時是空的，畫面顯示空星；第二階段各遊戲過關時呼叫 reportStars 回報。
+// 進度資料：每個遊戲每一關拿到的最佳星星數（0 到 3），以及最後玩的遊戲（首頁「繼續上次的遊戲」）。
+// 星星在遊戲還沒回報時是空的，畫面顯示空星；第二階段各遊戲過關時呼叫 reportStars 回報。
 
 export type StarCount = 0 | 1 | 2 | 3
 export type BestStars = Partial<Record<GameType, Partial<Record<Level, StarCount>>>>
 
+export interface LastPlayed {
+  readonly game: GameType
+  readonly level: Level
+  readonly at: string
+}
+
 interface ProgressState {
   bestStars: BestStars
+  lastPlayed: LastPlayed | null
 
   reportStars: (game: GameType, level: Level, stars: StarCount) => void
+  /** 進到某個遊戲的某一關（不含只看選關畫面）時記下來 */
+  recordPlay: (game: GameType, level: Level) => void
 }
 
 function clampStars(n: number): StarCount {
@@ -23,6 +32,7 @@ export const useProgressStore = create<ProgressState>()(
   persist(
     (set) => ({
       bestStars: {},
+      lastPlayed: null,
 
       reportStars: (game, level, stars) =>
         set((s) => {
@@ -30,8 +40,12 @@ export const useProgressStore = create<ProgressState>()(
           const next = Math.max(prev, clampStars(stars)) as StarCount
           return { bestStars: { ...s.bestStars, [game]: { ...s.bestStars[game], [level]: next } } }
         }),
+      recordPlay: (game, level) => set({ lastPlayed: { game, level, at: new Date().toISOString() } }),
     }),
-    { name: 'kelly-game-park-progress' },
+    {
+      name: 'kelly-game-park-progress',
+      partialize: (s) => ({ bestStars: s.bestStars, lastPlayed: s.lastPlayed }),
+    },
   ),
 )
 

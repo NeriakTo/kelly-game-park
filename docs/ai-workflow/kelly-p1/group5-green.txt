@@ -1,0 +1,10 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  14:15:27
+   Duration  1.52s (transform 144ms, setup 47ms, import 84ms, tests 1.16s, environment 144ms)
+
+結束碼：0

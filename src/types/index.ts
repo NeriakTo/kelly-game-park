@@ -6,16 +6,6 @@ export type Difficulty = 1 | 2 | 3 | 4 | 5
 // [FIX Warning #5] 收斂 gameType 為 union
 export type GameType = 'sudoku' | 'chess' | 'memory' | 'typing' | 'math' | 'dino-shop' | 'go'
 
-export interface GameInfo {
-  id: string
-  name: string
-  description: string
-  icon: string
-  color: string
-  path: string
-  available: boolean
-}
-
 export interface GameScore {
   id: string
   gameType: GameType

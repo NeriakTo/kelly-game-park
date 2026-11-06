@@ -1,0 +1,3177 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/pages/Home.test.tsx (8 tests | 8 failed) 1212ms
+     × 還沒玩過任何遊戲時，沒有「繼續玩」，改成邀請去下棋 71ms
+     × 玩過記憶翻牌普通關，回首頁就看到「繼續上次的遊戲：記憶翻牌」，點了直接回到普通關 354ms
+     × 最後玩的遊戲會存起來，重新開網頁還記得 320ms
+     × 只看選關畫面、沒有開始玩，不算玩過 371ms
+     × 四個分區與 7 個遊戲、收藏冊都在；打字標「用筆電玩」 26ms
+     × 遊戲還沒回報時卡片是空星；回報後顯示最好的一關 23ms
+     × 右上角的鎖頭進到家長驗證；首頁沒有任何設定入口 25ms
+     × 松松跟孩子打招呼 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：繼續上次的遊戲 > 還沒玩過任何遊戲時，沒有「繼續玩」，改成邀請去下棋
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "繼續上次的遊戲"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ continueBanner src/pages/Home.test.tsx:19:17
+     17|
+     18| function continueBanner() {
+     19|   return screen.getByRole('region', { name: '繼續上次的遊戲' })
+       |                 ^
+     20| }
+     21|
+ ❯ src/pages/Home.test.tsx:35:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：繼續上次的遊戲 > 玩過記憶翻牌普通關，回首頁就看到「繼續上次的遊戲：記憶翻牌」，點了直接回到普通關
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "繼續上次的遊戲"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ continueBanner src/pages/Home.test.tsx:19:17
+     17|
+     18| function continueBanner() {
+     19|   return screen.getByRole('region', { name: '繼續上次的遊戲' })
+       |                 ^
+     20| }
+     21|
+ ❯ src/pages/Home.test.tsx:46:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：繼續上次的遊戲 > 最後玩的遊戲會存起來，重新開網頁還記得
+AssertionError: expected null to match object { game: 'sudoku', level: 'hard' }
+
+- Expected:
+{
+  "game": "sudoku",
+  "level": "hard",
+}
+
++ Received:
+null
+
+ ❯ src/pages/Home.test.tsx:63:36
+     61|
+     62|     const saved = JSON.parse(localStorage.getItem('kelly-game-park-pro…
+     63|     expect(saved.state.lastPlayed).toMatchObject({ game: 'sudoku', lev…
+       |                                    ^
+     64|
+     65|     renderAt('/')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：繼續上次的遊戲 > 只看選關畫面、沒有開始玩，不算玩過
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "繼續上次的遊戲"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ continueBanner src/pages/Home.test.tsx:19:17
+     17|
+     18| function continueBanner() {
+     19|   return screen.getByRole('region', { name: '繼續上次的遊戲' })
+       |                 ^
+     20| }
+     21|
+ ❯ src/pages/Home.test.tsx:75:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：分區、星星與入口 > 四個分區與 7 個遊戲、收藏冊都在；打字標「用筆電玩」
+TestingLibraryElementError: Unable to find an accessible element with the role "region" and name "下棋"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/pages/Home.test.tsx:92:29
+     90|     }
+     91|     for (const [zone, games] of Object.entries(zones)) {
+     92|       const region = screen.getByRole('region', { name: zone })
+       |                             ^
+     93|       for (const g of games) {
+     94|         expect(within(region).getByRole('link', { name: new RegExp(`^$…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：分區、星星與入口 > 遊戲還沒回報時卡片是空星；回報後顯示最好的一關
+TestingLibraryElementError: Unable to find an accessible element with the role "link" and name `/^數獨，還沒有星星/`
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/pages/Home.test.tsx:103:19
+    101|   it('遊戲還沒回報時卡片是空星；回報後顯示最好的一關', () => {
+    102|     const view = renderAt('/')
+    103|     expect(screen.getByRole('link', { name: /^數獨，還沒有星星/ })).toBeTruthy…
+       |                   ^
+    104|     view.unmount()
+    105|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：分區、星星與入口 > 右上角的鎖頭進到家長驗證；首頁沒有任何設定入口
+TestingLibraryElementError: Unable to find an accessible element with the role "link" and name `/家長區/`
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/pages/Home.test.tsx:115:28
+    113|     renderAt('/')
+    114|     expect(screen.queryByRole('link', { name: /設定/ })).toBeNull()
+    115|     fireEvent.click(screen.getByRole('link', { name: /家長區/ }))
+       |                            ^
+    116|     expect(await screen.findByRole('button', { name: '按住 3 秒進入家長區' }, …
+    117|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  src/pages/Home.test.tsx > 首頁：分區、星星與入口 > 松松跟孩子打招呼
+TestingLibraryElementError: Unable to find an accessible element with the role "img" and name "陪玩角色松松"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "歡迎回來，悅悅！🐱":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-3xl font-bold"[39m
+  [36m/>[39m
+
+  Name "數獨":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中國象棋":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "記憶翻牌":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "中/英打字練習":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "數學挑戰":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "達克比的恐龍商店":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  Name "圍棋教室":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "🔢 數獨 填入數字，訓練邏輯推理":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/sudoku"[39m
+    [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+  [36m/>[39m
+
+  Name "♟️ 中國象棋 與 AI 對弈，策略思考":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/chess"[39m
+    [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+  [36m/>[39m
+
+  Name "🃏 記憶翻牌 翻開配對，訓練記憶力":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/memory"[39m
+    [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+  [36m/>[39m
+
+  Name "⌨️ 中/英打字練習 練習速度與正確率":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/typing"[39m
+    [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+  [36m/>[39m
+
+  Name "🧮 數學挑戰 依年級出題，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/math"[39m
+    [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+  [36m/>[39m
+
+  Name "🦕 達克比的恐龍商店 用硬幣買恐龍，練習金額計算":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/dino-shop"[39m
+    [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+  [36m/>[39m
+
+  Name "⚫ 圍棋教室 從零開始學圍棋，邊玩邊學":
+  [36m<a[39m
+    [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"/go"[39m
+    [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"scenery"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33mpreserveAspectRatio[39m=[32m"none"[39m
+        [33mviewBox[39m=[32m"0 0 1200 400"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 210 Q160 120 330 190 T690 170 T1020 150 T1200 170 V400 H0Z"[39m
+          [33mfill[39m=[32m"#CFE6D2"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B3D9BA"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 270 Q200 190 420 250 T840 230 T1200 240 V400 H0Z"[39m
+          [33mfill[39m=[32m"#C3E2C7"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#9CCDA6"[39m
+          [33mtransform[39m=[32m"translate(0 6)"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M0 330 Q260 270 560 320 T1200 300 V400 H0Z"[39m
+          [33mfill[39m=[32m"#B0D8B5"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-page"[39m
+    [36m>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"text-center mb-8"[39m
+          [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"text-3xl font-bold"[39m
+          [36m>[39m
+            [0m歡迎回來，[0m
+            [0m悅悅[0m
+            [0m！[0m
+            [0m🐱[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-warm-text-light mt-2"[39m
+          [36m>[39m
+            [0m今天想玩什麼呢？[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/sudoku"[39m
+                [33mstyle[39m=[32m"background-color: rgb(208, 240, 220);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🔢[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數獨[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m填入數字，訓練邏輯推理[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/chess"[39m
+                [33mstyle[39m=[32m"background-color: rgb(255, 243, 205);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m♟️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中國象棋[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m與 AI 對弈，策略思考[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/memory"[39m
+                [33mstyle[39m=[32m"background-color: rgb(253, 232, 240);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🃏[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m記憶翻牌[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m翻開配對，訓練記憶力[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/typing"[39m
+                [33mstyle[39m=[32m"background-color: rgb(230, 244, 255);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⌨️[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m中/英打字練習[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m練習速度與正確率[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/math"[39m
+                [33mstyle[39m=[32m"background-color: rgb(214, 232, 245);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🧮[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m數學挑戰[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m依年級出題，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/dino-shop"[39m
+                [33mstyle[39m=[32m"background-color: rgb(232, 201, 160);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m🦕[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m達克比的恐龍商店[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m用硬幣買恐龍，練習金額計算[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"opacity: 0; transform: translateY(20px);"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"relative"[39m
+              [33mtabindex[39m=[32m"0"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"block rounded-2xl p-6 shadow-md transition-shadow hover:shadow-lg "[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"/go"[39m
+                [33mstyle[39m=[32m"background-color: rgb(240, 220, 192);"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-4xl mb-3"[39m
+                [36m>[39m
+                  [0m⚫[0m
+                [36m</div>[39m
+                [36m<h3[39m
+                  [33mclass[39m=[32m"text-lg font-bold text-warm-text"[39m
+                [36m>[39m
+                  [0m圍棋教室[0m
+                [36m</h3>[39m
+                [36m<p[39m
+                  [33mclass[39m=[32m"text-sm text-warm-text-light mt-1"[39m
+                [36m>[39m
+                  [0m從零開始學圍棋，邊玩邊學[0m
+                [36m</p>[39m
+              [36m</a>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/pages/Home.test.tsx:121:19
+    119|   it('松松跟孩子打招呼', () => {
+    120|     renderAt('/')
+    121|     expect(screen.getByRole('img', { name: '陪玩角色松松' })).toBeTruthy()
+       |                   ^
+    122|     expect(screen.getByText('今天想玩什麼呢？')).toBeTruthy()
+    123|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  14:13:15
+   Duration  1.59s (transform 111ms, setup 46ms, import 96ms, tests 1.21s, environment 151ms)
+
+結束碼：1
