@@ -41,7 +41,7 @@ src/
 ├── index.css                  # Tailwind + 自訂色系
 ├── types/index.ts             # 共用型別（Difficulty, GameType, AIConfig...）
 ├── stores/gameStore.ts        # Zustand 全域狀態（profile, scores, aiConfig, aiModes）
-├── services/ai.ts             # AI 出題服務（OpenAI / Gemini）
+├── services/ai.ts             # AI 出題服務（呼叫網站伺服器的 api/ai/*）
 ├── components/
 │   ├── Layout/Layout.tsx      # 主版面（含 sidebar, difficulty selector）
 │   ├── GameCard/GameCard.tsx   # 首頁遊戲卡片
@@ -78,11 +78,11 @@ src/
 
 ### 核心檔案: `src/services/ai.ts`
 
-- 支援 **OpenAI**（gpt-4.1-mini）和 **Google Gemini**（gemini-2.5-flash）
-- API Key 存在 `localStorage`（`kelly-game-park-ai`），不進 zustand persist
-- 自動從 Key 前綴偵測 provider：`AIza` → Gemini，`sk-` → OpenAI
-- 超時 6 秒，失敗自動回退本地題庫
-- 設定頁有「⚡ 測試連線」按鈕
+- AI 由網站自己的伺服器呼叫 Claude，金鑰只放在伺服器（`server/`，部署見 `deploy/hetzner/README.md`）
+- 前端呼叫 `api/ai/math`、`api/ai/shop`，帶標頭 `X-Family-Passcode`（家長在家長區輸入的家用通行碼）
+- 通行碼存在 zustand persist（`kelly-game-park`，第 1 版）；升版時刪掉舊版存在瀏覽器的服務選擇與金鑰，舊的 `kelly-game-park-ai` 每次讀回都會刪掉
+- 超時 8 秒，失敗自動回退本地題庫
+- 家長區有「檢查」按鈕，呼叫 `api/ai/status` 確認通行碼與今日剩餘題數
 
 ### AI 模式切換（aiModes）
 
@@ -96,9 +96,8 @@ src/
 - `reason: null` 代表「尚未嘗試 AI」，不是錯誤
 
 ### 錯誤處理
-- 所有 AI 失敗輸出到 `console.warn`（`[AI Math]`、`[AI Shop]`、`[AI Test]`）
-- UI 顯示具體 reason label（auth、CORS、timeout、schema 等）
-- `normalizeProviderReason()` 從 Error message 抽取分類
+- AI 失敗只在 `console.warn` 記一行原因（`[AI 出題] 改用本機題目：http_503` 這類）
+- 孩子畫面不顯示來源或錯誤，直接用本地題庫
 
 ---
 
@@ -113,8 +112,8 @@ scores: GameScore[]           // 歷史成績
 currentDifficulty: Difficulty // 1-5（國小低~高中）
 aiModes: GameAIModes          // per-game AI/local 切換
 
-// 非持久化（localStorage 分離）
-aiConfig: AIConfig | null     // { provider, apiKey }
+// 也持久化（第 1 版起）
+aiConfig: AIConfig | null     // { passcode }，家用通行碼
 ```
 
 ### merge 函式

@@ -24,7 +24,7 @@
 | 部署方式 | GitHub Pages（靜態站，零伺服器成本） |
 | 技術棧 | React 19 + Vite + TypeScript + Tailwind CSS |
 | 資料儲存 | Supabase（成績記錄、排行榜） |
-| AI 功能 | 使用者自帶 API Key（OpenAI / Gemini） |
+| AI 功能 | 網站自己的伺服器呼叫 Claude，金鑰只在伺服器；家長區輸入家用通行碼（部署見 `deploy/hetzner/README.md`） |
 
 ---
 
@@ -64,7 +64,7 @@
 /sudoku             → 數獨
 /memory-game        → 記憶翻牌
 /math-challenge     → 數學挑戰
-/settings           → 設定（API Key、Supabase、個人資料）
+/settings           → 設定（家用通行碼、Supabase、個人資料）
 /leaderboard        → 排行榜
 ```
 
@@ -170,10 +170,10 @@ GROUP BY player_id, game_type, difficulty;
 ### AI 整合
 
 ```typescript
-// 使用者在設定頁輸入 API Key，存 localStorage（不上傳）
+// AI 由網站自己的伺服器呼叫 Claude，金鑰只在伺服器。
+// 家長在家長區輸入家用通行碼，存在這台裝置，出題時放在 X-Family-Passcode 標頭
 interface AIConfig {
-  provider: 'openai' | 'gemini';
-  apiKey: string;
+  passcode: string;
 }
 
 // AI 用途：
@@ -244,5 +244,5 @@ export default defineConfig({
 - [ ] 動物森友會風格 UI，色彩柔和可愛
 - [ ] 無需登入即可遊玩（localStorage）
 - [ ] 可選連接 Supabase 同步成績
-- [ ] AI 功能需使用者自行提供 API Key
+- [ ] AI 功能由網站伺服器呼叫 Claude，家長輸入家用通行碼即可使用
 - [ ] 零伺服器成本運行
