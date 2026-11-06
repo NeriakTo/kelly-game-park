@@ -34,7 +34,7 @@ function firstUnitTag(g: Grade): string {
 
 describe('數學挑戰：切換年級', () => {
   beforeEach(() => {
-    // 固定用本地題庫、沒有 AI 金鑰，確保測試不會連外
+    // 固定用本地題庫、沒有 AI 通行碼，確保測試不會連外
     useGameStore.setState((s) => ({ aiConfig: null, aiModes: { ...s.aiModes, math: 'local' } }))
     // 家長區預設是 3 年級；這兩條測試沿用改版前數學頁的起始年級（2 年級）
     useSettingsStore.setState({ grade: 2 })
