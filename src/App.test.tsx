@@ -4,20 +4,20 @@ import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 import { useGameStore } from './stores/gameStore'
 
-// 每個遊戲頁的標題（頁面上方「emoji＋空格＋名稱」的 h2），用來確認遊戲頁真的載入了。
-// 圍棋遊戲本身也有一個「圍棋教室」標題，所以比對時要求前面有 emoji 與空格。
+// 每個遊戲頁的標題：改版後是遊戲外框頂列的遊戲名稱（不再有 emoji 前綴），
+// 名稱照首頁示意稿：象棋、練打字、恐龍商店、圍棋。用它確認遊戲頁真的載入了、而且只有一份。
 const GAME_ROUTES = [
   { path: '/sudoku', title: '數獨' },
-  { path: '/chess', title: '中國象棋' },
+  { path: '/chess', title: '象棋' },
   { path: '/memory', title: '記憶翻牌' },
-  { path: '/typing', title: '中/英打字練習' },
+  { path: '/typing', title: '練打字' },
   { path: '/math', title: '數學挑戰' },
-  { path: '/dino-shop', title: '達克比的恐龍商店' },
-  { path: '/go', title: '圍棋教室' },
+  { path: '/dino-shop', title: '恐龍商店' },
+  { path: '/go', title: '圍棋' },
 ]
 
 function pageTitle(title: string): RegExp {
-  return new RegExp(`^\\S+ ${title}$`)
+  return new RegExp(`^${title}$`)
 }
 
 function renderAt(path: string) {
@@ -30,7 +30,8 @@ function renderAt(path: string) {
 
 describe('App 路由：遊戲頁依路由分開載入', () => {
   beforeEach(() => {
-    useGameStore.setState({ aiConfig: null, scores: [], currentDifficulty: 1 })
+    // 全站難度已拿掉（改成進遊戲前選關），這裡不再設定 currentDifficulty
+    useGameStore.setState({ aiConfig: null, scores: [] })
     // 測試不得連外：任何對外請求都會被記下來並失敗
     vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new Error('測試中不得連外'))))
   })

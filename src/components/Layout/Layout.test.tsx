@@ -36,7 +36,8 @@ function renderInLayout(page: ReactElement) {
 
 describe('外框 Layout：頁面內容只渲染一次', () => {
   beforeEach(() => {
-    useGameStore.setState({ scores: [], currentDifficulty: 1 })
+    // 全站難度已拿掉（改成進遊戲前選關），這裡不再設定 currentDifficulty
+    useGameStore.setState({ scores: [] })
   })
 
   it('路由頁面只掛載一份', () => {
@@ -50,8 +51,9 @@ describe('外框 Layout：頁面內容只渲染一次', () => {
   })
 
   it('記憶翻牌難度 1（4 對）畫面上只有 8 張卡片', async () => {
+    // 改版後 /memory 是選關畫面，遊戲本身在 /memory/<關卡>；簡單對到原本的難度 1（4 對）
     render(
-      <MemoryRouter initialEntries={['/memory']}>
+      <MemoryRouter initialEntries={['/memory/easy']}>
         <App />
       </MemoryRouter>,
     )
