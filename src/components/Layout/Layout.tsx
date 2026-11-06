@@ -1,118 +1,20 @@
 import { Suspense } from 'react'
-import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Home, Grid3X3, Swords, Brain, Keyboard, Calculator, Store, Circle, Settings } from 'lucide-react'
-import DifficultySelector from '../UI/DifficultySelector'
+import { Outlet } from 'react-router-dom'
+import { Hills } from '../art/scenery'
 
-const NAV_ITEMS = [
-  { path: '', icon: Home, label: '首頁' },
-  { path: 'sudoku', icon: Grid3X3, label: '數獨' },
-  { path: 'chess', icon: Swords, label: '象棋' },
-  { path: 'memory', icon: Brain, label: '翻牌' },
-  { path: 'typing', icon: Keyboard, label: '打字' },
-  { path: 'math', icon: Calculator, label: '數學' },
-  { path: 'dino-shop', icon: Store, label: '商店' },
-  { path: 'go', icon: Circle, label: '圍棋' },
-  { path: 'settings', icon: Settings, label: '設定' },
-]
-
+// 全站外框：只放背景山丘與唯一一份頁面內容（Outlet）。
+// 頂列由各頁自己放：首頁是站名＋聲音＋家長鎖，遊戲頁是回首頁＋遊戲名＋聲音＋怎麼玩。
+// 以前桌機側欄、平板上方選單、手機底部九個項目的導覽都拿掉了；小孩只靠首頁卡片與「回首頁」移動。
 export default function Layout() {
-  const location = useLocation()
-  const current = location.pathname.replace(/^\//, '')
-  const isGameRoute = ['sudoku', 'chess', 'memory', 'typing', 'math', 'dino-shop', 'go'].includes(current)
-
-  // 頁面內容（Outlet）只渲染一次；桌機側欄與手機導覽只用 CSS 切換顯示。
-  // 以前桌機與手機各放一個 Outlet，藏起來的那份也會執行，造成每個遊戲同時跑兩份。
   return (
-    <div className="min-h-screen flex flex-col bg-warm-bg lg:h-screen lg:overflow-hidden lg:grid lg:grid-cols-[280px_minmax(0,1fr)]">
-      {/* Desktop: 左側功能列 */}
-      <aside className="hidden lg:flex lg:flex-col border-r border-mint/40 bg-white/65 backdrop-blur-sm p-4">
-        <Link to="/" className="text-warm-text font-bold text-xl mb-4">
-          🎮 Kelly's Game Park
-        </Link>
-
-        <nav className="space-y-2">
-          {NAV_ITEMS.map(({ path, icon: Icon, label }) => (
-            <Link
-              key={path}
-              to={`/${path}`}
-              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
-                current === path
-                  ? 'bg-mint/70 text-warm-text shadow-sm'
-                  : 'text-warm-text/70 hover:bg-mint/30'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        {isGameRoute && (
-          <div className="mt-5 p-3 rounded-xl bg-sky-light/60">
-            <p className="text-xs text-warm-text-light mb-2">🎚️ 難度切換</p>
-            <DifficultySelector />
-          </div>
-        )}
-
-        <div className="mt-4 p-3 rounded-xl bg-cream-light text-xs text-warm-text-light leading-relaxed">
-          左側：功能選單＋難度
-          <br />
-          右側：最大化遊戲區
-        </div>
-      </aside>
-
-      {/* Mobile/Tablet: 上方導覽 */}
-      <header className="lg:hidden bg-mint/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-warm-text font-bold text-xl">
-            🎮 Kelly's Game Park
-          </Link>
-          <nav className="hidden sm:flex gap-1">
-            {NAV_ITEMS.map(({ path, icon: Icon, label }) => (
-              <Link
-                key={path}
-                to={`/${path}`}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  current === path
-                    ? 'bg-white/70 text-warm-text shadow-sm'
-                    : 'text-warm-text/70 hover:bg-white/40'
-                }`}
-              >
-                <Icon className="inline w-4 h-4 mr-1" />
-                {label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      {/* 唯一的頁面內容區：手機在上方導覽下方，桌機在右側欄 */}
-      <main className="flex-1 w-full p-4 lg:h-screen lg:overflow-auto xl:p-5">
-        {/* 遊戲頁是分開載入的，下載完成前先顯示簡單的載入文字 */}
-        <Suspense fallback={<p className="py-8 text-center text-warm-text-light">載入中…</p>}>
+    <>
+      <Hills />
+      <div className="app-page">
+        {/* 遊戲頁、家長區、收藏冊是分開載入的，下載完成前先顯示簡單的載入文字 */}
+        <Suspense fallback={<p className="py-16 text-center text-moss">載入中…</p>}>
           <Outlet />
         </Suspense>
-      </main>
-
-      {/* Mobile: 底部導覽 */}
-      <nav className="sm:hidden fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur-sm border-t border-mint/30 z-50 overflow-x-auto no-scrollbar">
-        <div className="flex gap-4 px-2 py-2 min-w-max">
-          {NAV_ITEMS.map(({ path, icon: Icon, label }) => (
-            <Link
-              key={path}
-              to={`/${path}`}
-              className={`flex flex-col items-center text-xs shrink-0 ${
-                current === path ? 'text-warm-text' : 'text-warm-text-light'
-              }`}
-            >
-              <Icon className="w-5 h-5" />
-              {label}
-            </Link>
-          ))}
-        </div>
-      </nav>
-
-      <div className="sm:hidden h-16" />
-    </div>
+      </div>
+    </>
   )
 }

@@ -1,0 +1,393 @@
+/*
+ * 紙雕小森林：共用外觀（頂列、按鈕、緞帶、紙膠帶、紙片分區、對話泡泡、彈出卡片）。
+ * 做法照示意稿 B：不畫黑框，用深一階的同色紙片當厚度；沒有毛玻璃。
+ * 放在 components 層，Tailwind 的工具類別可以覆寫這裡的設定。
+ */
+@layer components {
+  /* 背景：紙雕山丘（只是裝飾，不放文字） */
+  .scenery {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .scenery svg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 42%;
+  }
+  .app-page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* 頂列：紙條加波浪下緣 */
+  .topbar {
+    --top-h: 72px;
+    height: var(--top-h);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    background: var(--color-paper);
+    position: relative;
+    z-index: 5;
+  }
+  .topbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 14px;
+    background: radial-gradient(circle at 14px 0, var(--color-paper) 13.5px, transparent 14px) repeat-x;
+    background-size: 28px 14px;
+  }
+  .topbar::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 5px);
+    height: 14px;
+    background: radial-gradient(circle at 14px 0, #BFDCCB 13.5px, transparent 14px) repeat-x;
+    background-size: 28px 14px;
+  }
+  .topbar-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  @media (min-width: 640px) {
+    .topbar {
+      --top-h: 84px;
+      gap: 14px;
+      padding: 0 20px;
+    }
+    .topbar-title {
+      font-size: 34px;
+      letter-spacing: 2px;
+    }
+  }
+
+  /* 圓角膠囊鈕（頂列用）：最少 56×56 */
+  .pill {
+    min-height: 56px;
+    min-width: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-leaf);
+    color: var(--color-ink);
+    box-shadow: 0 5px 0 var(--color-leaf-d);
+    font-size: 21px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    flex: none;
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+  .pill:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 var(--color-leaf-d);
+  }
+  .pill svg {
+    width: 30px;
+    height: 30px;
+    flex: none;
+  }
+  .pill-sun {
+    background: var(--color-sun);
+    box-shadow: 0 5px 0 var(--color-sun-d);
+  }
+  .pill-sun:active {
+    box-shadow: 0 1px 0 var(--color-sun-d);
+  }
+  .pill-label {
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .pill {
+      padding: 0 20px;
+    }
+    .pill-label {
+      display: inline;
+    }
+  }
+  .lock-btn {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    padding: 0;
+    border-radius: 999px;
+    border: 2px dashed #8FB3A4;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: none;
+  }
+  .lock-btn svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* 大按鈕：主要（莓果紅白字）、次要（葉綠深字），最少 56 像素高、字 20 像素以上 */
+  .big-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 0 26px;
+    border: 0;
+    border-radius: 999px;
+    font-size: 22px;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+  .big-btn svg {
+    width: 24px;
+    height: 24px;
+    flex: none;
+  }
+  .big-btn:active {
+    transform: translateY(4px);
+  }
+  .big-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .big-btn--primary {
+    background: var(--color-berry);
+    color: #fff;
+    box-shadow: 0 6px 0 var(--color-berry-d);
+  }
+  .big-btn--primary:active {
+    box-shadow: 0 2px 0 var(--color-berry-d);
+  }
+  .big-btn--secondary {
+    background: var(--color-leaf);
+    color: var(--color-ink);
+    box-shadow: 0 6px 0 var(--color-leaf-d);
+  }
+  .big-btn--secondary:active {
+    box-shadow: 0 2px 0 var(--color-leaf-d);
+  }
+  .big-btn--sun {
+    background: var(--color-sun);
+    color: var(--color-ink);
+    box-shadow: 0 6px 0 var(--color-sun-d);
+  }
+
+  /* 緞帶標籤 */
+  .ribbon {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 34px 6px 26px;
+    color: #fff;
+    font-size: 25px;
+    line-height: 1.3;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 50%, 100% 100%, 0 100%, 12px 50%);
+    margin: -34px 0 12px -24px;
+    transform: rotate(-2deg);
+  }
+  .ribbon svg {
+    width: 30px;
+    height: 30px;
+    flex: none;
+  }
+  .ribbon small {
+    font-size: 18px;
+  }
+  .ribbon-berry { background: var(--color-berry); }
+  .ribbon-lake { background: var(--color-lake); }
+  .ribbon-pine { background: var(--color-pine); }
+
+  /* 紙膠帶 */
+  .tape {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 84px;
+    height: 24px;
+    margin-left: -42px;
+    z-index: 2;
+    transform: rotate(-4deg);
+    background: repeating-linear-gradient(45deg, #FFE29A 0 8px, #FFF0C4 8px 16px);
+    pointer-events: none;
+  }
+  .tape-peach {
+    background: repeating-linear-gradient(45deg, #F4A97A 0 8px, #F8C6A4 8px 16px);
+  }
+
+  /* 紙片分區：底下墊一張斜斜的色紙 */
+  .sheet {
+    position: relative;
+    isolation: isolate;
+    border-radius: 28px;
+    padding: 20px 16px 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sheet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    z-index: -1;
+    transform: rotate(-1.2deg) translate(6px, 6px);
+  }
+  .sheet-berry { background: var(--color-berry-l); }
+  .sheet-berry::before { background: var(--color-berry-s); }
+  .sheet-lake { background: var(--color-lake-l); }
+  .sheet-lake::before { background: var(--color-lake-s); transform: rotate(1deg) translate(5px, 6px); }
+  .sheet-pine { background: var(--color-pine-l); }
+  .sheet-pine::before { background: var(--color-pine-s); transform: rotate(-0.8deg) translate(5px, 6px); }
+  .sheet-paper { background: var(--color-paper); }
+  .sheet-paper::before { background: #BFDCCB; transform: rotate(-0.6deg) translate(5px, 6px); }
+
+  /* 星星列 */
+  .stars {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+  }
+  .stars svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* 對話泡泡 */
+  .bubble {
+    position: relative;
+    background: var(--color-paper);
+    border-radius: 26px;
+    padding: 12px 18px;
+    font-size: 21px;
+    line-height: 1.35;
+    box-shadow: 5px 5px 0 #BFDCCB;
+  }
+  .bubble p {
+    margin: 0;
+  }
+  .bubble-left::after {
+    content: "";
+    position: absolute;
+    left: -18px;
+    bottom: 14px;
+    width: 26px;
+    height: 24px;
+    background: var(--color-paper);
+    clip-path: polygon(100% 0, 0 70%, 100% 100%);
+  }
+  .bubble-down::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    margin-left: -12px;
+    width: 24px;
+    height: 22px;
+    background: var(--color-paper);
+    clip-path: polygon(0 0, 100% 0, 40% 100%);
+  }
+
+  /* 彈出卡片（過關畫面、怎麼玩） */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(29, 58, 51, 0.45);
+  }
+  .modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+    background: var(--color-paper);
+    border-radius: 28px;
+    padding: 28px 22px 24px;
+    box-shadow: 8px 8px 0 #BFDCCB;
+  }
+
+  /* 開關（家長區用） */
+  .switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 84px;
+    min-width: 84px;
+    height: 48px;
+    border: 0;
+    border-radius: 999px;
+    background: #C9D9D1;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .switch::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 2px 0 rgba(29, 58, 51, 0.25);
+    transition: transform 0.15s;
+  }
+  .switch[aria-checked="true"] {
+    background: var(--color-pine);
+  }
+  .switch[aria-checked="true"]::after {
+    transform: translateX(36px);
+  }
+
+  /* 星星跳出來（過關畫面）；減少動態效果時不播 */
+  .star-pop {
+    animation: star-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  @keyframes star-pop {
+    from { transform: scale(0.3); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  :where(a, button, input, select, [role="button"]):focus-visible {
+    outline: 3px solid var(--color-lake);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
