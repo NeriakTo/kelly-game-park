@@ -131,6 +131,15 @@ describe('家長區 AI 區：家用通行碼', () => {
       expect(await check(async () => json(429, { error: 'locked' }))).toBe('錯太多次，請 15 分鐘後再試')
     })
 
+    // 收貨後補修：429 依原因分開顯示（locked 照舊）
+    it.each([
+      ['rate_limited（每分鐘太多次）', 'rate_limited', '請稍等一分鐘再試'],
+      ['busy（伺服器忙）', 'busy', '請稍等一分鐘再試'],
+      ['daily_limit（今天的額度用完）', 'daily_limit', '今天的 AI 題目用完了，明天再試'],
+    ])('429 %s：顯示對應的提示', async (_label, error, text) => {
+      expect(await check(async () => json(429, { error }))).toBe(text)
+    })
+
     it.each([
       ['404（例如 GitHub 舊站）', async () => json(404, { error: 'not_found' })],
       ['回的是網頁不是 JSON', async () => new Response('<!doctype html>', { status: 200 })],
