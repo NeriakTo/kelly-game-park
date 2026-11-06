@@ -250,6 +250,8 @@ export type AIStatusResult =
   | { readonly kind: 'disabled' }
   | { readonly kind: 'wrong_passcode' }
   | { readonly kind: 'locked' }
+  | { readonly kind: 'try_later' }
+  | { readonly kind: 'daily_limit' }
   | { readonly kind: 'no_service' }
 
 /** 問伺服器通行碼對不對、今天還能出幾題（不會呼叫模型） */
@@ -265,7 +267,12 @@ export async function checkAIStatus(passcode: string): Promise<AIStatusResult> {
     return { kind: 'ok', remainingToday, dailyLimit }
   }
   if (reply.status === 401) return { kind: 'wrong_passcode' }
-  if (reply.status === 429 && body?.error === 'locked') return { kind: 'locked' }
+  if (reply.status === 429) {
+    if (body?.error === 'locked') return { kind: 'locked' }
+    // 每分鐘上限或伺服器同時處理太多題：稍等就好
+    if (body?.error === 'rate_limited' || body?.error === 'busy') return { kind: 'try_later' }
+    if (body?.error === 'daily_limit') return { kind: 'daily_limit' }
+  }
   // 其他：404（例如 GitHub 舊站沒有 AI 服務）、回網頁不是 JSON、連不上、伺服器沒設定好
   return { kind: 'no_service' }
 }

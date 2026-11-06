@@ -1,0 +1,50 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/pages/parent/sections/AISection.test.tsx (20 tests | 3 failed) 189ms
+       × 429 rate_limited（每分鐘太多次）：顯示對應的提示 10ms
+       × 429 busy（伺服器忙）：顯示對應的提示 8ms
+       × 429 daily_limit（今天的額度用完）：顯示對應的提示 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 429 rate_limited（每分鐘太多次）：顯示對應的提示
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 429 busy（伺服器忙）：顯示對應的提示
+AssertionError: expected '這個網址沒有 AI 服務' to be '請稍等一分鐘再試' // Object.is equality
+
+Expected: "請稍等一分鐘再試"
+Received: "這個網址沒有 AI 服務"
+
+ ❯ src/pages/parent/sections/AISection.test.tsx:140:61
+    138|       ['daily_limit（今天的額度用完）', 'daily_limit', '今天的 AI 題目用完了，明天再試'],
+    139|     ])('429 %s：顯示對應的提示', async (_label, error, text) => {
+    140|       expect(await check(async () => json(429, { error }))).toBe(text)
+       |                                                             ^
+    141|     })
+    142|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 429 daily_limit（今天的額度用完）：顯示對應的提示
+AssertionError: expected '這個網址沒有 AI 服務' to be '今天的 AI 題目用完了，明天再試' // Object.is equality
+
+Expected: "今天的 AI 題目用完了，明天再試"
+Received: "這個網址沒有 AI 服務"
+
+ ❯ src/pages/parent/sections/AISection.test.tsx:140:61
+    138|       ['daily_limit（今天的額度用完）', 'daily_limit', '今天的 AI 題目用完了，明天再試'],
+    139|     ])('429 %s：顯示對應的提示', async (_label, error, text) => {
+    140|       expect(await check(async () => json(429, { error }))).toBe(text)
+       |                                                             ^
+    141|     })
+    142|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 17 passed (20)
+   Start at  15:13:44
+   Duration  540ms (transform 57ms, setup 50ms, import 68ms, tests 189ms, environment 148ms)
+
+結束碼：1

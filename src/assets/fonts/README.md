@@ -6,11 +6,11 @@
 | 取得處 | GitHub `justfont/open-huninn-font` 的 release `v2.1`，檔案 `jf-openhuninn-2.1.ttf` |
 | 原檔 SHA-256 | `9d5bf4932d31fe94c18cd8cfddc98bc1b14ce10f4e354c682179db290a99c825` |
 | 授權 | SIL Open Font License 1.1，全文見同資料夾 `OFL.txt`（取自該倉庫根目錄的 LICENSE） |
-| 本站檔案 | `YueyueRound-subset.woff2`，SHA-256 `c40a258cd9b8778ec375ff7259d3ed0b8a07b9647aa9ee032a403b2738841713`（約 142 KB） |
+| 本站檔案 | `YueyueRound-subset.woff2`，SHA-256 `547b4be08c4973c7b75c97eedda06860b9e965be98127fc3d747a50fe32ae37c`（約 142 KB） |
 
 ## 做了什麼修改
 
-1. **子集化**：只留站上實際會顯示的字（目前 789 字，含 ASCII 可見字元與注音）。字表由 `scripts/font/collect-chars.mjs` 從 `src/` 的字串與 JSX 文字、`index.html` 收集。原字型沒有的符號與 emoji 交給系統字型。
+1. **子集化**：只留站上實際會顯示的字（目前 790 字，含 ASCII 可見字元與注音）。字表由 `scripts/font/collect-chars.mjs` 從 `src/` 的字串與 JSX 文字、`index.html` 收集。原字型沒有的符號與 emoji 交給系統字型。
 2. **改內部字型名稱**：OFL 規定修改過的版本不能再用保留字型名稱（open huninn、huninn，以及 Varela、Varela Round）。名稱表第 1、3、4、6、16 號改成 `YueyueRound`；商標聲明（7）、廠商網址（11）、範例句（19）拿掉；版權（0）、授權說明（13）、授權網址（14）原樣保留在字型裡。
 3. 去掉微調指令（hinting），輸出 woff2。
 

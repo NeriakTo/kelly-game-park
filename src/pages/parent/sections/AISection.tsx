@@ -22,6 +22,10 @@ function statusText(result: AIStatusResult): string {
       return '通行碼不對'
     case 'locked':
       return '錯太多次，請 15 分鐘後再試'
+    case 'try_later':
+      return '請稍等一分鐘再試'
+    case 'daily_limit':
+      return '今天的 AI 題目用完了，明天再試'
     case 'no_service':
       return '這個網址沒有 AI 服務'
   }
