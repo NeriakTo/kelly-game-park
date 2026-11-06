@@ -86,7 +86,7 @@ describe('家長區 AI 區：家用通行碼', () => {
   })
 
   it('格式不對時按「檢查」：不呼叫伺服器', () => {
-    const mock = vi.fn(async () => json(200, { enabled: true, remainingToday: 1, dailyLimit: 300 }))
+    const mock = vi.fn(async (_url: string, _init?: RequestInit) => json(200, { enabled: true, remainingToday: 1, dailyLimit: 300 }))
     vi.stubGlobal('fetch', mock)
     renderSection()
     typePasscode('短')
@@ -97,7 +97,7 @@ describe('家長區 AI 區：家用通行碼', () => {
 
   describe('「檢查」的五種結果', () => {
     async function check(respond: () => Promise<Response>) {
-      const mock = vi.fn(respond)
+      const mock = vi.fn((_url: string, _init?: RequestInit) => respond())
       vi.stubGlobal('fetch', mock)
       renderSection()
       typePasscode('family-2026-abc')
@@ -141,7 +141,7 @@ describe('家長區 AI 區：家用通行碼', () => {
   })
 
   it('檢查結果顯示在 AI 區裡，不影響開關', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => json(401, { error: 'passcode' })))
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, _init?: RequestInit) => json(401, { error: 'passcode' })))
     renderSection()
     typePasscode('family-2026-abc')
     fireEvent.click(screen.getByRole('button', { name: '檢查' }))

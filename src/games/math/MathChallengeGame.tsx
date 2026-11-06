@@ -4,7 +4,7 @@ import { CheckCircle2, RotateCcw, XCircle, BookOpen, Target } from 'lucide-react
 import { useGameStore } from '../../stores/gameStore'
 import { useSettingsStore } from '../../stores/settingsStore'
 import { useGameLevel } from '../../components/GameShell/session'
-import { MATH_LEVEL_EASING } from '../../data/levelMap'
+import { MATH_LEVEL_EASING, mathAIDifficulty } from '../../data/levelMap'
 import type { Grade, Problem } from './generators'
 import { GRADE_UNITS, generateProblem, buildOptions, gradeToDifficulty } from './generators'
 import { generateMathProblemWithAI } from '../../services/ai'
@@ -20,7 +20,8 @@ export default function MathChallengeGame() {
   const aiMode = useGameStore((s) => s.aiModes.math)
   // 年級由家長區設定；AI 出題開關也在家長區（孩子畫面上不再有這兩個控制）
   const settingsGrade = useSettingsStore((s) => s.grade)
-  const easing = MATH_LEVEL_EASING[useGameLevel()]
+  const level = useGameLevel()
+  const easing = MATH_LEVEL_EASING[level]
 
   const [grade, setGrade] = useState<Grade>(settingsGrade)
   const units = GRADE_UNITS[grade]
@@ -91,7 +92,9 @@ export default function MathChallengeGame() {
     forGrade: Grade,
   ): Promise<{ problem: Problem; source: 'local' | 'ai'; reason: string | null }> => {
     const fallback = () => buildNextProblem(unitId, nextMode, easy, forGrade)
-    if (aiMode !== 'ai' || !aiConfig || nextMode === 'wrong-review') {
+    const unit = GRADE_UNITS[forGrade].find((u) => u.id === unitId)
+    // 家長區關掉 AI 出題、沒有通行碼、錯題回練時都用本機題目，不呼叫伺服器
+    if (aiMode !== 'ai' || !aiConfig?.passcode || nextMode === 'wrong-review' || !unit) {
       return { problem: fallback(), source: 'local', reason: null }
     }
 
@@ -100,7 +103,10 @@ export default function MathChallengeGame() {
       {
         gradeBand: `grade-${forGrade}`,
         unitId,
-        difficulty: gradeToDifficulty(forGrade),
+        unitName: unit.name,
+        unitDescription: unit.description,
+        curriculumTag: unit.curriculumTag,
+        difficulty: mathAIDifficulty(level, easy),
       },
       fallback,
     )
@@ -110,7 +116,7 @@ export default function MathChallengeGame() {
       source: result.source,
       reason: result.source === 'local' ? result.reason : null,
     }
-  }, [aiMode, aiConfig, buildNextProblem])
+  }, [aiMode, aiConfig, buildNextProblem, level])
 
   const prefetchUpcoming = useCallback((
     unitId: string,

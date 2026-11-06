@@ -22,7 +22,10 @@ export interface PlayerProfile {
   avatar: string
 }
 
+/**
+ * AI 出題改由網站伺服器呼叫 Claude，金鑰只放伺服器；瀏覽器只存家長輸入的家用通行碼
+ * （只收英數字與 -，8～64 字，因為要放在 HTTP 標頭裡）。
+ */
 export interface AIConfig {
-  provider: 'openai' | 'gemini'
-  apiKey: string
+  passcode: string
 }

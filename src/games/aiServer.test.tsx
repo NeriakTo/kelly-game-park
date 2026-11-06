@@ -15,7 +15,7 @@ import type { Level } from '../data/levels'
 const FAMILY = { passcode: 'family-test-2026' }
 const ADULT_TEXT = /AI|API|CORS|本地題庫|出題來源|來源：|出題模式|課綱|[NRSD]-\d-\d|錯誤|失敗|伺服器|逾時|通行碼|金鑰|502|503|429/
 
-const AI_MATH = { text: '伺服器出的題：23 × 3 = ?', answer: 69, hint: '先算 20 × 3', unitId: 'g3-multiply', curriculumTag: 'N-3-3' }
+const AI_MATH = { text: '小熊有 23 盒餅乾，每盒 3 塊，一共幾塊？', answer: 69, hint: '先算 20 × 3', unitId: 'g3-multiply', curriculumTag: 'N-3-3' }
 
 function json(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } })
@@ -55,7 +55,7 @@ describe('數學挑戰接上伺服器出題', () => {
 
   it('挑戰關：送出三年級第一個單元的真實資料、難度 4，伺服器的題目出現在第 2 題', async () => {
     setAI('ai', FAMILY)
-    const mock = vi.fn(async () => json(200, AI_MATH))
+    const mock = vi.fn(async (_url: string, _init?: RequestInit) => json(200, AI_MATH))
     vi.stubGlobal('fetch', mock)
     render(inSession('math', 'hard', <MathChallengeGame />))
 
@@ -79,7 +79,7 @@ describe('數學挑戰接上伺服器出題', () => {
 
   it('簡單關：一律出簡單題，送給伺服器的難度是 1', async () => {
     setAI('ai', FAMILY)
-    const mock = vi.fn(async () => json(200, AI_MATH))
+    const mock = vi.fn(async (_url: string, _init?: RequestInit) => json(200, AI_MATH))
     vi.stubGlobal('fetch', mock)
     render(inSession('math', 'easy', <MathChallengeGame />))
     await waitFor(() => expect(mock).toHaveBeenCalled())
@@ -88,7 +88,7 @@ describe('數學挑戰接上伺服器出題', () => {
 
   it('家長區關掉 AI 出題：就算有通行碼也不呼叫伺服器', async () => {
     setAI('local', FAMILY)
-    const mock = vi.fn(async () => json(200, AI_MATH))
+    const mock = vi.fn(async (_url: string, _init?: RequestInit) => json(200, AI_MATH))
     vi.stubGlobal('fetch', mock)
     render(inSession('math', 'normal', <MathChallengeGame />))
     await act(async () => {})
@@ -97,7 +97,7 @@ describe('數學挑戰接上伺服器出題', () => {
 
   it('開了 AI 出題但沒有通行碼：不呼叫伺服器', async () => {
     setAI('ai', null)
-    const mock = vi.fn(async () => json(200, AI_MATH))
+    const mock = vi.fn(async (_url: string, _init?: RequestInit) => json(200, AI_MATH))
     vi.stubGlobal('fetch', mock)
     render(inSession('math', 'normal', <MathChallengeGame />))
     await act(async () => {})
@@ -111,7 +111,7 @@ describe('數學挑戰接上伺服器出題', () => {
     ['連不上', () => Promise.reject(new TypeError('Failed to fetch'))],
   ])('伺服器%s：照舊出下一題，畫面沒有錯誤字樣', async (_label, respond) => {
     setAI('ai', FAMILY)
-    const mock = vi.fn(async () => respond())
+    const mock = vi.fn(async (_url: string, _init?: RequestInit) => respond())
     vi.stubGlobal('fetch', mock)
     render(inSession('math', 'hard', <MathChallengeGame />))
     await waitFor(() => expect(mock).toHaveBeenCalled())
@@ -145,7 +145,7 @@ describe('恐龍商店接上伺服器出題', () => {
     ['連不上', () => Promise.reject(new TypeError('Failed to fetch'))],
   ])('伺服器%s：畫面沒有錯誤字樣', async (_label, respond) => {
     setAI('ai', FAMILY)
-    vi.stubGlobal('fetch', vi.fn(async () => respond()))
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, _init?: RequestInit) => respond()))
     render(inSession('dino-shop', 'normal', <DinoShopGame />))
     await act(async () => {})
     await act(async () => {})

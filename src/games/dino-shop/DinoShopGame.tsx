@@ -90,13 +90,14 @@ export default function DinoShopGame() {
       fallbackQuestion.type === 'compare-prices' ||
       (fallbackQuestion.type === 'budget-check' && !isBinaryBudgetCheck)
 
-    if (aiMode !== 'ai' || !aiConfig || aiUnsafeQuestion) {
+    // 家長區關掉 AI 出題或沒有通行碼時不呼叫伺服器
+    if (aiMode !== 'ai' || !aiConfig?.passcode || aiUnsafeQuestion) {
       return { question: fallbackQuestion, source: 'local', reason: null }
     }
 
     const result = await generateShopQuestionWithAI(
       aiConfig,
-      { stage: currentStage, difficulty, weakPoints: easy ? ['easy-mode'] : [] },
+      { stage: currentStage, difficulty, weakPoints: easy ? ['剛剛連錯兩題，出簡單一點'] : undefined },
       () => ({
         description: fallbackQuestion.description,
         answer: fallbackQuestion.answer,

@@ -1,20 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import BigButton from '../../../components/UI/BigButton'
 import SwitchRow from '../../../components/UI/Switch'
 import { useGameStore } from '../../../stores/gameStore'
 import { useSettingsStore } from '../../../stores/settingsStore'
-import { testAIConnection } from '../../../services/ai'
+import { checkAIStatus, isValidPasscode, type AIStatusResult } from '../../../services/ai'
 import Section from './Section'
 
-type Provider = 'openai' | 'gemini'
+// AI 出題由網站伺服器負責（伺服器再呼叫 Claude）。家長在這裡輸入一次「家用通行碼」，
+// 只存在這台裝置；「檢查」問伺服器通行碼對不對、今天還能出幾題。
+// 下面是原本放在數學與恐龍商店畫面上的「AI 出題」切換，以及第二階段才會用到的 AI 陪玩下棋設定。孩子那邊看不到這些。
 
-// 原本設定頁的 AI 金鑰、連線測試，加上原本放在數學與恐龍商店畫面上的「AI 出題」切換，
-// 以及第二階段才會用到的 AI 陪玩下棋設定。孩子那邊看不到這些。
+const FORMAT_RULE = '通行碼只能用英文字母、數字和 -，長度 8 到 64 字'
 
-function inferProviderFromKey(key: string): Provider | null {
-  if (key.startsWith('AIza')) return 'gemini'
-  if (key.startsWith('sk-')) return 'openai'
-  return null
+function statusText(result: AIStatusResult): string {
+  switch (result.kind) {
+    case 'ok':
+      return `通行碼正確，今天還能出 ${result.remainingToday} 題`
+    case 'disabled':
+      return 'AI 服務目前沒有開'
+    case 'wrong_passcode':
+      return '通行碼不對'
+    case 'locked':
+      return '錯太多次，請 15 分鐘後再試'
+    case 'no_service':
+      return '這個網址沒有 AI 服務'
+  }
 }
 
 export default function AISection() {
@@ -24,80 +34,107 @@ export default function AISection() {
   const setAIMode = useGameStore((s) => s.setAIMode)
   const companion = useSettingsStore((s) => s.companion)
   const setCompanion = useSettingsStore((s) => s.setCompanion)
+  const inputId = useId()
 
-  const [provider, setProvider] = useState<Provider>(aiConfig?.provider ?? 'openai')
-  const [apiKey, setApiKey] = useState(aiConfig?.apiKey ?? '')
-  const [testResult, setTestResult] = useState<{ ok: boolean; message: string } | null>(null)
-  const [testing, setTesting] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const [passcode, setPasscode] = useState(aiConfig?.passcode ?? '')
+  const [show, setShow] = useState(false)
+  const [formatError, setFormatError] = useState(false)
+  const [saved, setSaved] = useState<'saved' | 'cleared' | null>(null)
+  const [checking, setChecking] = useState(false)
+  const [result, setResult] = useState<AIStatusResult | null>(null)
 
   useEffect(() => {
-    setProvider(aiConfig?.provider ?? 'openai')
-    setApiKey(aiConfig?.apiKey ?? '')
+    setPasscode(aiConfig?.passcode ?? '')
   }, [aiConfig])
 
-  const save = () => {
-    const key = apiKey.trim()
-    if (!key) {
-      setAIConfig(null)
-      setSaved(true)
-      return
-    }
-    const finalProvider = inferProviderFromKey(key) ?? provider
-    setProvider(finalProvider)
-    setAIConfig({ provider: finalProvider, apiKey: key })
-    setSaved(true)
+  const edit = (value: string) => {
+    setPasscode(value)
+    setSaved(null)
+    setFormatError(false)
+    setResult(null)
   }
 
-  const test = async () => {
-    const key = apiKey.trim()
-    setTesting(true)
-    setTestResult(null)
-    const result = await testAIConnection({ provider: inferProviderFromKey(key) ?? provider, apiKey: key })
-    setTestResult(result)
-    setTesting(false)
+  const save = () => {
+    setResult(null)
+    if (passcode === '') {
+      setAIConfig(null)
+      setSaved('cleared')
+      return
+    }
+    if (!isValidPasscode(passcode)) {
+      setFormatError(true)
+      setSaved(null)
+      return
+    }
+    setAIConfig({ passcode })
+    setSaved('saved')
+  }
+
+  const check = async () => {
+    setResult(null)
+    if (!isValidPasscode(passcode)) {
+      setFormatError(true)
+      return
+    }
+    setChecking(true)
+    const next = await checkAIStatus(passcode)
+    setResult(next)
+    setChecking(false)
   }
 
   return (
     <Section title="AI 設定">
       <section className="flex flex-col gap-3">
-        <h3 className="m-0 text-[22px] font-normal">AI 服務與金鑰</h3>
+        <h3 className="m-0 text-[22px] font-normal">家用通行碼</h3>
         <p className="m-0 text-[17px] text-moss">
-          金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。
+          AI 出題由這個網站的伺服器負責。輸入家裡設定的通行碼後，數學挑戰與恐龍商店才會向伺服器要題目；通行碼只存在這台裝置。
           AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。
         </p>
-        <label className="flex flex-col gap-1">
-          <span className="text-[18px] text-moss">AI 服務</span>
-          <select
-            value={provider}
-            onChange={(e) => { setProvider(e.target.value as Provider); setSaved(false) }}
-            className="min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"
-          >
-            <option value="openai">OpenAI</option>
-            <option value="gemini">Google Gemini</option>
-          </select>
-        </label>
-        <label className="flex flex-col gap-1">
-          <span className="text-[18px] text-moss">金鑰</span>
+        <label htmlFor={inputId} className="text-[18px] text-moss">家用通行碼</label>
+        <div className="flex items-center gap-2">
           <input
-            type="password"
-            value={apiKey}
+            id={inputId}
+            type={show ? 'text' : 'password'}
+            value={passcode}
+            onChange={(e) => edit(e.target.value)}
             autoComplete="off"
-            onChange={(e) => { setApiKey(e.target.value); setSaved(false) }}
-            placeholder="sk-… 或 AIza…"
-            className="min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            maxLength={64}
+            pattern="[A-Za-z0-9\-]{8,64}"
+            aria-describedby={formatError ? `${inputId}-rule` : undefined}
+            className="min-h-14 min-w-0 flex-1 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"
           />
-        </label>
-        <div className="flex flex-wrap items-center gap-3">
-          <BigButton variant="secondary" onClick={save}>儲存金鑰</BigButton>
-          <BigButton variant="secondary" onClick={test} disabled={testing || !apiKey.trim()}>
-            {testing ? '測試中…' : '測試連線'}
-          </BigButton>
-          {saved && <span className="text-pine-d">已儲存</span>}
+          <button
+            type="button"
+            className="pill"
+            aria-pressed={show}
+            aria-label={show ? '隱藏通行碼' : '顯示通行碼'}
+            onClick={() => setShow((v) => !v)}
+          >
+            {show ? '隱藏' : '顯示'}
+          </button>
         </div>
-        {testResult && (
-          <p role="status" className={`m-0 rounded-2xl px-4 py-2 ${testResult.ok ? 'bg-pine-l text-pine-d' : 'bg-berry-l text-berry-d'}`}>
-            {testResult.message.replace(/^[✅❌]\s*/u, '')}
+        <div className="flex flex-wrap items-center gap-3">
+          <BigButton variant="secondary" onClick={save}>儲存</BigButton>
+          <BigButton variant="secondary" onClick={() => void check()} disabled={checking}>
+            {checking ? '檢查中…' : '檢查'}
+          </BigButton>
+          {saved === 'saved' && <span className="text-pine-d">已儲存</span>}
+          {saved === 'cleared' && <span className="text-moss">已清除通行碼</span>}
+        </div>
+        {formatError && (
+          <p id={`${inputId}-rule`} role="alert" className="m-0 rounded-2xl bg-berry-l px-4 py-2 text-berry-d">
+            {FORMAT_RULE}
+          </p>
+        )}
+        {result && (
+          <p
+            role="status"
+            className={`m-0 rounded-2xl px-4 py-2 ${result.kind === 'ok' ? 'bg-pine-l text-pine-d' : 'bg-berry-l text-berry-d'}`}
+          >
+            {statusText(result)}
           </p>
         )}
       </section>

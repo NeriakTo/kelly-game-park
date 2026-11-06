@@ -33,6 +33,16 @@ export const MATH_LEVEL_EASING: Record<Level, MathEasing> = {
   hard: 'never',
 }
 
+/**
+ * 數學 AI 出題送給伺服器的難度（1～5）：簡單 2、普通 3、挑戰 4；要出「簡單題」時再降一級。
+ * 所以簡單關一律是 1（簡單關都出簡單題），普通關平常 3、連錯兩題後 2，挑戰關一律 4。
+ */
+export const MATH_AI_DIFFICULTY: Record<Level, number> = { easy: 2, normal: 3, hard: 4 }
+
+export function mathAIDifficulty(level: Level, easy: boolean): number {
+  return Math.max(1, MATH_AI_DIFFICULTY[level] - (easy ? 1 : 0))
+}
+
 export function levelToDifficulty(game: GameType, level: Level): Difficulty {
   if (game === 'math') return 1
   return LEVEL_DIFFICULTY[game][level]

@@ -1,0 +1,3556 @@
+
+ RUN  v4.1.12 /Users/nerigate/.triclaw/state/worktrees/kelly-p1/kelly-game-park
+
+ ❯ src/pages/parent/sections/AISection.test.tsx (17 tests | 17 failed) 84ms
+     × 沒有服務選單、金鑰欄位，也不提 OpenAI、Gemini、金鑰；四個開關照舊 36ms
+     × 通行碼輸入時遮住，可以切換顯示 6ms
+     × 格式不對（有中文）：不儲存，告訴家長規則 5ms
+     × 格式不對（有空白）：不儲存，告訴家長規則 3ms
+     × 格式不對（太短（7 字））：不儲存，告訴家長規則 3ms
+     × 格式不對（太長（65 字））：不儲存，告訴家長規則 2ms
+     × 格式正確：儲存到這台裝置 2ms
+     × 已經存過的通行碼會帶進輸入框（遮住） 2ms
+     × 格式不對時按「檢查」：不呼叫伺服器 3ms
+       × 200 而且有開：通行碼正確，今天還能出 N 題 3ms
+       × 200 但沒開：AI 服務目前沒有開 4ms
+       × 401：通行碼不對 2ms
+       × 429 鎖住：錯太多次，請 15 分鐘後再試 2ms
+       × 其他（404（例如 GitHub 舊站））：這個網址沒有 AI 服務 2ms
+       × 其他（回的是網頁不是 JSON）：這個網址沒有 AI 服務 2ms
+       × 其他（連不上）：這個網址沒有 AI 服務 2ms
+     × 檢查結果顯示在 AI 區裡，不影響開關 2ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 沒有服務選單、金鑰欄位，也不提 OpenAI、Gemini、金鑰；四個開關照舊
+AssertionError: expected <select …(1)>…(2)</select> to be null
+
+- Expected:
+null
+
++ Received:
+<select
+  class="min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"
+>
+  <option
+    value="openai"
+  >
+    OpenAI
+  </option>
+  <option
+    value="gemini"
+  >
+    Google Gemini
+  </option>
+</select>
+
+ ❯ src/pages/parent/sections/AISection.test.tsx:44:44
+     42|   it('沒有服務選單、金鑰欄位，也不提 OpenAI、Gemini、金鑰；四個開關照舊', () => {
+     43|     const { container } = renderSection()
+     44|     expect(screen.queryByRole('combobox')).toBeNull()
+       |                                            ^
+     45|     expect(container.textContent).not.toMatch(/OpenAI|Gemini|金鑰|API Ke…
+     46|     for (const name of ['數學挑戰用 AI 出題', '恐龍商店用 AI 出題', '讓 AI 陪孩子下棋', '陪…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 通行碼輸入時遮住，可以切換顯示
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_1_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_1_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ src/pages/parent/sections/AISection.test.tsx:53:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 格式不對（有中文）：不儲存，告訴家長規則
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_2_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_2_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:67:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 格式不對（有空白）：不儲存，告訴家長規則
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_3_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_3_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:67:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 格式不對（太短（7 字））：不儲存，告訴家長規則
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_4_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_4_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:67:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 格式不對（太長（65 字））：不儲存，告訴家長規則
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_5_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_5_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:67:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 格式正確：儲存到這台裝置
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_6_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_6_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:75:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 已經存過的通行碼會帶進輸入框（遮住）
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_7_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_7_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ src/pages/parent/sections/AISection.test.tsx:84:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 格式不對時按「檢查」：不呼叫伺服器
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_8_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_8_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:92:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 200 而且有開：通行碼正確，今天還能出 N 題
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_9_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_9_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:115:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 200 但沒開：AI 服務目前沒有開
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_a_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_a_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:121:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 401：通行碼不對
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_b_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_b_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:127:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 429 鎖住：錯太多次，請 15 分鐘後再試
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_c_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_c_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:131:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 其他（404（例如 GitHub 舊站））：這個網址沒有 AI 服務
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_d_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_d_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:139:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 其他（回的是網頁不是 JSON）：這個網址沒有 AI 服務
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_e_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_e_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:139:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 「檢查」的五種結果 > 其他（連不上）：這個網址沒有 AI 服務
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_f_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_f_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ check src/pages/parent/sections/AISection.test.tsx:103:7
+ ❯ src/pages/parent/sections/AISection.test.tsx:139:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/17]⎯
+
+ FAIL  src/pages/parent/sections/AISection.test.tsx > 家長區 AI 區：家用通行碼 > 檢查結果顯示在 AI 區裡，不影響開關
+TestingLibraryElementError: Unable to find a label with the text of: 家用通行碼
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33maria-labelledby[39m=[32m"_r_g_"[39m
+      [33mclass[39m=[32m"sheet sheet-paper gap-3 p-5 sm:p-6"[39m
+    [36m>[39m
+      [36m<h2[39m
+        [33mclass[39m=[32m"m-0 text-[26px] font-normal"[39m
+        [33mid[39m=[32m"_r_g_"[39m
+      [36m>[39m
+        [0mAI 設定[0m
+      [36m</h2>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col gap-3"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 服務與金鑰[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m金鑰只存在這台裝置的瀏覽器裡。貼上 AIza 開頭的金鑰會自動選 Google Gemini、sk- 開頭會選 OpenAI。 AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。[0m
+        [36m</p>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0mAI 服務[0m
+          [36m</span>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"openai"[39m
+            [36m>[39m
+              [0mOpenAI[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"gemini"[39m
+            [36m>[39m
+              [0mGoogle Gemini[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex flex-col gap-1"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"text-[18px] text-moss"[39m
+          [36m>[39m
+            [0m金鑰[0m
+          [36m</span>[39m
+          [36m<input[39m
+            [33mautocomplete[39m=[32m"off"[39m
+            [33mclass[39m=[32m"min-h-14 rounded-2xl border-2 border-leaf-d bg-white px-4 text-[20px]"[39m
+            [33mplaceholder[39m=[32m"sk-… 或 AIza…"[39m
+            [33mtype[39m=[32m"password"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-center gap-3"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m儲存金鑰[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"big-btn big-btn--secondary"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0m測試連線[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 出題[0m
+        [36m</h3>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m數學挑戰用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m關掉就只用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"數學挑戰用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m恐龍商店用 AI 出題[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[16px] text-moss"[39m
+            [36m>[39m
+              [0m需要點商品或硬幣的題目一律用內建題庫[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"恐龍商店用 AI 出題"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"flex flex-col"[39m
+      [36m>[39m
+        [36m<h3[39m
+          [33mclass[39m=[32m"m-0 text-[22px] font-normal"[39m
+        [36m>[39m
+          [0mAI 陪玩下棋[0m
+        [36m</h3>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"m-0 text-[17px] text-moss"[39m
+        [36m>[39m
+          [0m陪玩功能在下一階段才會做好，這裡先記下你的選擇。[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m讓 AI 陪孩子下棋[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"false"[39m
+            [33maria-label[39m=[32m"讓 AI 陪孩子下棋"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex items-center justify-between gap-4 py-2"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-[20px]"[39m
+            [36m>[39m
+              [0m陪玩時講解每一步[0m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-checked[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"陪玩時講解每一步"[39m
+            [33mclass[39m=[32m"switch"[39m
+            [33mrole[39m=[32m"switch"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ passcodeInput src/pages/parent/sections/AISection.test.tsx:26:17
+     24|
+     25| function passcodeInput(): HTMLInputElement {
+     26|   return screen.getByLabelText('家用通行碼') as HTMLInputElement
+       |                 ^
+     27| }
+     28|
+ ❯ typePasscode src/pages/parent/sections/AISection.test.tsx:30:20
+ ❯ src/pages/parent/sections/AISection.test.tsx:146:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/17]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  17 failed (17)
+   Start at  14:53:40
+   Duration  442ms (transform 49ms, setup 50ms, import 58ms, tests 84ms, environment 152ms)
+
+結束碼：1
