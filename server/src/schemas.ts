@@ -17,9 +17,19 @@ export const shopOutput = z.object({
   options: z.array(z.number().min(0)).min(2).max(6).optional(),
 })
 export type Kind = 'math' | 'shop'
+function checkHint(data: { answer: number; hint: string }, text: string) {
+  const number = String(data.answer).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const standalone = new RegExp(`(?<![\\d.])${number}(?![\\d.])`)
+  if (standalone.test(data.hint) && !standalone.test(text)) throw new Error('invalid hint')
+}
 export function normalize(kind: Kind, output: unknown, input: Record<string, unknown>, randomInt: (max: number) => number = cryptoRandomInt) {
-  if (kind === 'math') return { ...mathOutput.parse(output), unitId: input.unitId, curriculumTag: input.curriculumTag }
+  if (kind === 'math') {
+    const data = mathOutput.parse(output)
+    checkHint(data, data.text)
+    return { ...data, unitId: input.unitId, curriculumTag: input.curriculumTag }
+  }
   const data = shopOutput.parse(output)
+  checkHint(data, data.description)
   if (data.options) {
     if (data.answer < 0) throw new Error('invalid options')
     data.options = [data.answer, ...new Set(data.options.filter(n => n !== data.answer))].slice(0, 6)
