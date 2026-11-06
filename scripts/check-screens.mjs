@@ -42,6 +42,18 @@ const PLAYED = {
   },
 }
 
+// 收藏冊：暴龍集滿、雷龍與劍龍找到一部分
+const DINOS = ['trex', 'bronto', 'triceratops', 'stego', 'pterodactyl', 'raptor']
+const DINO_NAMES = ['暴龍', '雷龍', '三角龍', '劍龍', '翼龍', '迅猛龍']
+const FOUND = { trex: 5, bronto: 2, stego: 1 }
+const ALBUM = {
+  'kelly-dino-collection': {
+    fossils: DINOS.map((id, i) => ({ dinoId: id, dinoName: DINO_NAMES[i], dinoEmoji: '', totalPieces: 5, collectedPieces: FOUND[id] ?? 0 })),
+    totalCorrect: 24,
+    stageProgress: {},
+  },
+}
+
 const PAGES = [
   { name: 'home', hash: '#/', seed: PLAYED, waitFor: 'main.home' },
   { name: 'home-first-visit', hash: '#/', seed: {}, waitFor: 'main.home', only: ['ipad-portrait'] },
@@ -49,7 +61,7 @@ const PAGES = [
   { name: 'parent', hash: '#/parent', seed: PLAYED, unlock: true, waitFor: 'text=學習紀錄' },
   { name: 'level-picker', hash: '#/chess', seed: PLAYED, waitFor: 'nav[aria-label="選關卡"]' },
   { name: 'game-chess', hash: '#/chess/easy', seed: PLAYED, waitFor: '[data-game-root]', game: true },
-  { name: 'album', hash: '#/album', seed: {}, waitFor: 'ul[aria-label="化石收藏"]' },
+  { name: 'album', hash: '#/album', seed: ALBUM, waitFor: 'ul[aria-label="化石收藏"]' },
 ]
 
 function ensureBuild() {
