@@ -85,7 +85,7 @@ export default function AISection() {
   return (
     <Section title="AI 設定">
       <section className="flex flex-col gap-3">
-        <h3 className="m-0 text-[22px] font-normal">家用通行碼</h3>
+        <h3 className="m-0 text-[22px] font-normal">連上 AI 服務</h3>
         <p className="m-0 text-[17px] text-moss">
           AI 出題由這個網站的伺服器負責。輸入家裡設定的通行碼後，數學挑戰與恐龍商店才會向伺服器要題目；通行碼只存在這台裝置。
           AI 連不上時，孩子那邊會自動改用內建題庫，不會看到錯誤訊息。
