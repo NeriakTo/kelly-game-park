@@ -1,0 +1,12 @@
+01 EXIT_CODE=0 OUTPUT=fix1-verify-01.txt COMMAND=export TMPDIR=$PWD/.tmp-kelly-ai && mkdir -p "$TMPDIR"
+02 EXIT_CODE=0 OUTPUT=fix1-verify-02.txt COMMAND=test -z "$(git diff --stat 2eafd42 HEAD -- src .github package.json package-lock.json)"
+03 EXIT_CODE=0 OUTPUT=fix1-verify-03.txt COMMAND=(cd server && npm test)
+04 EXIT_CODE=0 OUTPUT=fix1-verify-04.txt COMMAND=(cd server && npm run typecheck)
+05 EXIT_CODE=0 OUTPUT=fix1-verify-05.txt COMMAND=(cd server && npm run build)
+06 EXIT_CODE=0 OUTPUT=fix1-verify-06.txt COMMAND=npm test
+07 EXIT_CODE=0 OUTPUT=fix1-verify-07.txt COMMAND=npx tsc -p tsconfig.app.json --noEmit
+08 EXIT_CODE=0 OUTPUT=fix1-verify-08.txt COMMAND=npm run build
+09 EXIT_CODE=0 OUTPUT=fix1-verify-09.txt COMMAND=VITE_BASE=/ npm run build
+10 初次 EXIT_CODE=2 OUTPUT=fix1-verify-10-initial.txt COMMAND=git diff --check 2eafd42 HEAD
+10 重驗 EXIT_CODE=0 OUTPUT=fix1-verify-10.txt COMMAND=git diff --check 2eafd42 HEAD
+11 EXIT_CODE=0 OUTPUT=smoke.txt COMMAND=node server/test/smoke.mjs
