@@ -242,9 +242,10 @@
   }
 
   /* 紙片分區：底下墊一張斜斜的色紙 */
+  /* 紙張：下面那層（::before）稍微轉一點錯開當紙影。.sheet 本身不能自成一個疊層，
+     否則 z-index:-1 的紙影會蓋在紙面上；疊層交給外層的 .app-page */
   .sheet {
     position: relative;
-    isolation: isolate;
     border-radius: 28px;
     padding: 20px 16px 16px;
     display: flex;
@@ -290,6 +291,8 @@
   }
   .bubble p {
     margin: 0;
+    /* 窄欄換行時兩行長度平均（「今天想玩／什麼呢？」），不會只剩「呢？」掉到下一行 */
+    text-wrap: balance;
   }
   .bubble-left::after {
     content: "";

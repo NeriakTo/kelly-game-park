@@ -207,3 +207,33 @@ export function GameBadge({ game, className }: ArtProps & { game: GameType }) {
       return <TypingArt className={className} />
   }
 }
+
+/** 首頁「繼續上次的遊戲」左邊的小方塊：棋類畫一角棋盤，其他遊戲用頂列小圖 */
+export function ContinueThumb({ game, className }: ArtProps & { game: GameType }) {
+  if (game === 'chess') {
+    return (
+      <svg viewBox="0 0 84 84" className={className} aria-hidden="true">
+        <path d="M0 14 H84 M0 42 H84 M0 70 H84 M14 0 V84 M42 0 V84 M70 0 V84" stroke="#1D3A33" strokeWidth="2" />
+        <circle cx="45" cy="42" r="17" fill="#8A2A45" />
+        <circle cx="42" cy="38" r="17" fill="#FFF8EC" />
+        <circle cx="42" cy="38" r="12.5" fill="none" stroke="#B23A5B" strokeWidth="2.5" />
+        <text x="42" y="46" textAnchor="middle" fontSize="20" fill="#A32A3E">傌</text>
+        <circle cx="72" cy="72" r="9" fill="#22573B" />
+        <circle cx="70" cy="70" r="9" fill="#FFFDF7" />
+        <circle cx="70" cy="70" r="6" fill="#2F7650" />
+      </svg>
+    )
+  }
+  if (game === 'go') {
+    return (
+      <svg viewBox="0 0 84 84" className={className} aria-hidden="true">
+        <path d="M0 14 H84 M0 42 H84 M0 70 H84 M14 0 V84 M42 0 V84 M70 0 V84" stroke="#1D3A33" strokeWidth="2" />
+        <circle cx="44" cy="44" r="13" fill="#4A6159" />
+        <circle cx="42" cy="42" r="13" fill="#1D3A33" />
+        <circle cx="72" cy="16" r="12" fill="#D9C39A" />
+        <circle cx="70" cy="14" r="12" fill="#FFFDF7" />
+      </svg>
+    )
+  }
+  return <GameBadge game={game} className={className} />
+}

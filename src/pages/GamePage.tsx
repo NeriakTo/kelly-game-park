@@ -68,8 +68,9 @@ export default function GamePage({ game, children }: { game: GameType; children:
         <GameSessionContext.Provider value={session}>
           <main className="mx-auto w-full max-w-6xl px-3 pb-12 pt-8 sm:px-6">
             {/* key：換關卡或再玩一次時整個遊戲重新開始；data-game-root：截圖檢查用來數遊戲掛了幾份 */}
-            <div key={`${level}-${round}`} data-game-root={game} className="sheet sheet-paper items-center overflow-x-auto p-2 sm:p-4">
-              {children}
+            {/* 橫向捲動放在內層：外層要留給紙影，捲動容器會把紙影裁掉 */}
+            <div key={`${level}-${round}`} data-game-root={game} className="sheet sheet-paper items-center p-2 sm:p-4">
+              <div className="max-w-full overflow-x-auto">{children}</div>
             </div>
           </main>
           {result && result.level === level && (
